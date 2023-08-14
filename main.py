@@ -2,42 +2,47 @@ import requests as rq
 import os
 import time
 
+def download_image(target_folder: str, name: str, image_address: str):
 
-def download_image(target_folder: str, name: str, url: str):
-
-    image_link = rq.get(url)
+    image_link = rq.get(image_address)
     file_name = name + '.png'
 
-    # Make cfolder it it does not exist
+    # Create comic folder if it does not exist
     if not os.path.exists(target_folder):
         os.makedirs(target_folder)
     
-    # Save image to target folder
+    # Save image to the folder
     with open(f'{target_folder}{file_name}', 'wb') as file:
         file.write(image_link.content)
         print(f'Image downloaded as "{file_name}".')
 
 if __name__ == '__main__':
 
-    # Make link list if it does not exist
-    if not os.path.exists("imagelist.txt"):
-        print("\n\nHello, welcome! imagelist.txt was not found, can I make one with Pikmin 4 urls for you?")
-        input("Press Enter to generate link list file...")
+    current_page = 1
 
-        nf = open("imagelist.txt", "w")
-        #nf.write("url1\nurl2")
-        #To-do: check how many comics
-        #To-do: Loop for generating links and saving each onto new line in text file
+    print("Welcome! Ready to create a new image list? Please backup your previous one if you want to keep it.")
+    input("Press Enter to generate link list...")
+
+    if os.path.exists("imagelist.txt"):
+        os.remove("imagelist.txt")
+        print("Previous link list deleted.\n")
+
+    open('imagelist.txt', 'w').close()
+
+    nf = open("imagelist.txt", "w")
+
+    #TO-DO: fetch image links and generate image list
+
+    #nf.write("Link2")
+    #nf.write("\n")
+    #nf.write("Link2")
         
-        nf.close()
+    nf.close()
 
-        print("\nTask finished. Let's try downloading the images.")
-        input("Press Enter to start download...")
+    input("Task finished. Press Enter to start download...")
 
     # Open text file in project folder
     f = open("imagelist.txt", "r")
-    # Counter to name pages
-    current_page = 1
 
     # Loops the times of lines in the text file, each line is single url that is passed to download_image function
     for x in f:
@@ -49,5 +54,3 @@ if __name__ == '__main__':
         time.sleep(3)
     
     f.close()
-
-    
