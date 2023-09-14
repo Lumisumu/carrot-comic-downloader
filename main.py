@@ -21,6 +21,7 @@ def download_image(target_folder: str, name: str, image_address: str):
 if __name__ == '__main__':
 
     current_page = 1
+    image_name = str("Pik4-comic-1")
 
     # Check for imagelist.txt in the folder
     if os.path.exists("imagelist.txt"):
@@ -32,12 +33,15 @@ if __name__ == '__main__':
         # Loops the times of lines in the text file, each line is single url that is passed to download_image function
         for x in f:
             # Name for next download
-            image_name = str("Pik4-comic-" + current_page)
-            print("\nDownloading comic panel number " +
-                  current_page + " from link: " + x)
+            print("\nDownloading comic panel number ")
+            print(current_page)
+            print(" from link: ")
+            print(x)
             # Call download function
             download_image('comic/', image_name, x.rstrip())
             current_page += 1
+            image_name = str("Pik4-comic-")
+            image_name += str(current_page)
             # Wait time between downloads
             time.sleep(3)
 
