@@ -3,25 +3,11 @@ import os
 import time
 
 
-def download_image(target_folder: str, name: str, image_address: str):
-
-    image_link = rq.get(image_address)
-    file_name = name + '.png'
-
-    # Create comic folder if it does not exist
-    if not os.path.exists(target_folder):
-        os.makedirs(target_folder)
-
-    # Save image to the folder
-    with open(f'{target_folder}{file_name}', 'wb') as file:
-        file.write(image_link.content)
-        print(f'Image download finished with name "{file_name}".')
-
-
 if __name__ == '__main__':
 
     current_page = 1
     image_name = str("Pik4-comic-1")
+    target_folder = 'comic/'
 
     # Check for imagelist.txt in the folder
     if os.path.exists("imagelist.txt"):
@@ -38,7 +24,22 @@ if __name__ == '__main__':
             print(" from link: ")
             print(x)
             # Call download function
-            download_image('comic/', image_name, x.rstrip())
+            # download_image('comic/', image_name, x.rstrip())
+
+            # DOWNLOAD START
+            image_link = rq.get(x.rstrip())
+            file_name = image_name + '.png'
+
+            # Create comic folder if it does not exist
+            if not os.path.exists(target_folder):
+                os.makedirs(target_folder)
+
+            # Save image to the folder
+            with open(f'{target_folder}{file_name}', 'wb') as file:
+                file.write(image_link.content)
+                print(f'Image download finished with name "{file_name}".')
+            # DOWNLOAD END
+
             current_page += 1
             image_name = str("Pik4-comic-")
             image_name += str(current_page)
