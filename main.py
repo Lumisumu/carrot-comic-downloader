@@ -8,26 +8,25 @@ def write_links(comic_number: int):
     nf = open("imagelist.txt", "a")
 
     if comic_number < 5:
-        nf.write("https://assets.nintendo.com/image/upload/w_600,f_auto,q_auto/v1686959530/Microsites/PIKMIN-Portal/comics/00" +
-                 str(comic_number) + "/EN/nint2402-pikmin4-manga00" + str(comic_number) + "_01" + "\n")
-        nf.write("https://assets.nintendo.com/image/upload/w_600,f_auto,q_auto/v1686959530/Microsites/PIKMIN-Portal/comics/00" +
-                 str(comic_number) + "/EN/nint2402-pikmin4-manga00" + str(comic_number) + "_02" + "\n")
-        nf.write("https://assets.nintendo.com/image/upload/w_600,f_auto,q_auto/v1686959530/Microsites/PIKMIN-Portal/comics/00" +
-                 str(comic_number) + "/EN/nint2402-pikmin4-manga00" + str(comic_number) + "_03" + "\n")
-        nf.write("https://assets.nintendo.com/image/upload/w_600,f_auto,q_auto/v1686959530/Microsites/PIKMIN-Portal/comics/00" +
-                 str(comic_number) + "/EN/nint2402-pikmin4-manga00" + str(comic_number) + "_04" + "\n")
-        nf.write("https://assets.nintendo.com/image/upload/w_600,f_auto,q_auto/v1686959530/Microsites/PIKMIN-Portal/comics/00" +
-                 str(comic_number) + "/EN/nint2402-pikmin4-manga00" + str(comic_number) + "_05")
+        i = 1
+        while i < 6:
+            nf.write("https://assets.nintendo.com/image/upload/w_600,f_auto,q_auto/v1686959530/Microsites/PIKMIN-Portal/comics/00" +
+                     str(comic_number) + "/EN/nint2402-pikmin4-manga00" + str(comic_number) + "_0" + str(i))
+            i += 1
+            nf.write("\n")
     if comic_number == 5:
-        nf.write("Link2" + "\n")
+        i = 1
+        while i < 6:
+            nf.write("https://assets.nintendo.com/image/upload/w_600,f_auto,q_auto/v1686932568/Microsites/PIKMIN-Portal/comics/00" +
+                     str(comic_number) + "/pikmin-comic-00" + str(comic_number) + "_0" + str(i))
+            i += 1
+            nf.write("\n")
     if comic_number > 5 and comic_number < 10:
         nf.write("Link3" + "\n")
     if comic_number >= 10 and comic_number < 30:
         nf.write("Link4" + "\n")
     if comic_number >= 30:
         nf.write("Link5" + "\n")
-
-    nf.write("" + "\n")
 
     nf.close()
 
@@ -42,7 +41,7 @@ def generate_image_list():
           ', for example "52" to use manual amount generation.')
     amount_style = input()
 
-    if amount_style == "A":
+    if amount_style == "A" or amount_style == "a":
         print("Generating automatic imagelist.txt")
         nf = open("imagelist.txt", "w")
         nf.close()
@@ -102,12 +101,13 @@ if __name__ == '__main__':
           " or " + style.RED + "N" + style.RESET)
     list_choice = input()
 
-    if list_choice == "Y":
+    if list_choice == "Y" or list_choice == "y":
         if not os.path.exists("imagelist.txt"):
             generate_image_list()
         if os.path.exists("imagelist.txt"):
             input(
                 "Image list file already exists. Press Enter to continue with existing file...")
+    # To do: if chosen "N"
 
     # Check for imagelist.txt in the folder
     if os.path.exists("imagelist.txt"):
