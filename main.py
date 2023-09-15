@@ -3,9 +3,36 @@ import os
 import time
 
 
-def generate_image_list():
+def write_links(comic_number: int):
 
-    comic_amount = 45
+    nf = open("imagelist.txt", "a")
+
+    if comic_number < 5:
+        nf.write("https://assets.nintendo.com/image/upload/w_600,f_auto,q_auto/v1686959530/Microsites/PIKMIN-Portal/comics/00" +
+                 str(comic_number) + "/EN/nint2402-pikmin4-manga00" + str(comic_number) + "_01" + "\n")
+        nf.write("https://assets.nintendo.com/image/upload/w_600,f_auto,q_auto/v1686959530/Microsites/PIKMIN-Portal/comics/00" +
+                 str(comic_number) + "/EN/nint2402-pikmin4-manga00" + str(comic_number) + "_02" + "\n")
+        nf.write("https://assets.nintendo.com/image/upload/w_600,f_auto,q_auto/v1686959530/Microsites/PIKMIN-Portal/comics/00" +
+                 str(comic_number) + "/EN/nint2402-pikmin4-manga00" + str(comic_number) + "_03" + "\n")
+        nf.write("https://assets.nintendo.com/image/upload/w_600,f_auto,q_auto/v1686959530/Microsites/PIKMIN-Portal/comics/00" +
+                 str(comic_number) + "/EN/nint2402-pikmin4-manga00" + str(comic_number) + "_04" + "\n")
+        nf.write("https://assets.nintendo.com/image/upload/w_600,f_auto,q_auto/v1686959530/Microsites/PIKMIN-Portal/comics/00" +
+                 str(comic_number) + "/EN/nint2402-pikmin4-manga00" + str(comic_number) + "_05")
+    if comic_number == 5:
+        nf.write("Link2" + "\n")
+    if comic_number > 5 and comic_number < 10:
+        nf.write("Link3" + "\n")
+    if comic_number >= 10 and comic_number < 30:
+        nf.write("Link4" + "\n")
+    if comic_number >= 30:
+        nf.write("Link5" + "\n")
+
+    nf.write("" + "\n")
+
+    nf.close()
+
+
+def generate_image_list():
 
     print('\nAutomatic image list generation is supported up to comic #45: "The Captains Treasure". If you want the automatic generation to go beyond this, you can input the number of latest comic.')
 
@@ -17,25 +44,30 @@ def generate_image_list():
 
     if amount_style == "A":
         print("Generating automatic imagelist.txt")
+        nf = open("imagelist.txt", "w")
+        nf.close()
+        comic_amount = 45
     else:
         print("Generating manual imagelist.txt")
+        nf = open("imagelist.txt", "w")
+        nf.close()
         comic_amount = int(amount_style)
 
     nf = open("imagelist.txt", "w")
 
     # Generate images in a loop
     i = 1
-    while i <= int(comic_amount):
+    while i <= int(amount_style):
         if i <= 5:
-            nf.write("Link1" + "\n")
+            write_links(i)
         if i == 6:
-            nf.write("Link2" + "\n")
+            write_links(i)
         if i > 6 and i < 10:
-            nf.write("Link3" + "\n")
+            write_links(i)
         if i >= 10 and i < 30:
-            nf.write("Link4" + "\n")
+            write_links(i)
         if i >= 30:
-            nf.write("Link5" + "\n")
+            write_links(i)
         i += 1
 
     nf.close()
