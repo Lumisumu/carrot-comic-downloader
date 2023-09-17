@@ -1,8 +1,6 @@
-# carrot-comic-downloader
+# Carrot Comic Downloader 1.0
 
 Python program for downloading and converting Pikmin 4 comics into PNG images.
-
-Image list generation is being developed, currently it generates 5 first comic links.
 
 # How-to
 
