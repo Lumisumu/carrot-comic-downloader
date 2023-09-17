@@ -9,6 +9,7 @@ def write_links(comic_number: int):
 
     if comic_number == 19 or comic_number == 37:
         # These comic numbers might be unused, no comic are found at these numbers, they are skipped
+        print("Skipping unused comic number. This is normal procedure and not an error. Download continues from next panel...")
 
     if comic_number < 5:
         i = 1
@@ -80,12 +81,12 @@ def generate_image_list():
     amount_style = input()
 
     if amount_style == "A" or amount_style == "a":
-        print("Generating automatic imagelist.txt")
+        print("\nGenerating automatic imagelist.txt")
         nf = open("imagelist.txt", "w")
         nf.close()
         comic_amount = 48
     else:
-        print("Generating manual imagelist.txt")
+        print("\nGenerating manual imagelist.txt")
         nf = open("imagelist.txt", "w")
         nf.close()
         comic_amount = int(amount_style)
@@ -109,7 +110,7 @@ def generate_image_list():
 
     nf.close()
 
-    input("Task finished. Press Enter to start download...")
+    input("\nTask finished. Press Enter to start download...")
 
 
 if __name__ == '__main__':
@@ -123,14 +124,9 @@ if __name__ == '__main__':
 
     # Printed text colors
     class style():
-        BLACK = '\033[30m'
         RED = '\033[31m'
         GREEN = '\033[32m'
         YELLOW = '\033[33m'
-        BLUE = '\033[34m'
-        MAGENTA = '\033[35m'
-        CYAN = '\033[36m'
-        WHITE = '\033[37m'
         UNDERLINE = '\033[4m'
         RESET = '\033[0m'
 
@@ -139,13 +135,33 @@ if __name__ == '__main__':
           " or " + style.RED + "N" + style.RESET)
     list_choice = input()
 
+    if list_choice == "N" or list_choice == "n":
+        if os.path.exists("imagelist.txt"):
+            input(
+                "Image list file found. Press Enter to start downloading process...")
+        if not os.path.exists("imagelist.txt"):
+            print(style.RED + "\nImage list file not found." + style.RESET)
+            print("\nDo you want to use automatic image list generation?")
+            print("Type " + style.GREEN + "Y" + style.RESET +
+                  " or " + style.RED + "N" + style.RESET)
+            list_choice = input()
+
+            if list_choice == "N" or list_choice == "n":
+                print("\nN chosen. Run main.py to try again. Closing program...")
+                exit()
+
     if list_choice == "Y" or list_choice == "y":
         if os.path.exists("imagelist.txt"):
             input(
                 "Image list file already exists. Press Enter to continue with existing file...")
-            
+
         if not os.path.exists("imagelist.txt"):
             generate_image_list()
+
+        else:
+            print("\nInvalid option chosen. Run main.py to try again. Closing program...")
+            exit()
+
     # To do: if chosen "N"
 
     # Check for imagelist.txt in the folder
