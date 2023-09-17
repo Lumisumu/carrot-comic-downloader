@@ -7,6 +7,9 @@ def write_links(comic_number: int):
 
     nf = open("imagelist.txt", "a")
 
+    if comic_number == 19 or comic_number == 37:
+        # These comic numbers might be unused, no comic are found at these numbers, they are skipped
+
     if comic_number < 5:
         i = 1
         while i < 6:
@@ -39,9 +42,6 @@ def write_links(comic_number: int):
             i += 1
             nf.write("\n")
 
-    if comic_number == 19:
-        print("Skipping 19, missing comic")
-
     if comic_number > 19 and comic_number < 30:
         i = 1
         while i < 6:
@@ -57,9 +57,6 @@ def write_links(comic_number: int):
                      str(comic_number) + "/nint2402-pikmin4-manga0" + str(comic_number) + "_0" + str(i))
             i += 1
             nf.write("\n")
-
-    if comic_number == 37:
-        print("Skipping 37, missing comic")
 
     if comic_number > 37:
         i = 1
@@ -143,11 +140,12 @@ if __name__ == '__main__':
     list_choice = input()
 
     if list_choice == "Y" or list_choice == "y":
-        if not os.path.exists("imagelist.txt"):
-            generate_image_list()
         if os.path.exists("imagelist.txt"):
             input(
                 "Image list file already exists. Press Enter to continue with existing file...")
+            
+        if not os.path.exists("imagelist.txt"):
+            generate_image_list()
     # To do: if chosen "N"
 
     # Check for imagelist.txt in the folder
