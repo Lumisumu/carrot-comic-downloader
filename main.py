@@ -14,6 +14,7 @@ def write_links(comic_number: int):
                      str(comic_number) + "/EN/nint2402-pikmin4-manga00" + str(comic_number) + "_0" + str(i))
             i += 1
             nf.write("\n")
+
     if comic_number == 5:
         i = 1
         while i < 6:
@@ -21,12 +22,52 @@ def write_links(comic_number: int):
                      str(comic_number) + "/pikmin-comic-00" + str(comic_number) + "_0" + str(i))
             i += 1
             nf.write("\n")
+
     if comic_number > 5 and comic_number < 10:
-        nf.write("Link3" + "\n")
-    if comic_number >= 10 and comic_number < 30:
-        nf.write("Link4" + "\n")
-    if comic_number >= 30:
-        nf.write("Link5" + "\n")
+        i = 1
+        while i < 6:
+            nf.write("https://assets.nintendo.com/image/upload/w_600,f_auto,q_auto/v1687822548/Microsites/PIKMIN-Portal/comics/00" +
+                     str(comic_number) + "/EN/nint2402-pikmin4-manga00" + str(comic_number) + "_0" + str(i))
+            i += 1
+            nf.write("\n")
+
+    if comic_number >= 10 and comic_number < 19:
+        i = 1
+        while i < 6:
+            nf.write("https://assets.nintendo.com/image/upload/w_600,f_auto,q_auto/v1688141442/Microsites/PIKMIN-Portal/comics/0" +
+                     str(comic_number) + "/EN/nint2402-pikmin4-manga0" + str(comic_number) + "_0" + str(i))
+            i += 1
+            nf.write("\n")
+
+    if comic_number == 19:
+        print("Skipping 19, missing comic")
+
+    if comic_number > 19 and comic_number < 30:
+        i = 1
+        while i < 6:
+            nf.write("https://assets.nintendo.com/image/upload/w_600,f_auto,q_auto/v1688141442/Microsites/PIKMIN-Portal/comics/0" +
+                     str(comic_number) + "/EN/nint2402-pikmin4-manga0" + str(comic_number) + "_0" + str(i))
+            i += 1
+            nf.write("\n")
+
+    if comic_number >= 30 and comic_number < 37:
+        i = 1
+        while i < 6:
+            nf.write("https://assets.nintendo.com/image/upload/w_600,f_auto,q_auto/v1694014678/Microsites/PIKMIN-Portal/comics/" +
+                     str(comic_number) + "/nint2402-pikmin4-manga0" + str(comic_number) + "_0" + str(i))
+            i += 1
+            nf.write("\n")
+
+    if comic_number == 37:
+        print("Skipping 37, missing comic")
+
+    if comic_number > 37:
+        i = 1
+        while i < 6:
+            nf.write("https://assets.nintendo.com/image/upload/w_600,f_auto,q_auto/v1694014678/Microsites/PIKMIN-Portal/comics/" +
+                     str(comic_number) + "/nint2402-pikmin4-manga0" + str(comic_number) + "_0" + str(i))
+            i += 1
+            nf.write("\n")
 
     nf.close()
 
@@ -45,7 +86,7 @@ def generate_image_list():
         print("Generating automatic imagelist.txt")
         nf = open("imagelist.txt", "w")
         nf.close()
-        comic_amount = 45
+        comic_amount = 48
     else:
         print("Generating manual imagelist.txt")
         nf = open("imagelist.txt", "w")
@@ -54,9 +95,9 @@ def generate_image_list():
 
     nf = open("imagelist.txt", "w")
 
-    # Generate images in a loop
+    # Generate images
     i = 1
-    while i <= int(amount_style):
+    while i <= int(comic_amount):
         if i <= 5:
             write_links(i)
         if i == 6:
