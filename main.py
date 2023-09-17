@@ -72,7 +72,7 @@ def write_links(comic_number: int):
 
 def generate_image_list():
 
-    print('\nAutomatic image list generation is supported up to comic #45: "The Captains Treasure". If you want the automatic generation to go beyond this, you can input the number of latest comic.')
+    print('\nAutomatic image list generation is supported up to comic #48: "Whats He Thinking?". If you want the automatic generation to go beyond this, you can input the number of latest comic.')
 
     print("\nAutomatic option: Input " + style.GREEN + "A" +
           style.RESET + " and press Enter to use automatic generation. ")
