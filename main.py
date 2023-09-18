@@ -27,7 +27,7 @@ def write_links(comic_number: int):
             i += 1
             nf.write("\n")
 
-    elif comic_number >= 10 and comic_number < 19:
+    elif comic_number >= 10 and comic_number < 30:
         i = 1
         while i < 6:
             nf.write("https://assets.nintendo.com/image/upload/w_600,f_auto,q_auto/v1688141442/Microsites/PIKMIN-Portal/comics/0" +
@@ -35,23 +35,7 @@ def write_links(comic_number: int):
             i += 1
             nf.write("\n")
 
-    elif comic_number > 19 and comic_number < 30:
-        i = 1
-        while i < 6:
-            nf.write("https://assets.nintendo.com/image/upload/w_600,f_auto,q_auto/v1688141442/Microsites/PIKMIN-Portal/comics/0" +
-                     str(comic_number) + "/EN/nint2402-pikmin4-manga0" + str(comic_number) + "_0" + str(i))
-            i += 1
-            nf.write("\n")
-
-    elif comic_number >= 30 and comic_number < 37:
-        i = 1
-        while i < 6:
-            nf.write("https://assets.nintendo.com/image/upload/w_600,f_auto,q_auto/v1694014678/Microsites/PIKMIN-Portal/comics/" +
-                     str(comic_number) + "/nint2402-pikmin4-manga0" + str(comic_number) + "_0" + str(i))
-            i += 1
-            nf.write("\n")
-
-    elif comic_number > 37:
+    elif comic_number >= 30:
         i = 1
         while i < 6:
             nf.write("https://assets.nintendo.com/image/upload/w_600,f_auto,q_auto/v1694014678/Microsites/PIKMIN-Portal/comics/" +
