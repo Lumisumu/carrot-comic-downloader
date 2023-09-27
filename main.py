@@ -10,7 +10,7 @@ def write_links(comic_number: int):
     if comic_number == 19 or comic_number == 37:
         # These comic numbers might be unused, no comic are found at these numbers, they are skipped
         print("Skipping unused comic number #" + str(comic_number) +
-              ". This is normal procedure and not an error. Download continues from next panel...")
+              ". This is normal and not an error. Download continues from next comic...")
 
     elif comic_number == 5:
         i = 1
@@ -52,7 +52,7 @@ def write_links(comic_number: int):
 
 def generate_image_list():
 
-    print(style.YELLOW + 'Automatic image list generation is supported up to comic #50: "Accomplished". You can manually input number of the most recent comic if this program is out of date.' + style.RESET)
+    print(style.YELLOW + '\nAutomatic image list generation is supported up to comic #50: "Accomplished". You can manually input number of the most recent comic if this program is out of date.' + style.RESET)
     print("1. (Recommended) Use automatic list generation up until #50")
     print("2. Manually input number of the newest comic")
     amount_style = input()
@@ -89,7 +89,7 @@ def generate_image_list():
 
     nf.close()
 
-    input("\nTask finished. Press Enter to start download...")
+    input("Task finished. Press Enter to start download...")
 
 
 def download_images():
@@ -97,6 +97,10 @@ def download_images():
     current_page = 1
     image_name = str("Pik4-comic-1")
     target_folder = 'comic/'
+
+    # Create comic folder if it does not exist
+    if not os.path.exists(target_folder):
+        os.makedirs(target_folder)
 
     # Image downloading
     if os.path.exists("imagelist.txt"):
@@ -113,10 +117,6 @@ def download_images():
 
             image_link = rq.get(x.rstrip())
             file_name = image_name + '.png'
-
-            # Create comic folder if it does not exist
-            if not os.path.exists(target_folder):
-                os.makedirs(target_folder)
 
             # Save image to the folder
             with open(f'{target_folder}{file_name}', 'wb') as file:
