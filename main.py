@@ -9,7 +9,8 @@ def write_links(comic_number: int):
 
     if comic_number == 19 or comic_number == 37:
         # These comic numbers might be unused, no comic are found at these numbers, they are skipped
-        print("Skipping unused comic number. This is normal procedure and not an error. Download continues from next panel...")
+        print("Skipping unused comic number #" + str(comic_number) +
+              ". This is normal procedure and not an error. Download continues from next panel...")
 
     elif comic_number == 5:
         i = 1
@@ -51,25 +52,24 @@ def write_links(comic_number: int):
 
 def generate_image_list():
 
-    print('\nAutomatic image list generation is supported up to comic #50: "Accomplished". If you want the automatic generation to go beyond this, you can input the number of latest comic.')
-
-    print("\nAutomatic option: Input " + style.GREEN + "A" +
-          style.RESET + " and press Enter to use automatic generation. ")
-    print('Manual option: Input ' + style.YELLOW + 'latest comic number' + style.RESET +
-          ', for example "52" to use manual amount generation.')
+    print(style.YELLOW + 'Automatic image list generation is supported up to comic #50: "Accomplished". You can manually input number of the most recent comic if this program is out of date.' + style.RESET)
+    print("1. (Recommended) Use automatic list generation up until #50")
+    print("2. Manually input number of the newest comic")
     amount_style = input()
 
-    if amount_style == "A" or amount_style == "a":
-        print("\nGenerating automatic imagelist.txt")
-        nf = open("imagelist.txt", "w")
-        nf.close()
-        comic_amount = 50
-    else:
-        print("\nGenerating manual imagelist.txt")
-        nf = open("imagelist.txt", "w")
-        nf.close()
-        comic_amount = int(amount_style)
+    match amount_style:
+        case "1":
+            print("\nStarting image link list generation...")
+            comic_amount = 50
 
+        case "2":
+            print(style.YELLOW + "\nInput number of newest comic: " + style.RESET)
+            comic_amount = input()
+
+        case _:
+            comic_amount = 50
+
+    # Create text file
     nf = open("imagelist.txt", "w")
 
     # Generate images
@@ -92,58 +92,13 @@ def generate_image_list():
     input("\nTask finished. Press Enter to start download...")
 
 
-if __name__ == '__main__':
+def download_images():
 
     current_page = 1
     image_name = str("Pik4-comic-1")
     target_folder = 'comic/'
 
-    # System call for colored printed text use in command prompt
-    os.system("")
-
-    # Printed text colors
-    class style():
-        RED = '\033[31m'
-        GREEN = '\033[32m'
-        YELLOW = '\033[33m'
-        UNDERLINE = '\033[4m'
-        RESET = '\033[0m'
-
-    print("Do you want to use automatic image list generation?")
-    print("Type " + style.GREEN + "Y" + style.RESET +
-          " or " + style.RED + "N" + style.RESET)
-    list_choice = input()
-
-    if list_choice == "N" or list_choice == "n":
-        if os.path.exists("imagelist.txt"):
-            input(
-                "Image list file found. Press Enter to start downloading process...")
-        if not os.path.exists("imagelist.txt"):
-            print(style.RED + "\nImage list file not found." + style.RESET)
-            print("\nDo you want to use automatic image list generation?")
-            print("Type " + style.GREEN + "Y" + style.RESET +
-                  " or " + style.RED + "N" + style.RESET)
-            list_choice = input()
-
-            if list_choice == "N" or list_choice == "n":
-                print("\nN chosen. Run main.py to try again. Closing program...")
-                exit()
-
-    if list_choice == "Y" or list_choice == "y":
-        if os.path.exists("imagelist.txt"):
-            input(
-                "Image list file already exists. Press Enter to continue with existing file...")
-
-        if not os.path.exists("imagelist.txt"):
-            generate_image_list()
-
-        else:
-            print("\nInvalid option chosen. Run main.py to try again. Closing program...")
-            exit()
-
-    # To do: if chosen "N"
-
-    # Check for imagelist.txt in the folder
+    # Image downloading
     if os.path.exists("imagelist.txt"):
         print(style.RESET + "Image link list found. Starting download...\n")
 
@@ -182,3 +137,43 @@ if __name__ == '__main__':
     else:
         print(
             "ERROR: imagelist.txt missing, add file to this folder and run main.py again.\n")
+
+
+if __name__ == '__main__':
+
+    # System call for colored printed text use in command prompt
+    os.system("")
+
+    # Printed text colors
+    class style():
+        RED = '\033[31m'
+        GREEN = '\033[32m'
+        YELLOW = '\033[33m'
+        UNDERLINE = '\033[4m'
+        RESET = '\033[0m'
+
+    # Choice of download method
+    print(style.YELLOW +
+          "\nChoose method by typing the number and pressing Enter:" + style.RESET)
+    print("1. Automatic image list generation + download images")
+    print("2. Use existing image list + download images")
+    list_choice = input()
+
+    match list_choice:
+        case "1":
+            generate_image_list()
+            download_images()
+
+        case "2":
+            if os.path.exists("imagelist.txt"):
+                download_images()
+            else:
+                print("Error #2: imagelist.txt not found.")
+
+        case _:
+            print("Error #1: Invalid input.")
+            print(style.RESET)
+            exit()
+
+    print(style.RESET + "Closing program...")
+    exit()
