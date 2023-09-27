@@ -51,7 +51,7 @@ def write_links(comic_number: int):
 
 def generate_image_list():
 
-    print('\nAutomatic image list generation is supported up to comic #48: "Whats He Thinking?". If you want the automatic generation to go beyond this, you can input the number of latest comic.')
+    print('\nAutomatic image list generation is supported up to comic #50: "Accomplished". If you want the automatic generation to go beyond this, you can input the number of latest comic.')
 
     print("\nAutomatic option: Input " + style.GREEN + "A" +
           style.RESET + " and press Enter to use automatic generation. ")
@@ -63,7 +63,7 @@ def generate_image_list():
         print("\nGenerating automatic imagelist.txt")
         nf = open("imagelist.txt", "w")
         nf.close()
-        comic_amount = 48
+        comic_amount = 50
     else:
         print("\nGenerating manual imagelist.txt")
         nf = open("imagelist.txt", "w")
