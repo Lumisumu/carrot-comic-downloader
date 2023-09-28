@@ -1,4 +1,4 @@
-# Carrot Comic Downloader 1.1
+# Carrot Comic Downloader 1.2
 
 Python program for downloading Pikmin 4 promotional comic panels and converting them from AVIF to PNG file format for easy use.
 
