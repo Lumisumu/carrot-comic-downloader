@@ -104,7 +104,7 @@ def download_images():
 
     # Image downloading
     if os.path.exists("imagelist.txt"):
-        print(style.RESET + "Image link list found. Starting download...\n")
+        print(style.RESET + "Image link list found. Starting download...")
 
         # Open text file
         f = open("imagelist.txt", "r")
@@ -112,9 +112,6 @@ def download_images():
         # Loops the times of lines in the text file, each line is single url that is passed to download_image function
         for x in f:
             # Name for next download
-            print(style.RESET + "Downloading comic panel number " +
-                  str(current_page) + " from link: " + str(x))
-
             image_link = rq.get(x.rstrip())
             file_name = image_name + '.png'
 
@@ -122,7 +119,7 @@ def download_images():
             with open(f'{target_folder}{file_name}', 'wb') as file:
                 file.write(image_link.content)
                 print(style.GREEN +
-                      f'Image download finished with name "{file_name}".\n' + style.RESET)
+                      f'Image download #' + str(current_page) + ' finished with file name ' + file_name + '.' + style.RESET)
 
             current_page += 1
             image_name = str("Pik4-comic-")
