@@ -40,7 +40,7 @@ def write_links(comic_number: int):
             nf.write("\n")
 
     else:
-        print(style.RED + "Error #4: Writing to text file failed." + style.RESET)
+        print(style.RED + "Error #3: Writing to text file failed." + style.RESET)
 
     nf.close()
 
@@ -118,7 +118,7 @@ def download_images():
 
     else:
         print(
-            style.RED + "Error #3: imagelist.txt missing, add file to this folder and run main.py again.\n" + style.RESET)
+            style.RED + "Error #2: imagelist.txt not found.\n" + style.RESET)
 
 
 if __name__ == '__main__':
