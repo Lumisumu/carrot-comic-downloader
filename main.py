@@ -3,6 +3,7 @@ import os
 import time
 
 import scripts.CarrotScript as carrot
+import scripts.DarkScript as dark
 
 
 def generate_image_list():

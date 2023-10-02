@@ -160,6 +160,10 @@ cython_debug/
 #.idea/
 
 # Download target folder
-comic/
+output/
 
+# Image list text file
 imagelist.txt
+
+# To do list
+TODO.txt
