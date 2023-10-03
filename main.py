@@ -8,7 +8,7 @@ import scripts.DarkScript as dark
 
 def generate_image_list():
 
-    print(style.YELLOW + '\nAutomatic image list generation is supported up to comic #50: "Accomplished". You can manually input number of the most recent comic if this program is out of date.' + style.RESET)
+    print(style.YELLOW + '\nAutomatic image list generation is supported up to comic #51: "Ride Quality". You can manually input number of the most recent comic if this program is out of date.' + style.RESET)
     print("1. (Recommended) Use automatic list generation up until #50")
     print("2. Manually input number of the newest comic")
     amount_style = input()
@@ -16,14 +16,14 @@ def generate_image_list():
     match amount_style:
         case "1":
             print("\nStarting image link list generation...")
-            comic_amount = 50
+            comic_amount = 51
 
         case "2":
             print(style.YELLOW + "\nInput number of newest comic: " + style.RESET)
             comic_amount = input()
 
         case _:
-            comic_amount = 50
+            comic_amount = 51
 
     # Create text file if it does not exist
     if not os.path.exists("imagelist.txt"):
