@@ -62,10 +62,14 @@ def download_images():
             image_link = rq.get(x.rstrip())
             file_name = image_name + '.png'
 
-            # Save image to the folder
-            with open(f'{target_folder}{file_name}', 'wb') as file:
-                file.write(image_link.content)
-                print(style.GREEN + f'Image download #' + str(current_page) + ' finished with file name ' + file_name + '.' + style.RESET)
+            if image_link.status_code == 200:
+                # Save image to the folder
+                with open(f'{target_folder}{file_name}', 'wb') as file:
+                    file.write(image_link.content)
+                    print(style.GREEN + f'Image download #' + str(current_page) + ' finished with file name ' + file_name + '.' + style.RESET)
+
+            elif image_link.status_code == 404:
+                print(style.RED + 'Error #4: No image at url, skipping "' + file_name + '": ' + x.rstrip() + style.RESET)
 
             current_page += 1
             image_name = str("Pik4-comic-")
