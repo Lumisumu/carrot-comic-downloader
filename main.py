@@ -8,15 +8,15 @@ import scripts.DarkScript as dark
 
 def generate_image_list():
 
-    print(style.YELLOW + '\nAutomatic image list generation is supported up to comic #51: "Ride Quality". You can manually input number of the most recent comic if this program is out of date.' + style.RESET)
-    print("1. (Recommended) Use automatic list generation up until #50")
+    print(style.YELLOW + '\nAutomatic image list generation is supported up to comic #56: "Morning Routine". You can manually input number of the most recent comic if this program is out of date.' + style.RESET)
+    print("1. (Recommended) Use automatic list generation up until #56")
     print("2. Manually input number of the newest comic")
     amount_style = input()
 
     match amount_style:
         case "1":
             print("\nStarting image link list generation...")
-            comic_amount = 51
+            comic_amount = 56
 
         case "2":
             print(style.YELLOW + "\nInput number of newest comic: " + style.RESET)
@@ -88,6 +88,8 @@ def download_images():
 
 if __name__ == '__main__':
 
+    #chosen_comic = "";
+
     # System call for colored printed text use in command prompt
     os.system("")
 
@@ -102,10 +104,30 @@ if __name__ == '__main__':
     print(style.YELLOW + "\nChoose method by typing the number and pressing Enter:" + style.RESET)
     print("1. (Recommended) Automatic image list generation + download images")
     print("2. Use existing image list + download images")
-    list_choice = input()
+    choose_feature = input()
 
-    match list_choice:
+    match choose_feature:
         case "1":
+            #print("\nFor which comic would you like to generate a list:")
+            #print("1. Pikmin 4 promotional comic")
+            #print("2. Dark Legacy Comics")
+            #print("0. Use custom script")
+            choose_comic = "1"
+
+            match choose_comic:
+                case "1":
+                    print("Pikmin 4 chosen.")
+
+                case "2":
+                    print("Dark Legacy Comics chosen.")
+
+                case "0":
+                    print("Custom script chosen.")
+                
+                case _:
+                    print(style.RED + "Error #1: Invalid input." + style.RESET)
+
+
             generate_image_list()
             download_images()
 
