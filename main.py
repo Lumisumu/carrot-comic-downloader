@@ -1,42 +1,84 @@
 import requests as rq
 import os
 import time
+import importlib
 
 import scripts.CarrotScript as carrot
 import scripts.DarkScript as dark
 
 
-def generate_image_list():
+def generate_image_list(comic: str):
 
-    print(style.YELLOW + '\nAutomatic image list generation is supported up to comic #56: "Morning Routine". You can manually input number of the most recent comic if this program is out of date.' + style.RESET)
-    print("1. (Recommended) Use automatic list generation up until #56")
-    print("2. Manually input number of the newest comic")
-    amount_style = input()
-
-    match amount_style:
+    match comic:
+        # Pikmin chosen
         case "1":
-            print("\nStarting image link list generation...")
-            comic_amount = 56
+            print(style.YELLOW + '\nAutomatic image list generation is supported up to comic #56: "Morning Routine". You can manually input number of the most recent comic if this program is out of date.' + style.RESET)
+            print("1. (Recommended) Use automatic list generation up until #56")
+            print("2. Manually input number of the newest comic")
+            amount_style = input()
 
+            match amount_style:
+                case "1":
+                    print("\nStarting image link list generation...")
+                    comic_amount = 56
+
+                case "2":
+                    print(style.YELLOW + "\nInput number of newest comic: " + style.RESET)
+                    comic_amount = input()
+
+                case _:
+                    comic_amount = 56
+
+            # Create text file if it does not exist
+            if not os.path.exists("imagelist.txt"):
+                nf = open("imagelist.txt", "w")
+                nf.close()
+
+            # Loop through panel numbers and send them one by one to write_links function
+            i = 1
+            while i <= int(comic_amount):
+                carrot.write_links(i)
+                i += 1
+
+            input("Task finished. Press Enter to start download...")
+
+        # Dark Legacy Comics chosen
         case "2":
-            print(style.YELLOW + "\nInput number of newest comic: " + style.RESET)
-            comic_amount = input()
+            print(style.YELLOW + '\nAutomatic image list generation is supported up to comic #879: "A Snail´s Pace". You can manually input number of the most recent comic if this program is out of date.' + style.RESET)
+            print("1. (Recommended) Use automatic list generation up until #879")
+            print("2. Manually input number of the newest comic")
+            amount_style = input()
 
-        case _:
-            comic_amount = 51
+            match amount_style:
+                case "1":
+                    print("\nStarting image link list generation...")
+                    comic_amount = 879
 
-    # Create text file if it does not exist
-    if not os.path.exists("imagelist.txt"):
-        nf = open("imagelist.txt", "w")
-        nf.close()
+                case "2":
+                    print(style.YELLOW + "\nInput number of newest comic: " + style.RESET)
+                    comic_amount = input()
 
-    # Loop through panel numbers and send them one by one to write_links function
-    i = 1
-    while i <= int(comic_amount):
-        carrot.write_links(i)
-        i += 1
+                case _:
+                    comic_amount = 879
 
-    input("Task finished. Press Enter to start download...")
+            # Create text file if it does not exist
+            if not os.path.exists("imagelist.txt"):
+                nf = open("imagelist.txt", "w")
+                nf.close()
+
+            # Loop through panel numbers and send them one by one to write_links function
+            i = 1
+            while i <= int(comic_amount):
+                dark.write_links(i)
+                i += 1
+
+            input("Task finished. Press Enter to start download...")
+
+        # Custom script chosen
+        case "0":
+            script_name = input("Enter the name of the Python script (without .py file extension): ")
+            module = importlib.import_module(script_name)
+            module.write_links()
 
 
 def download_images():
@@ -88,7 +130,7 @@ def download_images():
 
 if __name__ == '__main__':
 
-    #chosen_comic = "";
+    chosen_comic = "";
 
     # System call for colored printed text use in command prompt
     os.system("")
@@ -108,27 +150,28 @@ if __name__ == '__main__':
 
     match choose_feature:
         case "1":
-            #print("\nFor which comic would you like to generate a list:")
-            #print("1. Pikmin 4 promotional comic")
-            #print("2. Dark Legacy Comics")
-            #print("0. Use custom script")
-            choose_comic = "1"
+            print("\nFor which comic would you like to generate a list:")
+            print("1. Pikmin 4 promotional comic")
+            print("2. Dark Legacy Comics")
+            print("0. Use custom script")
+            choose_comic = input()
 
             match choose_comic:
                 case "1":
                     print("Pikmin 4 chosen.")
+                    generate_image_list(choose_comic)
 
                 case "2":
                     print("Dark Legacy Comics chosen.")
+                    generate_image_list(choose_comic)
 
                 case "0":
                     print("Custom script chosen.")
+                    generate_image_list(choose_comic)
                 
                 case _:
                     print(style.RED + "Error #1: Invalid input." + style.RESET)
 
-
-            generate_image_list()
             download_images()
 
         case "2":
