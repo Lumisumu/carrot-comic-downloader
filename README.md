@@ -26,6 +26,12 @@ Error #3: Writing to text file has been prevented: check if something is blockin
 
 Error #4: Url does not direct to image or image can't be accessed. This can be caused by bad connection, connection blocking or image only being available for verified users. Check the url by copy-pasting it to a fresh browser.
 
+# Planned improvements
+
+- Choosing target file format.
+- Choosing different file names.
+- Starting from input comic number and ending in input comic number.
+
 # Updating
 
 If new comics have been released for supported comics, update two locations in decision tree and mention in print.
