@@ -1,6 +1,8 @@
 # Carrot Comic Downloader 1.2
 
-Python program for downloading Pikmin 4 promotional comic panels and converting them from AVIF to PNG file format.
+Python program for downloading webcomics and converting them into PNG file format. It supports importing your own script, but it also has automated support for Pikmin 4 promo comics and Dark Legacy Comics. More supported comics are planned.
+
+Originally project was started because I needed a convenient way to download all Pikmin 4 promotional comics and convert them from AVIF to PNG.
 
 # How to use
 
@@ -12,7 +14,7 @@ Windows: open command line, navigate to the folder with `cd` and run:
 python main.py
 ```
 
-Follow instructions, recommended input's are "1". Images are saved into "comics" folder.
+Follow instructions. Images are saved into "comics" folder.
 
 # Errors
 
@@ -26,7 +28,4 @@ Error #4: Url does not direct to image or image can't be accessed. This can be c
 
 # Updating
 
-If new comics have been released:
-
-- Update comic_amount variable in generate_image_list function (2 lines to change).
-- Check if url format has been changed. If it is different from previous comic, update decision tree in write_links function (make new elif entry).
+If new comics have been released for supported comics, update two locations in decision tree and mention in print.
