@@ -31,7 +31,6 @@ Error #4: Url does not direct to image or image can't be accessed. This can be c
 # Planned improvements
 
 - Choosing target file format.
-- Choosing different file names.
 - Starting from input comic number and ending in input comic number.
 
 # Updating
