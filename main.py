@@ -11,23 +11,23 @@ def generate_image_list(comic: str):
 
     match comic:
         # Pikmin chosen
-        case "1":
-            print(style.YELLOW + '\nAutomatic image list generation is supported up to comic #56: "Morning Routine". You can manually input number of the most recent comic if this program is out of date.' + style.RESET)
-            print("1. (Recommended) Use automatic list generation up until #56")
+        case "Pikmin4":
+            print(style.YELLOW + '\nAutomatic image list generation is supported up to comic #57: "Love Seat". You can manually input number of the most recent comic if this program is out of date.' + style.RESET)
+            print("1. (Recommended) Use automatic list generation up until #57")
             print("2. Manually input number of the newest comic")
             amount_style = input()
 
             match amount_style:
                 case "1":
                     print("\nStarting image link list generation...")
-                    comic_amount = 56
+                    comic_amount = 57
 
                 case "2":
                     print(style.YELLOW + "\nInput number of newest comic: " + style.RESET)
                     comic_amount = input()
 
                 case _:
-                    comic_amount = 56
+                    comic_amount = 57
 
             # Create text file if it does not exist
             if not os.path.exists("imagelist.txt"):
@@ -43,7 +43,7 @@ def generate_image_list(comic: str):
             input("Task finished. Press Enter to start download...")
 
         # Dark Legacy Comics chosen
-        case "2":
+        case "DLC":
             print(style.YELLOW + '\nAutomatic image list generation is supported up to comic #879: "A Snail´s Pace". You can manually input number of the most recent comic if this program is out of date.' + style.RESET)
             print("1. (Recommended) Use automatic list generation up until #879")
             print("2. Manually input number of the newest comic")
@@ -75,17 +75,27 @@ def generate_image_list(comic: str):
             input("Task finished. Press Enter to start download...")
 
         # Custom script chosen
-        case "0":
+        case "Custom":
             script_name = input("Enter the name of the Python script (without .py file extension): ")
             module = importlib.import_module(script_name)
             module.write_links()
 
 
-def download_images():
+def download_images(comic: str):
 
     target_folder = 'output/'
     current_page = 1
-    image_name = str("Pik4-comic-1")
+
+    match comic:
+        case "Pikmin4":
+            image_name = str("Pikmin4 comic panel ")
+
+        case "DLC":
+            image_name = str("Dark Legacy Comics ")
+        
+        case "Custom":
+            image_name = str("Comic ")
+
 
     # Create comic folder if it does not exist
     if not os.path.exists(target_folder):
@@ -102,7 +112,9 @@ def download_images():
         for x in f:
             # Name for next download
             image_link = rq.get(x.rstrip())
-            file_name = image_name + '.png'
+            image_file_name = image_name
+            image_file_name += str(current_page)
+            file_name = image_file_name + '.png'
 
             if image_link.status_code == 200:
                 # Save image to the folder
@@ -114,8 +126,6 @@ def download_images():
                 print(style.RED + 'Error #4: No image at url, skipping "' + file_name + '": ' + x.rstrip() + style.RESET)
 
             current_page += 1
-            image_name = str("Pik4-comic-")
-            image_name += str(current_page)
             # Wait time between downloads
             time.sleep(3)
 
@@ -159,20 +169,23 @@ if __name__ == '__main__':
             match choose_comic:
                 case "1":
                     print("Pikmin 4 chosen.")
+                    choose_comic = "Pikmin4"
                     generate_image_list(choose_comic)
 
                 case "2":
                     print("Dark Legacy Comics chosen.")
+                    choose_comic = "DLC"
                     generate_image_list(choose_comic)
 
                 case "0":
                     print("Custom script chosen.")
+                    choose_comic = "Custom"
                     generate_image_list(choose_comic)
                 
                 case _:
                     print(style.RED + "Error #1: Invalid input." + style.RESET)
 
-            download_images()
+            download_images(choose_comic)
 
         case "2":
             if os.path.exists("imagelist.txt"):

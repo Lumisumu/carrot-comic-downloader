@@ -16,6 +16,8 @@ python main.py
 
 Follow instructions. Images are saved into "comics" folder.
 
+If you want to change wait time between downloads, change amount of seconds in this line: `time.sleep(3)`
+
 # Errors
 
 Error #1: Invalid input: only use "1" or "2", do not use "." or "#", enter number and press Enter.
@@ -34,4 +36,4 @@ Error #4: Url does not direct to image or image can't be accessed. This can be c
 
 # Updating
 
-If new comics have been released for supported comics, update two locations in decision tree and mention in print.
+If new comics have been released for supported comics, update two locations in decision tree and two mentions in the prints.
