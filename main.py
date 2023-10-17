@@ -72,7 +72,6 @@ def generate_image_list(comic: str):
                 dark.write_links(i)
                 i += 1
 
-            input("Task finished. Press Enter to start download...")
 
         # Custom script chosen
         case "Custom":
@@ -86,16 +85,28 @@ def download_images(comic: str):
     target_folder = 'output/'
     current_page = 1
 
-    match comic:
-        case "Pikmin4":
-            image_name = str("Pikmin4 comic panel ")
+    print("\nDo you want to use default or custom file naming?")
+    print("1. (Recommended) Use default naming system")
+    print("2. Use your own naming")
+    naming_style = input()
 
-        case "DLC":
-            image_name = str("Dark Legacy Comics ")
-        
-        case "Custom":
-            image_name = str("Comic ")
+    match naming_style:
+        case "2":
+            print('Type your file name style (for example, typing "My comic" produces file names like "My comic 1")')
+            image_name = input()
+            image_name += str(" ")
+        case _:
+            match comic:
+                case "Pikmin4":
+                    image_name = str("Pikmin4 comic panel ")
 
+                case "DLC":
+                    image_name = str("Dark Legacy Comics ")
+                
+                case "Custom":
+                    image_name = str("Comic ")
+
+    input("Task finished. Press Enter to start download...")
 
     # Create comic folder if it does not exist
     if not os.path.exists(target_folder):
