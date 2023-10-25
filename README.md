@@ -35,4 +35,4 @@ Error #4: Url does not direct to image or image can't be accessed. This can be c
 
 # Updating
 
-If new comics have been released for supported comics, update two locations in decision tree and two mentions in the prints.
+If new comics have been released for supported comics, update one location in decision tree and two mentions in the prints.
