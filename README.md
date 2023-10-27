@@ -32,7 +32,8 @@ Error #4: Url does not direct to image or image can't be accessed. This can be c
 
 - Choosing target file format.
 - Starting from input comic number and ending in input comic number.
+- Change Pikmin comic naming format to "Pikmin4 comic 1 panel 1".
 
 # Updating
 
-If new comics have been released for supported comics, update one location in decision tree and two mentions in the prints.
+If new comics have been released for supported comics, update one location in decision tree and one mentions in the prints.

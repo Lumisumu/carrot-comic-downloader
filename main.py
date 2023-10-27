@@ -24,8 +24,8 @@ def generate_image_list(comic: str):
     match comic:
         # Pikmin chosen
         case "Pikmin4 comic":
-            print(style.YELLOW + '\nAutomatic image list generation is supported up to comic #60: "Surprise Guest". You can manually input number of the most recent comic if this program is out of date.' + style.RESET)
-            print("1. (Recommended) Use automatic list generation up until #60")
+            print(style.YELLOW + '\nAutomatic image list generation is supported up to comic #61: "In Bloom?". You can manually input number of the most recent comic if this program is out of date.' + style.RESET)
+            print("1. (Recommended) Use automatic list generation")
             print("2. Manually input number of the newest comic")
             amount_style = input()
 
@@ -35,7 +35,7 @@ def generate_image_list(comic: str):
                     comic_amount = input()
 
                 case _:
-                    comic_amount = 60
+                    comic_amount = 61
 
             # Create text file
             if not os.path.exists("imagelist.txt"):
@@ -47,8 +47,6 @@ def generate_image_list(comic: str):
             while i <= int(comic_amount):
                 carrot.write_links(i)
                 i += 1
-
-            input("Task finished. Press Enter to start download...")
 
         # Dark Legacy Comics chosen
         case "DLC":
@@ -86,6 +84,8 @@ def generate_image_list(comic: str):
             script_name = input("Enter the name of the Python script (without .py file extension): ")
             module = importlib.import_module(script_name)
             module.write_links()
+
+        input("Task finished. Press Enter to start download...")
 
 
 def download_images(comic: str):
@@ -127,8 +127,6 @@ def download_images(comic: str):
 
     # Image downloading
     if os.path.exists("imagelist.txt"):
-        print(style.RESET + "Image link list found. Starting download...")
-
         # Open text file
         f = open("imagelist.txt", "r")
 
