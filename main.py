@@ -13,10 +13,8 @@ class style():
     YELLOW = '\033[33m'
     RESET = '\033[0m'
 
-# Selections
-comic_choice = ''
 
-def generate_image_list(comic: str):
+def generate_image_list(comic: str, first: int, last: int):
 
     if os.path.exists("imagelist.txt"):
         os.remove("imagelist.txt")
@@ -24,57 +22,75 @@ def generate_image_list(comic: str):
     match comic:
         # Pikmin chosen
         case "Pikmin4 comic":
-            print(style.YELLOW + '\nAutomatic image list generation is supported up to comic #61: "In Bloom?". You can manually input number of the most recent comic if this program is out of date.' + style.RESET)
-            print("1. (Recommended) Use automatic list generation")
-            print("2. Manually input number of the newest comic")
-            amount_style = input()
+            #print(style.YELLOW + '\nAutomatic image list generation is supported up to comic #61: "In Bloom?". You can manually input number of the most recent comic if this program is out of date.' + style.RESET)
+            #print("1. (Recommended) Use automatic list generation")
+            #print("2. Manually input number of the newest comic")
+            #amount_style = input()
 
-            match amount_style:
-                case "2":
-                    print(style.YELLOW + "\nInput number of newest comic: " + style.RESET)
-                    comic_amount = input()
+            #match amount_style:
+                #case "2":
+                    #print(style.YELLOW + "\nInput number of newest comic: " + style.RESET)
+                    #comic_amount = input()
 
-                case _:
-                    comic_amount = 61
-
-            # Create text file
-            if not os.path.exists("imagelist.txt"):
-                nf = open("imagelist.txt", "w")
-                nf.close()
-
-            # Loop through panel numbers and send them one by one to write_links function
-            i = 1
-            while i <= int(comic_amount):
-                carrot.write_links(i)
-                i += 1
-
-        # Dark Legacy Comics chosen
-        case "DLC":
-            print(style.YELLOW + '\nAutomatic image list generation is supported up to comic #879: "A Snail´s Pace". You can manually input number of the most recent comic if this program is out of date.' + style.RESET)
-            print("1. (Recommended) Use automatic list generation up until #879")
-            print("2. Manually input number of the newest comic")
-            amount_style = input()
-
-            match amount_style:
-                case "1":
-                    print("\nStarting image link list generation...")
-                    comic_amount = 879
-
-                case "2":
-                    print(style.YELLOW + "\nInput number of newest comic: " + style.RESET)
-                    comic_amount = input()
-
-                case _:
-                    comic_amount = 879
+                #case _:
+                    #comic_amount = 61
 
             # Create text file if it does not exist
             if not os.path.exists("imagelist.txt"):
                 nf = open("imagelist.txt", "w")
                 nf.close()
 
-            # Loop through panel numbers and send them one by one to write_links function
-            i = 1
-            while i <= int(comic_amount):
+            # Loop through comic image numbers and send them one by one to write_links function
+            if(first != 1):
+                i = first
+            else:
+                i = 1
+
+            if(last != 9999):
+                last_comic = last
+            else:
+                last_comic = 61
+
+            while i <= last_comic:
+                carrot.write_links(i)
+                i += 1
+
+        # Dark Legacy Comics chosen
+        case "DLC":
+            #print(style.YELLOW + '\nAutomatic image list generation is supported up to comic #879: "A Snail´s Pace". You can manually input number of the most recent comic if this program is out of date.' + style.RESET)
+            #print("1. (Recommended) Use automatic list generation up until #879")
+            #print("2. Manually input number of the newest comic")
+            #amount_style = input()
+
+            #match amount_style:
+                #case "1":
+                    #print("\nStarting image link list generation...")
+                    #comic_amount = 879
+
+                #case "2":
+                    #print(style.YELLOW + "\nInput number of newest comic: " + style.RESET)
+                    #comic_amount = input()
+
+                #case _:
+                    #comic_amount = 879
+
+            # Create text file if it does not exist
+            if not os.path.exists("imagelist.txt"):
+                nf = open("imagelist.txt", "w")
+                nf.close()
+
+            # Loop through comic image numbers and send them one by one to write_links function
+            if(first != 1):
+                i = first
+            else:
+                i = 1
+
+            if(last != 9999):
+                last_comic = last
+            else:
+                last_comic = 61
+
+            while i <= last_comic:
                 dark.write_links(i)
                 i += 1
 
@@ -85,13 +101,12 @@ def generate_image_list(comic: str):
             module = importlib.import_module(script_name)
             module.write_links()
 
-        input("Task finished. Press Enter to start download...")
+    input("Task finished. Press Enter to start download...")
 
 
-def download_images(comic: str):
+def download_images(comic: str, current_page: int):
 
     target_folder = 'output/'
-    current_page = 1
     image_name = comic
     image_name += str(" ")
 
@@ -174,9 +189,13 @@ if __name__ == '__main__':
     match comic_choice:
         case "1":
             comic_choice = "Pikmin4 comic"
+            first_comic = 1
+            last_comic = 61
 
         case "2":
             comic_choice = "DLC"
+            first_comic = 1
+            last_comic = 879
 
         case "0":
             comic_choice = "Custom"
@@ -198,24 +217,12 @@ if __name__ == '__main__':
 
     match settings_choice:
         case "default settings":
-            generate_image_list(comic_choice)
-            download_images(comic_choice)
+            generate_image_list(comic_choice, first_comic, last_comic)
+            download_images(comic_choice, first_comic)
 
         case "custom settings":
-            # Use custom comic name
-            use_custom_name = input("Do you want to use custom naming for downloaded images? Y/n: ")
-            if(use_ready_list == "Y" or use_ready_list == "y"):
-                comic_custom_name = input('Input comic naming format (for example, "My comic"): ')
-                comic_custom_name += str(" ")
-                generate_image_list(comic_choice)
-                download_images(comic_custom_name)
-
-            # Use download only from x to y comic number
-            use_custom_amount = input("Do you want to download comics from a certain range (for example, from comics #23 to #41? Y/n: ")
-            if(use_custom_amount == "Y" or use_custom_amount == "y"):
-                first_comic = input("Type the first comic number to download: ")
-                last_comic = input("Type the last comic number to download: ")
-                #To do: use input amounts
+            # To do: Use custom comic name
+            #use_custom_name = input("Do you want to use custom naming for downloaded images? Y/n: ")
 
             # Use existing list
             use_ready_list = input("Do you want to use existing image list and start download now? Y/n: ")
@@ -227,6 +234,20 @@ if __name__ == '__main__':
                 else:
                     print(style.RED + "Error #2: imagelist.txt not found." + style.RESET)
                     exit()
+
+            # Use download only from x to y comic number
+            use_custom_amount = input("Do you want to download comics from a certain range (for example, from comics #23 to #41? Y/n: ")
+            if(use_custom_amount == "Y" or use_custom_amount == "y"):
+                first_comic = 1
+                last_comic = 9999
+                first_comic = int(input("Type the first comic number to download: "))
+                print(str(first_comic))
+                last_comic = int(input("Type the last comic number to download: "))
+                print(str(last_comic))
+                #To do: use input amounts
+                generate_image_list(comic_choice, first_comic, last_comic)
+                download_images(comic_choice, first_comic)
+
             
             # Use custom script
             #use_custom_script = input("Do you want to use a custom script? Y/n: ")
