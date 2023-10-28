@@ -16,6 +16,8 @@ python main.py
 
 Follow instructions. Images are saved into "comics" folder.
 
+Custom settings include using existing image link list, custom naming format and specifying the range of downloaded comics.
+
 If you want to change wait time between downloads, change amount of seconds in this line: `time.sleep(3)`
 
 Custom script must be placed at the root of the project (same folder where main.py file is). Your file must have `write_links()` function where custom script code starts. You can take examples for files that are in scripts folder. CustomScript.py can be used in testing, it is in the root folder.
@@ -37,6 +39,6 @@ Error #5: Custom script file import failed. Check the file name you input. Name 
 - Choosing target file format.
 - Change Pikmin comic naming format to "Pikmin4 comic 1 panel 1".
 
-# Updating
+# Updating newest comic numbers
 
 If new comics have been released for supported comics, update the number in `generate_image_list()` function in main.py.

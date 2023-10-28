@@ -161,11 +161,6 @@ if __name__ == '__main__':
             download_images(comic_choice, first_comic, comic_name_format)
 
         case "custom settings":
-            # Use custom comic name
-            use_custom_name = input("Do you want to use custom naming for downloaded images? Y/n: ")
-            if(use_custom_name == "Y" or use_custom_name == "y"):
-                comic_name_format = str(input("Type name: "))
-
             # Use existing list
             use_ready_list = input("Do you want to use existing image list and start download now? Y/n: ")
             if(use_ready_list == "Y" or use_ready_list == "y"):
@@ -176,6 +171,11 @@ if __name__ == '__main__':
                 else:
                     print(style.RED + "Error #2: imagelist.txt not found." + style.RESET)
                     exit()
+
+            # Use custom comic name
+            use_custom_name = input("Do you want to use custom naming for downloaded images? Y/n: ")
+            if(use_custom_name == "Y" or use_custom_name == "y"):
+                comic_name_format = str(input("Type name: "))
 
             # Use download only from x to y comic number
             use_custom_amount = input("Do you want to download comics from a certain range (for example, from comics #23 to #41? Y/n: ")
