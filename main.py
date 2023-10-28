@@ -163,7 +163,7 @@ if __name__ == '__main__':
             download_images(comic_choice, first_comic, comic_name_format)
 
         case "custom settings":
-            # To do: Use custom comic name
+            # Use custom comic name
             use_custom_name = input("Do you want to use custom naming for downloaded images? Y/n: ")
             if(use_custom_name == "Y" or use_custom_name == "y"):
                 comic_name_format = str(input("Type name: "))
