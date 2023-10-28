@@ -16,90 +16,41 @@ class style():
 
 def generate_image_list(comic: str, first: int, last: int):
 
+    # Delete existing text file to prevent mistakes in writing to file
     if os.path.exists("imagelist.txt"):
         os.remove("imagelist.txt")
+    
+    # Create new text file
+    if not os.path.exists("imagelist.txt"):
+        nf = open("imagelist.txt", "w")
+        nf.close()
 
-    match comic:
-        # Pikmin chosen
-        case "Pikmin4 comic":
-            #print(style.YELLOW + '\nAutomatic image list generation is supported up to comic #61: "In Bloom?". You can manually input number of the most recent comic if this program is out of date.' + style.RESET)
-            #print("1. (Recommended) Use automatic list generation")
-            #print("2. Manually input number of the newest comic")
-            #amount_style = input()
+    if(comic == "Custom"):
+        script_name = input("Enter the name of the Python script (without .py file extension): ")
+        module = importlib.import_module(script_name)
+        module.write_links()
 
-            #match amount_style:
-                #case "2":
-                    #print(style.YELLOW + "\nInput number of newest comic: " + style.RESET)
-                    #comic_amount = input()
-
-                #case _:
-                    #comic_amount = 61
-
-            # Create text file if it does not exist
-            if not os.path.exists("imagelist.txt"):
-                nf = open("imagelist.txt", "w")
-                nf.close()
-
-            # Loop through comic image numbers and send them one by one to write_links function
-            if(first != 1):
-                i = first
-            else:
-                i = 1
-
-            if(last != 9999):
-                last_comic = last
-            else:
+    else:
+        # Determine start and finish comic numbers
+        if(first != 1):
+            i = first
+        else:
+            i = 1
+        
+        if(last != 9999):
+            last_comic = last
+        else:
+            if(comic == "Pikmin4 comic"):
                 last_comic = 62
-
-            while i <= last_comic:
-                carrot.write_links(i)
-                i += 1
-
-        # Dark Legacy Comics chosen
-        case "DLC":
-            #print(style.YELLOW + '\nAutomatic image list generation is supported up to comic #879: "A Snail´s Pace". You can manually input number of the most recent comic if this program is out of date.' + style.RESET)
-            #print("1. (Recommended) Use automatic list generation up until #879")
-            #print("2. Manually input number of the newest comic")
-            #amount_style = input()
-
-            #match amount_style:
-                #case "1":
-                    #print("\nStarting image link list generation...")
-                    #comic_amount = 879
-
-                #case "2":
-                    #print(style.YELLOW + "\nInput number of newest comic: " + style.RESET)
-                    #comic_amount = input()
-
-                #case _:
-                    #comic_amount = 879
-
-            # Create text file if it does not exist
-            if not os.path.exists("imagelist.txt"):
-                nf = open("imagelist.txt", "w")
-                nf.close()
-
-            # Loop through comic image numbers and send them one by one to write_links function
-            if(first != 1):
-                i = first
-            else:
-                i = 1
-
-            if(last != 9999):
-                last_comic = last
-            else:
+            elif(comic == "DLC"):
                 last_comic = 879
 
-            while i <= last_comic:
+        while i <= last_comic:
+            if(comic == "Pikmin4 comic"):
+                carrot.write_links(i)
+            elif(comic == "DLC"):
                 dark.write_links(i)
-                i += 1
-
-
-        # Custom script chosen
-        case "Custom":
-            script_name = input("Enter the name of the Python script (without .py file extension): ")
-            module = importlib.import_module(script_name)
-            module.write_links()
+            i += 1
 
     input("Task finished. Press Enter to start download...")
 
