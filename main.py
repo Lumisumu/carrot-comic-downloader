@@ -2,6 +2,7 @@ import requests as rq
 import os
 import time
 import importlib
+from importlib import util
 
 import scripts.CarrotScript as carrot
 import scripts.DarkScript as dark
@@ -27,18 +28,28 @@ def generate_image_list(comic: str, first: int, last: int):
 
     if(comic == "Custom"):
         script_name = input("Enter the name of the Python script (without .py file extension): ")
-        
-        try:
-            importlib.util.find_spec(script_name)
-            found = True
-        except ImportError:
-            found = False
 
-        if(found == True):
+        find_script = util.find_spec(script_name)
+        if find_script is None:
+            print(style.RED + "Error #5: Custom file import failed. Check spelling.\n" + style.RESET)
+            exit()
+        else:
             module = importlib.import_module(script_name)
             module.write_links()
-            download_images("Custom", first)
-            exit()
+        
+        #try:
+        #    importlib.util.find_spec(script_name)
+        #    found = True
+        #except ImportError:
+        #    found = False
+        #    print(style.RED + "Error #5: Custom file import failed. Check spelling.\n" + style.RESET)
+        #    exit()
+
+        #if(found == True):
+        #    module = importlib.import_module(script_name)
+        #    module.write_links()
+        #    download_images("Custom", first)
+        #    exit()
 
     else:
         # Determine start and finish comic numbers

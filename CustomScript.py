@@ -2,9 +2,8 @@
 
 def write_links():
 
-    input("Custom script function called.")
+    print("Custom script function called to write links to file...")
 
-    # Your custom link generation code here
 
     # Example:
 
@@ -12,7 +11,7 @@ def write_links():
     nf = open("imagelist.txt", "a")
 
     # Write to file
-    nf.write("https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Smooth_Toadfish-Tetractenos_glaber_%28mirrored%29.JPG/210px-Smooth_Toadfish-Tetractenos_glaber_%28mirrored%29.JPG")
+    nf.write("Hello world!")
 
     # Next line
     nf.write("\n")
