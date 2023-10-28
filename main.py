@@ -49,7 +49,7 @@ def generate_image_list(comic: str, first: int, last: int):
             if(last != 9999):
                 last_comic = last
             else:
-                last_comic = 61
+                last_comic = 62
 
             while i <= last_comic:
                 carrot.write_links(i)
@@ -88,7 +88,7 @@ def generate_image_list(comic: str, first: int, last: int):
             if(last != 9999):
                 last_comic = last
             else:
-                last_comic = 61
+                last_comic = 879
 
             while i <= last_comic:
                 dark.write_links(i)
@@ -190,7 +190,7 @@ if __name__ == '__main__':
         case "1":
             comic_choice = "Pikmin4 comic"
             first_comic = 1
-            last_comic = 61
+            last_comic = 62
 
         case "2":
             comic_choice = "DLC"
