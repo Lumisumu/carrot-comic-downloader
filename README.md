@@ -39,4 +39,4 @@ Error #5: Custom script file import failed. Check the file name you input. Name 
 
 # Updating
 
-If new comics have been released for supported comics, update one location in decision tree and one mentions in the prints.
+If new comics have been released for supported comics, update the number in `generate_image_list()` function in main.py.
