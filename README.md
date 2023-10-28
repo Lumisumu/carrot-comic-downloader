@@ -18,6 +18,8 @@ Follow instructions. Images are saved into "comics" folder.
 
 If you want to change wait time between downloads, change amount of seconds in this line: `time.sleep(3)`
 
+Custom script must be placed at the root of the project (same folder where main.py file is). Your file must have `write_links()` function where custom script code starts. You can take examples for files that are in scripts folder. CustomScript.py can be used in testing, it is in the root folder.
+
 # Errors
 
 Error #1: Invalid input: only use "1" or "2", do not use "." or "#", enter number and press Enter.
@@ -33,7 +35,7 @@ Error #5: Custom script file import failed. Check the file name you input. Name 
 # Planned improvements
 
 - Choosing target file format.
-- Starting from input comic number and ending in input comic number.
+- Choosing file name format.
 - Change Pikmin comic naming format to "Pikmin4 comic 1 panel 1".
 
 # Updating

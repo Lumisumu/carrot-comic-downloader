@@ -36,20 +36,6 @@ def generate_image_list(comic: str, first: int, last: int):
         else:
             module = importlib.import_module(script_name)
             module.write_links()
-        
-        #try:
-        #    importlib.util.find_spec(script_name)
-        #    found = True
-        #except ImportError:
-        #    found = False
-        #    print(style.RED + "Error #5: Custom file import failed. Check spelling.\n" + style.RESET)
-        #    exit()
-
-        #if(found == True):
-        #    module = importlib.import_module(script_name)
-        #    module.write_links()
-        #    download_images("Custom", first)
-        #    exit()
 
     else:
         # Determine start and finish comic numbers
@@ -66,6 +52,7 @@ def generate_image_list(comic: str, first: int, last: int):
             elif(comic == "DLC"):
                 last_comic = 879
 
+        # Loop to write links in order
         while i <= last_comic:
             if(comic == "Pikmin4 comic"):
                 carrot.write_links(i)
@@ -112,7 +99,6 @@ def download_images(comic: str, current_page: int):
             # Wait time between downloads
             time.sleep(3)
 
-        # Close text file
         f.close()
         print(style.RESET + 'Download complete, images are in "comic" folder.')
 
@@ -195,6 +181,6 @@ if __name__ == '__main__':
                 print(str(first_comic))
                 last_comic = int(input("Type the last comic number to download: "))
                 print(str(last_comic))
-                #To do: use input amounts
-                generate_image_list(comic_choice, first_comic, last_comic)
-                download_images(comic_choice, first_comic)
+            
+            generate_image_list(comic_choice, first_comic, last_comic)
+            download_images(comic_choice, first_comic)
