@@ -35,7 +35,6 @@ Error #5: Custom script file import failed. Check the file name you input. Name 
 # Planned improvements
 
 - Choosing target file format.
-- Choosing file name format.
 - Change Pikmin comic naming format to "Pikmin4 comic 1 panel 1".
 
 # Updating

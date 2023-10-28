@@ -63,10 +63,10 @@ def generate_image_list(comic: str, first: int, last: int):
     input("Task finished. Press Enter to start download...")
 
 
-def download_images(comic: str, current_page: int):
+def download_images(comic: str, current_page: int, name_format: str):
 
     target_folder = 'output/'
-    image_name = comic
+    image_name = name_format
     image_name += str(" ")
 
     # Create comic folder if it does not exist
@@ -114,6 +114,7 @@ if __name__ == '__main__':
 
     first_comic = 1
     last_comic = 9999
+    comic_name_format = ''
 
     print(style.GREEN + "Welcome!" + style.RESET + "What comic do you want to download?")
     print("1. Pikmin 4 promotional comic")
@@ -124,18 +125,20 @@ if __name__ == '__main__':
     match comic_choice:
         case "1":
             comic_choice = "Pikmin4 comic"
+            comic_name_format = "Pikmin4 comic"
             first_comic = 1
             last_comic = 62
 
         case "2":
             comic_choice = "DLC"
+            comic_name_format = "DLC"
             first_comic = 1
             last_comic = 879
 
         case "0":
             comic_choice = "Custom"
             generate_image_list(comic_choice, first_comic, last_comic)
-            download_images(comic_choice, first_comic)
+            download_images(comic_choice, first_comic, comic_name_format)
             print(style.RESET + "Closing program...")
             exit()
 
@@ -157,17 +160,19 @@ if __name__ == '__main__':
     match settings_choice:
         case "default settings":
             generate_image_list(comic_choice, first_comic, last_comic)
-            download_images(comic_choice, first_comic)
+            download_images(comic_choice, first_comic, comic_name_format)
 
         case "custom settings":
             # To do: Use custom comic name
-            #use_custom_name = input("Do you want to use custom naming for downloaded images? Y/n: ")
+            use_custom_name = input("Do you want to use custom naming for downloaded images? Y/n: ")
+            if(use_custom_name == "Y" or use_custom_name == "y"):
+                comic_name_format = str(input("Type name: "))
 
             # Use existing list
             use_ready_list = input("Do you want to use existing image list and start download now? Y/n: ")
             if(use_ready_list == "Y" or use_ready_list == "y"):
                 if os.path.exists("imagelist.txt"):
-                    download_images(comic_choice)
+                    download_images(comic_choice, first_comic, comic_name_format)
                     print(style.RESET + "Closing program...")
                     exit()
                 else:
@@ -183,4 +188,4 @@ if __name__ == '__main__':
                 print(str(last_comic))
             
             generate_image_list(comic_choice, first_comic, last_comic)
-            download_images(comic_choice, first_comic)
+            download_images(comic_choice, first_comic, comic_name_format)
