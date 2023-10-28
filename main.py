@@ -27,8 +27,18 @@ def generate_image_list(comic: str, first: int, last: int):
 
     if(comic == "Custom"):
         script_name = input("Enter the name of the Python script (without .py file extension): ")
-        module = importlib.import_module(script_name)
-        module.write_links()
+        
+        try:
+            importlib.util.find_spec(script_name)
+            found = True
+        except ImportError:
+            found = False
+
+        if(found == True):
+            module = importlib.import_module(script_name)
+            module.write_links()
+            download_images("Custom", first)
+            exit()
 
     else:
         # Determine start and finish comic numbers
@@ -60,32 +70,6 @@ def download_images(comic: str, current_page: int):
     target_folder = 'output/'
     image_name = comic
     image_name += str(" ")
-
-    #print("\nDo you want to use default or custom file naming?")
-    #print("1. (Recommended) Use default naming system")
-    #print("2. Use your own naming")
-    #naming_style = input()
-
-    #match naming_style:
-        #case "2":
-            #print('Type your file name style (for example, typing "My comic" produces file names like "My comic 1")')
-            #image_name = input()
-            #image_name += str(" ")
-        #case _:
-            #match comic:
-                #case "Pikmin4":
-                    #image_name = str("Pikmin4 comic panel ")
-
-                #case "DLC":
-                    #image_name = str("Dark Legacy Comics ")
-                
-                #case "Custom":
-                    #image_name = str("Comic ")
-
-                #case _:
-                    #image_name = comic
-
-    #input("Task finished. Press Enter to start download...")
 
     # Create comic folder if it does not exist
     if not os.path.exists(target_folder):
@@ -131,6 +115,9 @@ if __name__ == '__main__':
     # System call for colored printed text use in command prompt
     os.system("")
 
+    first_comic = 1
+    last_comic = 9999
+
     print(style.GREEN + "Welcome!" + style.RESET + "What comic do you want to download?")
     print("1. Pikmin 4 promotional comic")
     print("2. Dark Legacy Comic")
@@ -150,6 +137,10 @@ if __name__ == '__main__':
 
         case "0":
             comic_choice = "Custom"
+            generate_image_list(comic_choice, first_comic, last_comic)
+            download_images(comic_choice, first_comic)
+            print(style.RESET + "Closing program...")
+            exit()
 
         case _:
             print(style.RED + "Error #1: Invalid input." + style.RESET)
@@ -189,8 +180,6 @@ if __name__ == '__main__':
             # Use download only from x to y comic number
             use_custom_amount = input("Do you want to download comics from a certain range (for example, from comics #23 to #41? Y/n: ")
             if(use_custom_amount == "Y" or use_custom_amount == "y"):
-                first_comic = 1
-                last_comic = 9999
                 first_comic = int(input("Type the first comic number to download: "))
                 print(str(first_comic))
                 last_comic = int(input("Type the last comic number to download: "))
@@ -198,71 +187,3 @@ if __name__ == '__main__':
                 #To do: use input amounts
                 generate_image_list(comic_choice, first_comic, last_comic)
                 download_images(comic_choice, first_comic)
-
-            
-            # Use custom script
-            #use_custom_script = input("Do you want to use a custom script? Y/n: ")
-            #if(use_custom_script == "Y" or use_custom_script == "y"):
-                #generate_image_list(comic_choice)
-                #download_images(comic_choice)
-                #print(style.RESET + "Closing program...")
-                #exit()
-
-
-
-
-
-
-
-
-
-    # Choice of download method
-    #print(style.YELLOW + "\nChoose method by typing the number and pressing Enter:" + style.RESET)
-    #print("1. (Recommended) Automatic image list generation + download images")
-    #print("2. Use existing image list + download images")
-    #choose_feature = input()
-
-    #match choose_feature:
-        #case "1":
-            #print("\nFor which comic would you like to generate a list:")
-            #print("1. Pikmin 4 promotional comic")
-            #print("2. Dark Legacy Comics")
-            #print("0. Use custom script")
-            #choose_comic = input()
-
-            #match choose_comic:
-                #case "1":
-                    #print("Pikmin 4 chosen.")
-                    #choose_comic = "Pikmin4"
-                    #generate_image_list(choose_comic)
-
-                #case "2":
-                    #print("Dark Legacy Comics chosen.")
-                    #choose_comic = "DLC"
-                    #generate_image_list(choose_comic)
-
-                #case "0":
-                    #print("Custom script chosen.")
-                    #choose_comic = "Custom"
-                    #generate_image_list(choose_comic)
-                
-                #case _:
-                    #print(style.RED + "Error #1: Invalid input." + style.RESET)
-                    #exit()
-
-            #download_images(choose_comic)
-
-        #case "2":
-            #if os.path.exists("imagelist.txt"):
-                #download_images()
-            #else:
-                #print(style.RED + "Error #2: imagelist.txt not found." + style.RESET)
-
-        #case _:
-            #print(style.RED + "Error #1: Invalid input." + style.RESET)
-            #exit()
-
-
-
-    #print(style.RESET + "Closing program...")
-    #exit()

@@ -12,7 +12,7 @@ def write_links():
     nf = open("imagelist.txt", "a")
 
     # Write to file
-    nf.write()
+    nf.write("https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Smooth_Toadfish-Tetractenos_glaber_%28mirrored%29.JPG/210px-Smooth_Toadfish-Tetractenos_glaber_%28mirrored%29.JPG")
 
     # Next line
     nf.write("\n")
