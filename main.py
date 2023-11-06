@@ -67,8 +67,11 @@ def download_images(comic: str, current_page: int, name_format: str):
 
     target_folder = 'output/'
     image_name = name_format
-    image_name += str(" ")
+    panel_number = 1
 
+    if name_format == "Pikmin4 comic" or name_format == "DLC":
+        image_name += str(" ")
+    
     # Create comic folder if it does not exist
     if not os.path.exists(target_folder):
         os.makedirs(target_folder)
@@ -82,9 +85,24 @@ def download_images(comic: str, current_page: int, name_format: str):
         for x in f:
             # Name for next download
             image_link = rq.get(x.rstrip())
-            image_file_name = image_name
-            image_file_name += str(current_page)
-            file_name = image_file_name + '.png'
+
+            if comic == "Pikmin4 comic":
+                image_file_name = image_name
+                image_file_name += str(current_page)
+                image_file_name += " panel "
+                image_file_name += str(panel_number)
+                file_name = image_file_name + '.png'
+                if panel_number == 5:
+                    panel_number = 1
+                    current_page += 1
+                else:
+                    panel_number += 1
+
+            else:
+                image_file_name = image_name
+                image_file_name += str(current_page)
+                file_name = image_file_name + '.png'
+                current_page += 1
 
             if image_link.status_code == 200:
                 # Save image to the folder
@@ -95,7 +113,6 @@ def download_images(comic: str, current_page: int, name_format: str):
             elif image_link.status_code == 404:
                 print(style.RED + 'Error #4: No image at url, skipping "' + file_name + '": ' + x.rstrip() + style.RESET)
 
-            current_page += 1
             # Wait time between downloads
             time.sleep(3)
 
