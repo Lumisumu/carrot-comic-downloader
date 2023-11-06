@@ -48,9 +48,9 @@ def generate_image_list(comic: str, first: int, last: int):
             last_comic = last
         else:
             if(comic == "Pikmin4 comic"):
-                last_comic = 62
+                last_comic = 65
             elif(comic == "DLC"):
-                last_comic = 879
+                last_comic = 881
 
         # Loop to write links in order
         while i <= last_comic:
@@ -116,7 +116,7 @@ if __name__ == '__main__':
     last_comic = 9999
     comic_name_format = ''
 
-    print(style.GREEN + "Welcome!" + style.RESET + "What comic do you want to download?")
+    print(style.GREEN + "Welcome!" + style.RESET + " What comic do you want to download?")
     print("1. Pikmin 4 promotional comic")
     print("2. Dark Legacy Comic")
     print("0. Use custom script")
