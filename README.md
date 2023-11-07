@@ -10,8 +10,6 @@ Install Python 3.
 
 Download this repository.
 
-You need main.py to run the program. Scripts folder has premade download scripts if you do not want to write you own. You need at least one working script to successfully download images.
-
 Windows: open command line, navigate to the folder with `cd` and run:
 
 ```
@@ -23,6 +21,8 @@ Follow instructions. Images are saved into "comics" folder.
 Custom settings include using existing image link list, custom naming format and specifying the range of downloaded comics.
 
 If you want to change wait time between downloads, change amount of seconds in this line: `time.sleep(3)`
+
+Included files: You need main.py to run the program. Scripts folder has premade download scripts if you do not want to write you own. You need at least one working script to successfully download images.
 
 Custom script must be placed at the root of the project (same folder where main.py file is). Your file must have `write_links()` function where custom script code starts. You can take examples for files that are in scripts folder. CustomScript.py can be used in testing, it is in the root folder.
 
