@@ -41,6 +41,7 @@ Error #5: Custom script file import failed. Check the file name you input. Name 
 # Planned improvements
 
 - Choosing target file format for the images.
+- Make extra script for DLC to download 2-part comics and gif comics.
 
 # Updating newest comic numbers
 
