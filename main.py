@@ -43,24 +43,14 @@ def generate_image_list(comic: str, first: int, last: int):
             i = first
         else:
             i = 1
-        
-        if(last != 9999):
-            last_comic = last
-        else:
-            if(comic == "Pikmin4 comic"):
-                last_comic = 65
-            elif(comic == "DLC"):
-                last_comic = 881
 
         # Loop to write links in order
-        while i <= last_comic:
-            if(comic == "Pikmin4 comic"):
+        while i <= last:
+            if(comic == "Pikmin 4 comic"):
                 carrot.write_links(i)
             elif(comic == "DLC"):
                 dark.write_links(i)
             i += 1
-
-    input("Task finished. Press Enter to start download...")
 
 
 def download_images(comic: str, current_page: int, name_format: str):
@@ -68,13 +58,13 @@ def download_images(comic: str, current_page: int, name_format: str):
     target_folder = 'output/'
     image_name = name_format
     panel_number = 1
-
-    if name_format == "Pikmin4 comic" or name_format == "DLC":
-        image_name += str(" ")
+    image_name += str(" ")
     
     # Create comic folder if it does not exist
     if not os.path.exists(target_folder):
         os.makedirs(target_folder)
+
+    input("Preparation tasks finished. Press Enter to start download...")
 
     # Image downloading
     if os.path.exists("imagelist.txt"):
@@ -86,12 +76,8 @@ def download_images(comic: str, current_page: int, name_format: str):
             # Name for next download
             image_link = rq.get(x.rstrip())
 
-            if comic == "Pikmin4 comic":
-                image_file_name = image_name
-                image_file_name += str(current_page)
-                image_file_name += " panel "
-                image_file_name += str(panel_number)
-                file_name = image_file_name + '.png'
+            if comic == "Pikmin 4 comic":
+                file_name = image_name + str(current_page) + " panel " + str(panel_number) + '.png'
                 if panel_number == 5:
                     panel_number = 1
                     current_page += 1
@@ -99,9 +85,7 @@ def download_images(comic: str, current_page: int, name_format: str):
                     panel_number += 1
 
             else:
-                image_file_name = image_name
-                image_file_name += str(current_page)
-                file_name = image_file_name + '.png'
+                file_name = image_name + str(current_page) + '.png'
                 current_page += 1
 
             if image_link.status_code == 200:
@@ -141,21 +125,18 @@ if __name__ == '__main__':
 
     match comic_choice:
         case "1":
-            comic_choice = "Pikmin4 comic"
-            comic_name_format = "Pikmin4 comic"
-            first_comic = 1
+            comic_choice = "Pikmin 4 comic"
+            comic_name_format = "Pikmin 4 comic"
+            last_comic = 66
 
         case "2":
             comic_choice = "DLC"
             comic_name_format = "DLC"
-            first_comic = 1
+            last_comic = 881
 
         case "0":
             comic_choice = "Custom"
-            generate_image_list(comic_choice, first_comic, last_comic)
-            download_images(comic_choice, first_comic, comic_name_format)
-            print(style.RESET + "Closing program...")
-            exit()
+            comic_name_format = "Custom comic "
 
         case _:
             print(style.RED + "Error #1: Invalid input." + style.RESET)

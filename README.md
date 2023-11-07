@@ -8,6 +8,10 @@ Originally project was started because I needed a convenient way to download all
 
 Install Python 3.
 
+Download this repository.
+
+You need main.py to run the program. Scripts folder has premade download scripts if you do not want to write you own. You need at least one working script to successfully download images.
+
 Windows: open command line, navigate to the folder with `cd` and run:
 
 ```
@@ -36,9 +40,8 @@ Error #5: Custom script file import failed. Check the file name you input. Name 
 
 # Planned improvements
 
-- Choosing target file format.
-- Change Pikmin comic naming format to "Pikmin4 comic 1 panel 1".
+- Choosing target file format for the images.
 
 # Updating newest comic numbers
 
-If new comics have been released for supported comics, update the number in `generate_image_list()` function in main.py.
+If new comics have been released for supported comics, update the number in the main function in main.py.
