@@ -116,6 +116,8 @@ if __name__ == '__main__':
     first_comic = 1
     last_comic = 9999
     comic_name_format = ''
+    settings_choice = 9999
+    times_asked = 2
 
     print(style.GREEN + "Welcome!" + style.RESET + " What comic do you want to download?")
     print("1. Pikmin 4 promotional comic")
@@ -142,46 +144,40 @@ if __name__ == '__main__':
             print(style.RED + "Error #1: Invalid input." + style.RESET)
             exit()
 
-    # Ask if user wants custom settings
-    settings_choice = input("\nDo you want to use default download settings? Y/n: ")
-    if settings_choice == "Y" or settings_choice == "y":
-        print("Using default settings...")
-        settings_choice = "default settings"
-    elif settings_choice == "N" or settings_choice == "n":
-        print("Let's configure custom settings:")
-        settings_choice = "custom settings"
-    else:
-        print(style.RED + "Error #1: Invalid input." + style.RESET)
+    # Settings choices
+    while not settings_choice == "1":
+        print("\nDo you want to change any settings?")
+        if not times_asked == 1:
+            print("1. Use default settings and continue. (Recommended)")
+            times_asked = 1
+        else:
+            print("1. All done, continue to link list creation")
+        print("2. Change image file naming format")
+        print("3. Download comics from a certain range (for example, from comics #23 to #41)")
+        print("0. Use existing image list")
+        settings_choice = input("\nType number of your choice: ")
+        
+        match settings_choice:
+            case "1":
+                generate_image_list(comic_choice, first_comic, last_comic)
+                download_images(comic_choice, first_comic, comic_name_format)
 
-    match settings_choice:
-        case "default settings":
-            generate_image_list(comic_choice, first_comic, last_comic)
-            download_images(comic_choice, first_comic, comic_name_format)
+            case "2":
+                comic_name_format = str(input("Type name: "))
 
-        case "custom settings":
-            # Use existing list
-            use_ready_list = input("Do you want to use existing image list and start download now? Y/n: ")
-            if(use_ready_list == "Y" or use_ready_list == "y"):
+            case "3":
+                first_comic = int(input("Type the first comic number to download: "))
+                print(str(first_comic))
+                last_comic = int(input("Type the last comic number to download: "))
+                print(str(last_comic))
+
+            case "0":
                 if os.path.exists("imagelist.txt"):
                     download_images(comic_choice, first_comic, comic_name_format)
                     print(style.RESET + "Closing program...")
                     exit()
                 else:
                     print(style.RED + "Error #2: imagelist.txt not found." + style.RESET)
-                    exit()
 
-            # Use custom comic name
-            use_custom_name = input("Do you want to use custom naming for downloaded images? Y/n: ")
-            if(use_custom_name == "Y" or use_custom_name == "y"):
-                comic_name_format = str(input("Type name: "))
-
-            # Use download only from x to y comic number
-            use_custom_amount = input("Do you want to download comics from a certain range (for example, from comics #23 to #41? Y/n: ")
-            if(use_custom_amount == "Y" or use_custom_amount == "y"):
-                first_comic = int(input("Type the first comic number to download: "))
-                print(str(first_comic))
-                last_comic = int(input("Type the last comic number to download: "))
-                print(str(last_comic))
-            
-            generate_image_list(comic_choice, first_comic, last_comic)
-            download_images(comic_choice, first_comic, comic_name_format)
+            case _:
+                print(style.RED + "Error #1: Invalid input. Try again and only input a number and press Enter." + style.RESET)
