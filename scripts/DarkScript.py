@@ -1,3 +1,5 @@
+import os
+
 # This script writes links for Dark Legacy Comics
 
 def write_links(comic_number: int):
@@ -13,12 +15,33 @@ def write_links(comic_number: int):
         
     nf.close()
 
-def download_extras():
+def download_extras(comic_number: int, list_created: int):
     multi_panel_comics = [186, 209, 370, 416, 465, 467, 471, 477]
     gif_comics = [773, 777, 792, 793, 803, 806, 818, 819, 821, 840, 843, 844, 854, 868, 876]
 
-    if 370 in multi_panel_comics:
-        print("Found 1")
+    if list_created == 0:
+        # Delete existing text file to prevent mistakes in writing to file
+        if os.path.exists("imagelist-extras.txt"):
+            os.remove("imagelist-extras.txt")
+        
+        # Create new text file
+        if not os.path.exists("imagelist-extras.txt"):
+            nf = open("imagelist-extras.txt", "w")
+            nf.close()
 
-    if 818 in gif_comics:
-        print("Found 2")
+    nf = open("imagelist-extras.txt", "a")
+
+    # Compare comic number to arrays to determine which type it is, then write to the extra link list
+    if comic_number in multi_panel_comics:
+        nf.write("https://www.darklegacycomics.com/comics/" + str(comic_number) + "_1" + ".jpg")
+        nf.write("\n")
+        nf.write("https://www.darklegacycomics.com/comics/" + str(comic_number) + "_2" + ".jpg")
+        nf.write("\n")
+        nf.close()
+        return "twopart"
+
+    elif comic_number in gif_comics:
+        nf.write("https://www.darklegacycomics.com/comics/" + str(comic_number) + ".gif")
+        nf.write("\n")
+        nf.close()
+        return "gif"

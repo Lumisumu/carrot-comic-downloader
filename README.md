@@ -16,7 +16,7 @@ Windows: open command line, navigate to the folder with `cd` and run:
 python main.py
 ```
 
-Follow instructions. Images are saved into "comics" folder.
+Follow instructions. Images are saved into output-folder.
 
 Custom settings include using existing image link list, custom naming format and specifying the range of downloaded comics.
 
@@ -40,8 +40,7 @@ Error #5: Custom script file import failed. Check the file name you input. Name 
 
 # Planned improvements
 
-- Choosing target file format for the images.
-- Make extra script for DLC to download 2-part comics and gif comics.
+- Clean and refactor code.
 
 # Updating newest comic numbers
 
