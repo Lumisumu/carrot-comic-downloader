@@ -35,7 +35,16 @@ def generate_image_list(comic: str, first: int, last: int):
             exit()
         else:
             module = importlib.import_module(script_name)
-            module.write_links()
+            # Determine start and finish comic numbers
+            if(first != 1):
+                i = first
+            else:
+                i = 1
+
+            # Loop to write links in order
+            while i <= last:
+                module.write_links(i)
+                i += 1
 
     else:
         # Determine start and finish comic numbers
@@ -63,8 +72,6 @@ def download_images(comic: str, current_page: int, name_format: str, file_format
     current_extra = 0
     extra_type = 'twopart'
     two_part = 1
-
-    print("HELLO " + str(current_page))
     
     # Create comic folder if it does not exist
     if not os.path.exists(target_folder):
