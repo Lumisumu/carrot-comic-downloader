@@ -1,6 +1,6 @@
 # Carrot Comic Downloader 1.3
 
-Python program for downloading webcomics and converting them into PNG file format. It supports importing your own script, but it also has automated support for Pikmin 4 promo comics and Dark Legacy Comics. More supported comics are planned.
+Python program for downloading webcomics and converting them into PNG file format. It supports importing your own script, but it also has automated support for Pikmin 4 promo comics and Dark Legacy Comics.
 
 Originally project was started because I needed a convenient way to download all Pikmin 4 promotional comics and convert them from AVIF to PNG.
 

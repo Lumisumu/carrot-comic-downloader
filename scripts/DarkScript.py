@@ -1,6 +1,6 @@
 import os
 
-# This script writes links for Dark Legacy Comics
+# This writes links for Dark Legacy Comics
 
 def write_links(comic_number: int):
 

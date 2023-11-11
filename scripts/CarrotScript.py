@@ -1,4 +1,4 @@
-# This script writes links for Pikmin 4 promotional comic
+# This writes links for Pikmin 4 promotional comic
 
 def write_links(comic_number: int):
 

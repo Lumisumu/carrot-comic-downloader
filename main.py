@@ -46,9 +46,9 @@ def generate_image_list(comic: str, first: int, last: int):
 
         # Loop to write links in order
         while i <= last:
-            if(comic == "Pikmin 4 comic"):
+            if comic == "Pikmin 4 comic":
                 carrot.write_links(i)
-            elif(comic == "DLC"):
+            elif comic == "DLC":
                 dark.write_links(i)
             i += 1
 
