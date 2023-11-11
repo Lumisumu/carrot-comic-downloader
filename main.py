@@ -56,9 +56,8 @@ def generate_image_list(comic: str, first: int, last: int):
 def download_images(comic: str, current_page: int, name_format: str, file_format: str):
 
     target_folder = 'output/'
-    image_name = name_format
+    image_name = name_format + str(" ")
     panel_number = 1
-    image_name += str(" ")
     extras_list_created = 0
     extra_comics = []
     current_extra = 0
