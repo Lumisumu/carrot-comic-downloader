@@ -41,6 +41,8 @@ Error #5: Custom script file import failed. Check the file name you input. Name 
 # Planned improvements
 
 - Clean and refactor code.
+- Fix Pik4 comic naming.
+- Fix DLC extra comic downloading.
 
 # Updating newest comic numbers
 
