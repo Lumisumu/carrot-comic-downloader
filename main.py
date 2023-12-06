@@ -93,11 +93,13 @@ def download_images(comic: str, current_page: int, name_format: str, file_format
                 file_name = image_name + str(current_page) + " panel " + str(panel_number) + file_format
                 if panel_number == 5:
                     panel_number = 1
+                    current_page += 1
                 else:
                     panel_number += 1
-
+                
             else:
                 file_name = image_name + str(current_page) + file_format
+                current_page += 1
 
             if image_link.status_code == 200:
                 # Save image to the folder
@@ -113,8 +115,6 @@ def download_images(comic: str, current_page: int, name_format: str, file_format
                     extra_comics.append(current_page)
                 else:
                     print(style.RED + 'Error #4: No image at url, skipping "' + file_name + '": ' + x.rstrip() + style.RESET)
-
-            current_page += 1
 
             # Wait time between downloads
             time.sleep(3)
@@ -171,6 +171,7 @@ if __name__ == '__main__':
     settings_choice = 9999
     times_asked = 2
     file_format = ".png"
+    
 
     print(style.GREEN + "Welcome!" + style.RESET + " What comic do you want to download?")
     print("1. Pikmin 4 promotional comic")
@@ -182,12 +183,12 @@ if __name__ == '__main__':
         case "1":
             comic_choice = "Pikmin 4 comic"
             comic_name_format = "Pikmin 4 comic"
-            last_comic = 69
+            last_comic = 78
 
         case "2":
             comic_choice = "DLC"
             comic_name_format = "DLC"
-            last_comic = 882
+            last_comic = 884
 
         case "0":
             comic_choice = "Custom"
