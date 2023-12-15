@@ -26,6 +26,11 @@ def generate_image_list(comic: str, first: int, last: int):
         nf = open("imagelist.txt", "w")
         nf.close()
 
+    if comic == "Pikmin 4 comic" and first >= 19:
+        first += 1
+    if comic == "Pikmin 4 comic" and first >= 37:
+        first += 1
+
     if(comic == "Custom"):
         script_name = input("Enter the name of the Python script (without .py file extension): ")
 
@@ -117,7 +122,7 @@ def download_images(comic: str, current_page: int, name_format: str, file_format
                     print(style.RED + 'Error #4: No image at url, skipping "' + file_name + '": ' + x.rstrip() + style.RESET)
 
             # Wait time between downloads
-            time.sleep(3)
+            time.sleep(6)
 
     else:
         print(style.RED + "Error #2: imagelist.txt not found.\n" + style.RESET)
@@ -183,12 +188,12 @@ if __name__ == '__main__':
         case "1":
             comic_choice = "Pikmin 4 comic"
             comic_name_format = "Pikmin 4 comic"
-            last_comic = 78
+            last_comic = 81
 
         case "2":
             comic_choice = "DLC"
             comic_name_format = "DLC"
-            last_comic = 884
+            last_comic = 885
 
         case "0":
             comic_choice = "Custom"
