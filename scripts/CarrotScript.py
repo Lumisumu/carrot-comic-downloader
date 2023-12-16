@@ -5,10 +5,8 @@ def write_links(comic_number: int):
     nf = open("imagelist.txt", "a")
 
     # Url format for the images has changed multiple times, this part determines which url format to use and writes the link correctly
-    if comic_number == 19 or comic_number == 37:
-        print("Skipping unused comic number #" + str(comic_number) + ". This is normal and not an error. No comic can be found at this number.")
 
-    elif comic_number == 5:
+    if comic_number == 5:
         i = 1
         while i < 6:
             nf.write("https://assets.nintendo.com/image/upload/w_600,f_auto,q_auto/v1686932568/Microsites/PIKMIN-Portal/comics/00" + str(comic_number) + "/pikmin-comic-00" + str(comic_number) + "_0" + str(i))

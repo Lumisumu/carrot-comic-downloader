@@ -26,11 +26,6 @@ def generate_image_list(comic: str, first: int, last: int):
         nf = open("imagelist.txt", "w")
         nf.close()
 
-    if comic == "Pikmin 4 comic" and first >= 19:
-        first += 1
-    if comic == "Pikmin 4 comic" and first >= 37:
-        first += 1
-
     if(comic == "Custom"):
         script_name = input("Enter the name of the Python script (without .py file extension): ")
 
@@ -61,7 +56,10 @@ def generate_image_list(comic: str, first: int, last: int):
         # Loop to write links in order
         while i <= last:
             if comic == "Pikmin 4 comic":
-                carrot.write_links(i)
+                if i == 19 or i == 37:
+                    print("Skipping unused comic number #" + str(i) + ". This is normal and not an error. No comic can be found at this number.")
+                else:
+                    carrot.write_links(i)
             elif comic == "DLC":
                 dark.write_links(i)
             i += 1
@@ -110,7 +108,7 @@ def download_images(comic: str, current_page: int, name_format: str, file_format
                 # Save image to the folder
                 with open(f'{target_folder}{file_name}', 'wb') as file:
                     file.write(image_link.content)
-                    print(style.GREEN + f'Image download #' + str(current_page) + ' finished with file name ' + file_name + '.' + style.RESET)
+                    print(style.GREEN + f'Comic download #' + str(current_page) + ' created an image with file name ' + file_name + '.' + style.RESET)
 
             elif image_link.status_code == 404:
                 if comic == "DLC":
@@ -122,7 +120,7 @@ def download_images(comic: str, current_page: int, name_format: str, file_format
                     print(style.RED + 'Error #4: No image at url, skipping "' + file_name + '": ' + x.rstrip() + style.RESET)
 
             # Wait time between downloads
-            time.sleep(6)
+            time.sleep(3)
 
     else:
         print(style.RED + "Error #2: imagelist.txt not found.\n" + style.RESET)
@@ -188,7 +186,7 @@ if __name__ == '__main__':
         case "1":
             comic_choice = "Pikmin 4 comic"
             comic_name_format = "Pikmin 4 comic"
-            last_comic = 81
+            last_comic = 82
 
         case "2":
             comic_choice = "DLC"
