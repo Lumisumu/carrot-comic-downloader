@@ -191,7 +191,7 @@ if __name__ == '__main__':
         case "2":
             comic_choice = "DLC"
             comic_name_format = "DLC"
-            last_comic = 885
+            last_comic = 886
 
         case "0":
             comic_choice = "Custom"
