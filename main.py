@@ -75,6 +75,8 @@ def download_images(comic: str, current_page: int, name_format: str, file_format
     current_extra = 0
     extra_type = 'twopart'
     two_part = 1
+    multi_panel_comics = [186, 209, 370, 416, 465, 467, 471, 477]
+    gif_comics = [773, 777, 792, 793, 803, 806, 818, 819, 821, 840, 843, 844, 854, 868, 876]
     
     # Create comic folder if it does not exist
     if not os.path.exists(target_folder):
@@ -99,6 +101,20 @@ def download_images(comic: str, current_page: int, name_format: str, file_format
                     current_page += 1
                 else:
                     panel_number += 1
+
+            elif comic == "DLC" and current_page in multi_panel_comics:
+                print(style.YELLOW + "Non-standard Dark Legacy Comic reached, downloading the comic in two parts..." + style.RESET)
+                file_name = image_name + str(current_page) + " panel " + str(panel_number) + file_format
+                if panel_number == 2:
+                    panel_number = 1
+                    current_page += 1
+                else:
+                    panel_number += 1
+
+            elif comic == "DLC" and current_page in gif_comics:
+                print(style.YELLOW + "Non-standard Dark Legacy Comic reached, downloading the comic in gif format..." + style.RESET)
+                file_name = image_name + str(current_page) + ".gif"
+                current_page += 1
                 
             else:
                 file_name = image_name + str(current_page) + file_format
@@ -108,16 +124,10 @@ def download_images(comic: str, current_page: int, name_format: str, file_format
                 # Save image to the folder
                 with open(f'{target_folder}{file_name}', 'wb') as file:
                     file.write(image_link.content)
-                    print(style.GREEN + f'Comic download #' + str(current_page) + ' created an image with file name ' + file_name + '.' + style.RESET)
+                    print(style.GREEN + f'Comic download created an image with file name ' + file_name + '.' + style.RESET)
 
             elif image_link.status_code == 404:
-                if comic == "DLC":
-                    print(style.YELLOW + "Non-standard Dark Legacy Comic reached, using alternative function to download. This is normal and not an error. Comic is now downloaded in corrected format..." + style.RESET)
-                    extra_type = dark.download_extras(current_page, extras_list_created)
-                    extras_list_created = 1
-                    extra_comics.append(current_page)
-                else:
-                    print(style.RED + 'Error #4: No image at url, skipping "' + file_name + '": ' + x.rstrip() + style.RESET)
+                print(style.RED + 'Error #4: No image at url, skipping "' + file_name + '": ' + x.rstrip() + style.RESET)
 
             # Wait time between downloads
             time.sleep(3)
@@ -125,40 +135,7 @@ def download_images(comic: str, current_page: int, name_format: str, file_format
     else:
         print(style.RED + "Error #2: imagelist.txt not found.\n" + style.RESET)
     
-    # DLC comic extra downloads for 2-part comics and gif comics
-    if os.path.exists("imagelist-extras.txt") and extras_list_created == 1:
-        # Open text file
-        f = open("imagelist-extras.txt", "r")
-        
-        for x in f:
-            # Name for next download
-            image_link = rq.get(x.rstrip())
-
-            if extra_type == "twopart" and two_part == 1:
-                file_name = image_name + str(extra_comics[current_extra]) + '_1' + file_format
-                two_part = 2
-
-            elif extra_type == "twopart" and two_part == 2:
-                file_name = image_name + str(extra_comics[current_extra]) + '_2' + file_format
-                two_part = 1
-                current_extra += 1
-
-            elif extra_type == "gif":
-                file_name = image_name + str(extra_comics[current_extra]) + ".gif"
-                current_extra += 1
-
-            if image_link.status_code == 200:
-                # Save image to the folder
-                with open(f'{target_folder}{file_name}', 'wb') as file:
-                    file.write(image_link.content)
-                    print(style.GREEN + f'Image download #' + str(current_extra) + ' finished.' + style.RESET)
-
-            elif image_link.status_code == 404:
-                print(style.RED + 'Error #4: No image at url, skipping "' + file_name + '": ' + x.rstrip() + style.RESET)
-
-            current_page += 1
-
-        f.close()
+    
     
     print(style.RESET + 'Download complete, images are in the output-folder.')
 
