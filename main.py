@@ -135,8 +135,6 @@ def download_images(comic: str, current_page: int, name_format: str, file_format
     else:
         print(style.RED + "Error #2: imagelist.txt not found.\n" + style.RESET)
     
-    
-    
     print(style.RESET + 'Download complete, images are in the output-folder.')
 
 
