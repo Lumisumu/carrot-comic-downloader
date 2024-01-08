@@ -161,12 +161,12 @@ if __name__ == '__main__':
         case "1":
             comic_choice = "Pikmin 4 comic"
             comic_name_format = "Pikmin 4 comic"
-            last_comic = 89
+            last_comic = 90
 
         case "2":
             comic_choice = "DLC"
             comic_name_format = "DLC"
-            last_comic = 887
+            last_comic = 888
 
         case "0":
             comic_choice = "Custom"
