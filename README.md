@@ -1,4 +1,4 @@
-# Carrot Comic Downloader 2.0
+# Carrot Comic Downloader
 
 Download webcomics in an easy and customizable way.
 
