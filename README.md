@@ -4,7 +4,7 @@ Download webcomics in an easy and customizable way.
 
 Originally project was started because I needed a convenient way to download all Pikmin 4 promotional comics and save them as png instead of avif. Project was then expanded with support for Dark Legacy Comics and also for using custom scripts.
 
-# How to use
+## How to use
 
 Download this repository.
 
@@ -26,7 +26,7 @@ Required files: You only need main.py and one script to run the program. Scripts
 
 Custom script must be placed at the root of the project (same folder where main.py file is) and it's name must be "CustomScript". Repository includes a sample custom script you can edit. Your file must have `write_links()` function where custom script code starts. You can take examples for files that are in scripts folder.
 
-# Errors
+## Errors
 
 Error #1: Invalid input: only use "1" or "2", do not use "." or "#". Simply enter a number and press Enter.
 
@@ -40,10 +40,10 @@ Error #5: Custom script file import failed. Check the file name you input. Name 
 
 If downloading fails with multiple Python error messages, you have a bad connection. Try connecting to a more stable network.
 
-# Planned improvements
+## Planned improvements
 
 - Clean and refactor code.
 
-# Updating newest comic numbers
+## Updating newest comic numbers
 
 If new comics have been released for supported comics, update the number in the main function in main.py.
