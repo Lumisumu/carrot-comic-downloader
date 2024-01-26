@@ -99,6 +99,9 @@ def download_images(comic: str, current_page: int, name_format: str, file_format
                 if panel_number == 5:
                     panel_number = 1
                     current_page += 1
+                    # Unused comic numbers are not used, they are skipped
+                    if current_page == 19 or current_page == 37 or current_page == 91:
+                        current_page += 1
                 else:
                     panel_number += 1
 
@@ -161,12 +164,12 @@ if __name__ == '__main__':
         case "1":
             comic_choice = "Pikmin 4 comic"
             comic_name_format = "Pikmin 4 comic"
-            last_comic = 90
+            last_comic = 99
 
         case "2":
             comic_choice = "DLC"
             comic_name_format = "DLC"
-            last_comic = 888
+            last_comic = 890
 
         case "0":
             comic_choice = "Custom"
