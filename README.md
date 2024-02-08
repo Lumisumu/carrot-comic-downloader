@@ -20,6 +20,8 @@ Follow instructions. Images are saved into "output" folder.
 
 Custom settings include using existing image link list, custom naming format, changing resulting file type and specifying the range of downloaded comics. Default file type for downloaded images is png.
 
+If you want to download only one certain comic, use custom download option number 3 and type the comic you want for both first and last comic number.
+
 If you want to change wait time between downloads, change amount of seconds in this line (1 at minimum is recommended): `time.sleep(3)`
 
 Required files: You only need main.py and one script to run the program. Scripts folder has premade download scripts if you do not want to write you own. You need at least one working script to successfully download images.
