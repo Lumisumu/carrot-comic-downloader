@@ -10,7 +10,7 @@ Download this repository.
 
 Install Python 3: https://www.python.org/
 
-Windows: open command-line and navigate to the folder with this project with `cd`, run:
+Windows: open cmd and navigate to the folder with this project with `cd`, run:
 
 ```
 python main.py
