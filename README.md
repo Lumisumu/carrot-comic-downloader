@@ -20,13 +20,13 @@ Follow instructions. Images are saved into "output" folder.
 
 Custom settings include using existing image link list, custom naming format, changing resulting file type and specifying the range of downloaded comics. Default file type for downloaded images is png.
 
-If you want to download only one certain comic, use custom download option number 3 and type the comic you want for both first and last comic number.
+If you want to download only one specific comic, use custom download option number 3 and type the comic you want as both first and last comic number.
 
 If you want to change wait time between downloads, change amount of seconds in this line (1 at minimum is recommended): `time.sleep(3)`
 
 Required files: You only need main.py and one script to run the program. Scripts folder has premade download scripts if you do not want to write you own. You need at least one working script to successfully download images.
 
-Custom script must be placed at the root of the project (same folder where main.py file is) and it's name must be "CustomScript". Repository includes a sample custom script you can edit. Your file must have `write_links()` function where custom script code starts. You can take examples for files that are in scripts folder.
+If you want to use a custom script, it must be placed at the root of the project (same folder where main.py file is). Repository includes a sample custom script you can edit. Your file must have `write_links()` function where custom script code starts. You can use CustomScript.py as a template.
 
 ## Errors
 
@@ -38,7 +38,7 @@ Error #3: Writing to text file has been prevented: check if something is blockin
 
 Error #4: Url does not direct to image or image can't be accessed. This can be caused by bad connection, connection blocking or image only being available for verified users. Check the url by copy-pasting it to a fresh browser.
 
-Error #5: Custom script file import failed. Check the file name you input. Name must be written without ".py" and without quotation marks.
+Error #5: Custom script file import failed. Check the file name you input. Name must be written without ".py" and without quotation marks. Check that your custom script is in project root folder.
 
 If downloading fails with multiple Python error messages, you have a bad connection. Try connecting to a more stable network.
 
@@ -48,4 +48,4 @@ If downloading fails with multiple Python error messages, you have a bad connect
 
 ## Updating newest comic numbers
 
-If new comics have been released for supported comics, update the number in the main function in main.py.
+If new comics have been released for supported comics, update the number in the main function in main.py. You can see the comic number in the url if you open the image in a browser tab.
