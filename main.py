@@ -161,10 +161,11 @@ if __name__ == '__main__':
     file_format = ".png"
     
     # Comic choice
-    print(style.GREEN + "Welcome!" + style.RESET + " What comic do you want to download?")
-    print("1. Pikmin 4 promotional comic")
-    print("2. Dark Legacy Comic")
-    print("0. Use custom script")
+    print(style.GREEN + '''\nWelcome!''' + style.RESET + 
+''' What comic do you want to download?
+    1. Pikmin 4 promotional comic
+    2. Dark Legacy Comic
+    0. Use custom script''')
 
     while True:
         comic_choice = input("Type number of your choice: ")
@@ -176,12 +177,13 @@ if __name__ == '__main__':
             print(style.RED + "Error #1: Invalid input." + style.RESET)
 
     # Settings choice
-    print("\nDo you want to change any settings?")
-    print("1. All done, continue to link list creation")
-    print("2. Change image file naming format")
-    print("3. Download comics from a certain range (for example, from comics #23 to #41)")
-    print('4. Change filename extension (default is ".png")')
-    print("0. Use existing image list")
+    print('''
+Do you want to change any settings?
+    1. All done, continue to link list creation
+    2. Change image file naming format
+    3. Download comics from a certain range (for example, from comics #23 to #41)
+    4. Change filename extension (default is ".png")
+    0. Use existing image list''')
 
     while True:
         settings_choice = input("Type number of your choice: ")
