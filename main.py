@@ -146,7 +146,7 @@ if __name__ == '__main__':
     # System call for colored printed text use in command prompt
     os.system("")
 
-    #Comic default options, update newest comic number here
+    # Comic default options, update newest comic number here
     comics = {
     "1": ("Pikmin 4 comic", "Pikmin 4 comic" , 115),
     "2": ("DLC", "DLC", 895),
@@ -160,6 +160,7 @@ if __name__ == '__main__':
     times_asked = 2
     file_format = ".png"
     
+    # Comic choice
     print(style.GREEN + "Welcome!" + style.RESET + " What comic do you want to download?")
     print("1. Pikmin 4 promotional comic")
     print("2. Dark Legacy Comic")
@@ -174,24 +175,22 @@ if __name__ == '__main__':
         else:
             print(style.RED + "Error #1: Invalid input." + style.RESET)
 
-    # Settings choices
-    while not settings_choice == "1":
-        print("\nDo you want to change any settings?")
-        if not times_asked == 1:
-            print("1. Use default settings and continue. (Recommended)")
-            times_asked = 1
-        else:
-            print("1. All done, continue to link list creation")
-        print("2. Change image file naming format")
-        print("3. Download comics from a certain range (for example, from comics #23 to #41)")
-        print('4. Change filename extension (default is ".png")')
-        print("0. Use existing image list")
-        settings_choice = input("\nType number of your choice: ")
+    # Settings choice
+    print("\nDo you want to change any settings?")
+    print("1. All done, continue to link list creation")
+    print("2. Change image file naming format")
+    print("3. Download comics from a certain range (for example, from comics #23 to #41)")
+    print('4. Change filename extension (default is ".png")')
+    print("0. Use existing image list")
+
+    while True:
+        settings_choice = input("Type number of your choice: ")
         
         match settings_choice:
             case "1":
                 generate_image_list(comic_choice, first_comic, last_comic)
                 download_images(comic_choice, first_comic, comic_name_format, file_format)
+                break
 
             case "2":
                 comic_name_format = str(input("Type name: "))
@@ -215,4 +214,4 @@ if __name__ == '__main__':
                     print(style.RED + "Error #2: imagelist.txt not found." + style.RESET)
 
             case _:
-                print(style.RED + "Error #1: Invalid input. Try again and only input a number and press Enter." + style.RESET)
+                print(style.RED + "Error #1: Invalid input." + style.RESET)
