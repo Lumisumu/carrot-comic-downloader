@@ -146,6 +146,13 @@ if __name__ == '__main__':
     # System call for colored printed text use in command prompt
     os.system("")
 
+    #Comic default options, update newest comic number here
+    comics = {
+    "1": ("Pikmin 4 comic", "Pikmin 4 comic" , 115),
+    "2": ("DLC", "DLC", 895),
+    "0": ("Custom", "Custom comic", None)
+    }
+
     first_comic = 1
     last_comic = 9999
     comic_name_format = ''
@@ -153,31 +160,19 @@ if __name__ == '__main__':
     times_asked = 2
     file_format = ".png"
     
-
     print(style.GREEN + "Welcome!" + style.RESET + " What comic do you want to download?")
     print("1. Pikmin 4 promotional comic")
     print("2. Dark Legacy Comic")
     print("0. Use custom script")
-    comic_choice = input("Type number of your choice: ")
 
-    match comic_choice:
-        case "1":
-            comic_choice = "Pikmin 4 comic"
-            comic_name_format = "Pikmin 4 comic"
-            last_comic = 115
+    while True:
+        comic_choice = input("Type number of your choice: ")
 
-        case "2":
-            comic_choice = "DLC"
-            comic_name_format = "DLC"
-            last_comic = 895
-
-        case "0":
-            comic_choice = "Custom"
-            comic_name_format = "Custom comic "
-
-        case _:
+        if comic_choice in comics:
+            comic_choice, comic_name_format, last_comic = comics[comic_choice]
+            break
+        else:
             print(style.RED + "Error #1: Invalid input." + style.RESET)
-            exit()
 
     # Settings choices
     while not settings_choice == "1":
