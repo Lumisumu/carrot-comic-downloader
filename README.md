@@ -48,4 +48,4 @@ If downloading fails with multiple Python error messages, you have a bad connect
 
 ## Updating newest comic numbers
 
-If new comics have been released for supported comics, update the number in the main function in main.py. You can see the comic number in the url if you open the image in a browser tab.
+If new comics have been released for supported comics, update the number in the "comics" dictionary in main.py. You can see the comic number in the url if you open the image in a browser tab.
