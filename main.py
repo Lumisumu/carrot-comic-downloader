@@ -168,7 +168,7 @@ if __name__ == '__main__':
     0. Use custom script''')
 
     while True:
-        comic_choice = input("Type number of your choice: ")
+        comic_choice = input("Choose action by typing the number: ")
 
         if comic_choice in comics:
             comic_choice, comic_name_format, last_comic = comics[comic_choice]
@@ -186,7 +186,7 @@ Do you want to change any settings?
     0. Use existing image list''')
 
     while True:
-        settings_choice = input("Type number of your choice: ")
+        settings_choice = input("Choose action by typing the number: ")
         
         match settings_choice:
             case "1":
@@ -199,9 +199,7 @@ Do you want to change any settings?
 
             case "3":
                 first_comic = int(input("Type the first comic number to download: "))
-                print(str(first_comic))
                 last_comic = int(input("Type the last comic number to download: "))
-                print(str(last_comic))
 
             case "4":
                 print(style.YELLOW + '\nNote! Some file extension formats may not work or may produce unexpected results. Check the first generated images in output-folder when download starts to confirm you are receiving working image files.' + style.RESET)
