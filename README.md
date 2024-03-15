@@ -22,6 +22,20 @@ python main.py
 
 Follow instructions. Images are saved into "output" folder.
 
+## Build executable
+
+Install PyInstaller with pip:
+
+```
+pip install pyinstaller
+```
+
+Run in project folder:
+
+```
+pyinstaller main.py --onefile
+```
+
 ## Tips
 
 Custom settings include using existing image link list, custom naming format, changing resulting file type and specifying the range of downloaded comics. Default file type for downloaded images is png.
