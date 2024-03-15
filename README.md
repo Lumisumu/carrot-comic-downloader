@@ -6,17 +6,23 @@ Originally project was started because I needed a convenient way to download all
 
 ## How to use
 
-Download this repository.
+Install Python 3 and pip: https://www.python.org/.
 
-Install Python 3: https://www.python.org/
+Install "requests" module with pip:
 
-Windows: open cmd and navigate to the folder with this project with and run:
+```
+pip install requests
+```
+
+Navigate to the project folder and run main.py:
 
 ```
 python main.py
 ```
 
 Follow instructions. Images are saved into "output" folder.
+
+## Tips
 
 Custom settings include using existing image link list, custom naming format, changing resulting file type and specifying the range of downloaded comics. Default file type for downloaded images is png.
 
