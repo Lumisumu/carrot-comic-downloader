@@ -68,7 +68,6 @@ def download_images(comic: str, current_page: int, name_format: str, file_format
     extras_list_created = 0
     extra_comics = []
     current_extra = 0
-    extra_type = 'twopart'
     two_part = 1
     multi_panel_comics = [186, 209, 370, 416, 465, 467, 471, 477]
     gif_comics = [773, 777, 792, 793, 803, 806, 818, 819, 821, 840, 843, 844, 854, 868, 876]
