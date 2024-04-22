@@ -1,5 +1,3 @@
-import os
-
 # This writes links for Dark Legacy Comics
 
 def write_links(comic_number: int):

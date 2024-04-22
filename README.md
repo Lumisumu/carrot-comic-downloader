@@ -49,7 +49,7 @@ pip install pyinstaller
 Run in project folder:
 
 ```
-pyinstaller --icon=carrot-icon.ico main.py --onefile
+pyinstaller --icon=resources/carrot-icon.ico main.py --onefile
 ```
 
 ## Errors

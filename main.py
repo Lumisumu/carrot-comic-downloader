@@ -4,8 +4,9 @@ import time
 import importlib
 from importlib import util
 
-import scripts.CarrotScript as carrot
-import scripts.DarkScript as dark
+import resources.script_carrot as carrot
+import resources.script_dark as dark
+import resources.script_custom as custom
 
 # Printed text colors
 class style():
@@ -26,26 +27,20 @@ def generate_image_list(comic: str, first: int, last: int):
         nf = open("imagelist.txt", "w")
         nf.close()
 
+    # Use script file meant for customized list creation
     if(comic == "Custom"):
-        script_name = input("Enter the name of the Python script (without .py file extension): ")
-
-        find_script = util.find_spec(script_name)
-        if find_script is None:
-            print(style.RED + "Error #5: Custom file import failed. Check spelling.\n" + style.RESET)
-            exit()
+        # Determine start and finish comic numbers
+        if(first != 1):
+            i = first
         else:
-            module = importlib.import_module(script_name)
-            # Determine start and finish comic numbers
-            if(first != 1):
-                i = first
-            else:
-                i = 1
+            i = 1
 
-            # Loop to write links in order
-            while i <= last:
-                module.write_links(i)
-                i += 1
+        # Loop to write links in order
+        while i <= last:
+            custom.write_links(i)
+            i += 1
 
+    # Use included, ready scripts
     else:
         # Determine start and finish comic numbers
         if(first != 1):
