@@ -140,10 +140,25 @@ if __name__ == '__main__':
     # System call for colored printed text use in command prompt
     os.system("")
 
-    # Comic default options, update newest comic number here
+    # Get the number of most recent comic from text file
+    with open('comics.txt', 'r') as file:
+        Pikmin_newest = 0
+        DLC_newest = 0
+   
+        # Loop through lines in txt file
+        for line in file:
+            # Split text line into comic name and number
+            comic, newest_number = line.strip().split()
+            
+            if comic == 'Pikmin4':
+                Pikmin_newest += int(newest_number)
+            elif comic == 'DLC':
+                DLC_newest += int(newest_number)
+
+    # Comic default options
     comics = {
-    "1": ("Pikmin 4 comic", "Pikmin 4 comic" , 145),
-    "2": ("DLC", "DLC", 902),
+    "1": ("Pikmin 4 comic", "Pikmin 4 comic" , Pikmin_newest),
+    "2": ("DLC", "DLC", DLC_newest),
     "0": ("Custom", "Custom comic", None)
     }
 
