@@ -142,8 +142,8 @@ if __name__ == '__main__':
 
     # Comic default options, update newest comic number here
     comics = {
-    "1": ("Pikmin 4 comic", "Pikmin 4 comic" , 141),
-    "2": ("DLC", "DLC", 901),
+    "1": ("Pikmin 4 comic", "Pikmin 4 comic" , 145),
+    "2": ("DLC", "DLC", 902),
     "0": ("Custom", "Custom comic", None)
     }
 
