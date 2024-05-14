@@ -1,236 +1,172 @@
-import requests as rq
-import os
-import time
-import importlib
-from importlib import util
+import tkinter as tk
+from tkinter import ttk
+from PIL import Image, ImageTk
+import threading as th
 
-import resources.script_carrot as carrot
-import resources.script_dark as dark
-import resources.script_custom as custom
+def resize_image(event):
+    global resized_tk
 
-# Printed text colors
-class style():
-    RED = '\033[31m'
-    GREEN = '\033[32m'
-    YELLOW = '\033[33m'
-    RESET = '\033[0m'
-
-
-def generate_image_list(comic: str, first: int, last: int):
-
-    # Delete existing text file to prevent mistakes in writing to file
-    if os.path.exists("imagelist.txt"):
-        os.remove("imagelist.txt")
+    # Get canvas ratio
+    canvas_ratio = event.width / event.height
     
-    # Create new text file
-    if not os.path.exists("imagelist.txt"):
-        nf = open("imagelist.txt", "w")
-        nf.close()
-
-    # Use script file meant for customized list creation
-    if(comic == "Custom"):
-        # Determine start and finish comic numbers
-        if(first != 1):
-            i = first
-        else:
-            i = 1
-
-        # Loop to write links in order
-        while i <= last:
-            custom.write_links(i)
-            i += 1
-
-    # Use included, ready scripts
+    # Check if the canvas is wider than the image
+    if canvas_ratio > image_ratio:
+        width = int(event.width)
+        height = int(width / image_ratio)
     else:
-        # Determine start and finish comic numbers
-        if(first != 1):
-            i = first
-        else:
-            i = 1
+        height = int(event.height)
+        width = int(height * image_ratio)
 
-        # Loop to write links in order
-        while i <= last:
-            if comic == "Pikmin 4 comic":
-                if i == 19 or i == 37 or i == 91:
-                    print("Skipping unused comic number #" + str(i) + ". This is normal and not an error. No comic can be found at this number.")
-                else:
-                    carrot.write_links(i)
-            elif comic == "DLC":
-                dark.write_links(i)
-            i += 1
+    # Resize
+    resized_image = image_original.resize((width, height))
+    resized_tk = ImageTk.PhotoImage(resized_image)
+    canvas.create_image(int(event.width / 2), int(event.height / 2), anchor="center", image=resized_tk)
 
+def choose_code_color():
+    global code_color
+    code_color = colorchooser.askcolor()[0]
+    print(code_color)
 
-def download_images(comic: str, current_page: int, name_format: str, file_format: str):
+def choose_custom_option():
+    print("Custom option.")
 
-    target_folder = 'output/'
-    image_name = name_format + str(" ")
-    panel_number = 1
-    extras_list_created = 0
-    extra_comics = []
-    current_extra = 0
-    two_part = 1
-    multi_panel_comics = [186, 209, 370, 416, 465, 467, 471, 477]
-    gif_comics = [773, 777, 792, 793, 803, 806, 818, 819, 821, 840, 843, 844, 854, 868, 876]
-    
-    # Create comic folder if it does not exist
-    if not os.path.exists(target_folder):
-        os.makedirs(target_folder)
+def start_download():
+    print("Start.")
 
-    input("\nPreparation tasks finished. Press Enter to start download...")
+# Create window, set size and window title
+window = tk.Tk()
+window.title("Carrot Comic Downloader 4.0")
+window.geometry("1000x600")
+window.iconbitmap("resources/carrot-icon.ico")
 
-    # Image downloading
-    if os.path.exists("imagelist.txt"):
-        # Open text file
-        f = open("imagelist.txt", "r")
+# Image
+image_name = "resources/dog-image.jpg"
+image_original = Image.open(image_name)
+image_ratio = image_original.size[0] / image_original.size[1]
+image_tk = ImageTk.PhotoImage(image_original)
 
-        # Loops the times of lines in the text file, each line is single url that is passed to download_image function
-        for x in f:
-            # Name for next download
-            image_link = rq.get(x.rstrip())
+# Main grid that slips window into two parts
+window.columnconfigure(0, weight = 1)
+window.columnconfigure(1, weight = 5)
+window.rowconfigure(0, weight = 1)
 
-            if comic == "Pikmin 4 comic":
-                file_name = image_name + str(current_page) + " panel " + str(panel_number) + file_format
-                if panel_number == 5:
-                    panel_number = 1
-                    current_page += 1
-                    # Unused comic numbers are not used, they are skipped
-                    if current_page == 19 or current_page == 37 or current_page == 91:
-                        current_page += 1
-                else:
-                    panel_number += 1
+# Content, right side: decoration image
+canvas = tk.Canvas(window, background="red", bd=0, highlightthickness=0, width=40)
+canvas.grid(row=0, column=1, sticky="nsew")
+canvas.bind("<Configure>", resize_image)
 
-            elif comic == "DLC" and current_page in multi_panel_comics:
-                print(style.YELLOW + "Non-standard Dark Legacy Comic reached, downloading the comic in two parts..." + style.RESET)
-                file_name = image_name + str(current_page) + " panel " + str(panel_number) + file_format
-                if panel_number == 2:
-                    panel_number = 1
-                    current_page += 1
-                else:
-                    panel_number += 1
+# Grid that holds the content area for comic selection and settings
+side_frame = tk.Frame(window)
+side_frame.grid(row=0, column=0, sticky="nsew")
+side_frame.columnconfigure(0, weight=1)
+side_frame.rowconfigure(0, weight=1)
+side_frame.rowconfigure(1, weight=1)
+side_frame.rowconfigure(2, weight=1)
+side_frame.rowconfigure(3, weight=1)
+side_frame.rowconfigure(4, weight=1)
+side_frame.rowconfigure(5, weight=1)
+side_frame.rowconfigure(6, weight=1)
+side_frame.rowconfigure(7, weight=1)
+side_frame.rowconfigure(8, weight=1)
+side_frame.rowconfigure(9, weight=1)
+side_frame.rowconfigure(10, weight=1)
+side_frame.rowconfigure(11, weight=1)
 
-            elif comic == "DLC" and current_page in gif_comics:
-                print(style.YELLOW + "Non-standard Dark Legacy Comic reached, downloading the comic in gif format..." + style.RESET)
-                file_name = image_name + str(current_page) + ".gif"
-                current_page += 1
-                
-            else:
-                file_name = image_name + str(current_page) + file_format
-                current_page += 1
+# Comic selection dropdown
+selection_frame = tk.Frame(side_frame)
+selection_frame.grid(row=0, column=0, sticky="nsew", pady=20)
+selection_frame.columnconfigure(0, weight=1)
+selection_frame.columnconfigure(1, weight=1)
+selection_frame.rowconfigure(0, weight=1)
 
-            if image_link.status_code == 200:
-                # Save image to the folder
-                with open(f'{target_folder}{file_name}', 'wb') as file:
-                    file.write(image_link.content)
-                    print(style.GREEN + f'Comic download created an image with file name ' + file_name + '.' + style.RESET)
+comic_selection_label = tk.Label(selection_frame, text="Select comic from dropdown:", font=('Arial', 13), height = 1)
+comic_selection_label.grid(row=0, column=0, sticky="nse", padx=0)
 
-            elif image_link.status_code == 404:
-                print(style.RED + 'Error #4: No image at url, skipping "' + file_name + '": ' + x.rstrip() + style.RESET)
+comic_options = ["Dark Legacy Comics", "Pikmin 4 Promotional Comic", "Use custom download script"]
+comic_choice = tk.StringVar()
+comic_choice.set(comic_options[0])
+comic_choice_dropdown = tk.OptionMenu(selection_frame, comic_choice, *comic_options)
+comic_choice_dropdown.grid(row=0, column=1, sticky="nws", padx=0)
 
-            # Wait time between downloads
-            time.sleep(3)
+# Separator
+separator1 = ttk.Separator(side_frame, orient="horizontal")
+separator1.grid(row=1, column=0, columnspan=1, sticky="news", padx=20, pady=5)
 
-    else:
-        print(style.RED + "Error #2: imagelist.txt not found.\n" + style.RESET)
-    
-    print(style.RESET + 'Download complete, images are in the output-folder.')
+# Label
+comic_selection_label = tk.Label(side_frame, text="Range of downloaded comics:*", font=('Arial', 13), height = 1)
+comic_selection_label.grid(row=2, column=0, sticky="news", padx=0)
 
+# Range of downloaded comics
+range_frame = tk.Frame(side_frame)
+range_frame.grid(row=3, column=0, sticky="news")
+range_frame.columnconfigure(0, weight=1)
+range_frame.columnconfigure(1, weight=1)
+range_frame.columnconfigure(2, weight=1)
+range_frame.columnconfigure(3, weight=1)
+range_frame.rowconfigure(0, weight=1)
 
-if __name__ == '__main__':
+first_comic_label = tk.Label(range_frame, text="First #:", font=('Arial', 13), height = 1)
+first_comic_label.grid(row=0, column=0, sticky="ew", padx=0)
 
-    # System call for colored printed text use in command prompt
-    os.system("")
+first_comic_field = tk.Entry(range_frame, justify="center")
+first_comic_field.grid(row=0, column=1, sticky="w", padx=0)
 
-    try:
-        # Get the number of most recent comic from text file
-        with open('comics.txt', 'r') as file:
-            Pikmin_newest = 0
-            DLC_newest = 0
-    
-            # Loop through lines in txt file
-            for line in file:
-                # Split text line into comic name and number
-                comic, newest_number = line.strip().split()
-                
-                if comic == 'Pikmin4':
-                    Pikmin_newest += int(newest_number)
-                elif comic == 'DLC':
-                    DLC_newest += int(newest_number)
+last_comic_label = tk.Label(range_frame, text="Last #:", font=('Arial', 13), height = 1)
+last_comic_label.grid(row=0, column=2, sticky="ew", padx=0)
 
-        comics = {
-        "1": ("Pikmin 4 comic", "Pikmin 4 comic" , Pikmin_newest),
-        "2": ("DLC", "DLC", DLC_newest),
-        "0": ("Custom", "Custom comic", None)
-        }
-        print("\nLatest comic numbers fetched from comics.txt.")
+last_comic_field = tk.Entry(range_frame, justify="center")
+last_comic_field.grid(row=0, column=3, sticky="w", padx=0)
 
-    except:
-        # Comic default options
-        comics = {
-        "1": ("Pikmin 4 comic", "Pikmin 4 comic" , 145),
-        "2": ("DLC", "DLC", 902),
-        "0": ("Custom", "Custom comic", None)
-        }
-        print(style.RED + '\nError #6: Failed to parse comics.txt for latest comic numbers. Program will default to hardcoded numbers. Use option "3. Download comics from a certain range" to redefine the latest comic number.' + style.RESET)
+# Label
+range_note_label = tk.Label(side_frame, text="*If both left empty, all comics are downloaded.", font=('Arial', 13), wraplength=300)
+range_note_label.grid(row=4, column=0, sticky="news", padx=0)
 
-    first_comic = 1
-    last_comic = 9999
-    comic_name_format = ''
-    settings_choice = 9999
-    times_asked = 2
-    file_format = ".png"
-    
-    # Comic choice
-    print(style.GREEN + '''\nWelcome!''' + style.RESET + 
-    ''' What comic do you want to download?
-    1. Pikmin 4 promotional comic
-    2. Dark Legacy Comic
-    0. Use custom script''')
+# Separator
+separator2 = ttk.Separator(side_frame, orient="horizontal")
+separator2.grid(row=5, column=0, columnspan=1, sticky="news", padx=20, pady=5)
 
-    while True:
-        comic_choice = input("Choose action by typing the number: ")
+# Image name and save location
+names_frame = tk.Frame(side_frame)
+names_frame.grid(row=6, column=0, sticky="nsew", pady=20)
+names_frame.columnconfigure(0, weight=1)
+names_frame.columnconfigure(1, weight=1)
+names_frame.rowconfigure(0, weight=1)
+names_frame.rowconfigure(1, weight=1)
+names_frame.rowconfigure(2, weight=1)
 
-        if comic_choice in comics:
-            comic_choice, comic_name_format, last_comic = comics[comic_choice]
-            break
-        else:
-            print(style.RED + "Error #1: Invalid input." + style.RESET)
+file_name_label = tk.Label(names_frame, text="Image naming format:*", font=('Arial', 13), height = 1)
+file_name_label.grid(row=0, column=0, sticky="e", padx=0)
 
-    # Settings choice
-    print(
-    '''\nDo you want to change any settings?
-    1. All done, continue to link list creation
-    2. Change image file naming format
-    3. Download comics from a certain range (for example, from comics #23 to #41)
-    4. Change filename extension (default is ".png")
-    0. Use existing image list''')
+file_name_field = tk.Entry(names_frame, justify="center")
+file_name_field.grid(row=0, column=1, sticky="w", padx=0)
 
-    while True:
-        settings_choice = input("Choose action by typing the number: ")
-        
-        match settings_choice:
-            case "1":
-                generate_image_list(comic_choice, first_comic, last_comic)
-                download_images(comic_choice, first_comic, comic_name_format, file_format)
-                break
+file_name_label = tk.Label(names_frame, text="Save location:*", font=('Arial', 13), height = 1)
+file_name_label.grid(row=1, column=0, sticky="e", padx=0)
 
-            case "2":
-                comic_name_format = str(input("Type name: "))
+save_location_field = tk.Entry(names_frame, justify="center")
+save_location_field.grid(row=1, column=1, sticky="w", padx=0)
 
-            case "3":
-                first_comic = int(input("Type the first comic number to download: "))
-                last_comic = int(input("Type the last comic number to download: "))
+file_format_label = tk.Label(names_frame, text="File format:*", font=('Arial', 13), height = 1)
+file_format_label.grid(row=2, column=0, sticky="e", padx=0)
 
-            case "4":
-                print(style.YELLOW + '\nNote! Some file extension formats may not work or may produce unexpected results. Check the first generated images in output-folder when download starts to confirm you are receiving working image files.' + style.RESET)
-                file_format = input('\nType filename extension with period (".") inculded, for example ".jpg" or ".gif": ')
+file_format_field = tk.Entry(names_frame, justify="center")
+file_format_field.grid(row=2, column=1, sticky="w", padx=0)
 
-            case "0":
-                if os.path.exists("imagelist.txt"):
-                    download_images(comic_choice, first_comic, comic_name_format, file_format)
-                    print(style.RESET + "Closing program...")
-                    exit()
-                else:
-                    print(style.RED + "Error #2: imagelist.txt not found." + style.RESET)
+# Labels
+name_note_label = tk.Label(side_frame, text="*If name is left empty, default naming is used.", font=('Arial', 13), wraplength=300)
+name_note_label.grid(row=7, column=0, sticky="news", padx=0)
+save_note_label = tk.Label(side_frame, text="*If save location is left empty, output directory is created.", font=('Arial', 13), wraplength=300)
+save_note_label.grid(row=8, column=0, sticky="news", padx=0)
+save_note_label = tk.Label(side_frame, text="*If file format is left empty, .png is used.", font=('Arial', 13), wraplength=300)
+save_note_label.grid(row=9, column=0, sticky="news", padx=0)
 
-            case _:
-                print(style.RED + "Error #1: Invalid input." + style.RESET)
+# Separator
+separator3 = ttk.Separator(side_frame, orient="horizontal")
+separator3.grid(row=10, column=0, columnspan=1, sticky="news", padx=20, pady=5)
+
+# Start button
+start_button = tk.Button(side_frame, text="Start Download", font=('Arial', 15), command=lambda: th.Thread(target=start_download).start(), height = 1, width = 15)
+start_button.grid(row=11, column=0, sticky="news", padx=30, pady=30)
+
+# Start process
+window.mainloop()
