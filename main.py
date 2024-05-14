@@ -140,27 +140,37 @@ if __name__ == '__main__':
     # System call for colored printed text use in command prompt
     os.system("")
 
-    # Get the number of most recent comic from text file
-    with open('comics.txt', 'r') as file:
-        Pikmin_newest = 0
-        DLC_newest = 0
-   
-        # Loop through lines in txt file
-        for line in file:
-            # Split text line into comic name and number
-            comic, newest_number = line.strip().split()
-            
-            if comic == 'Pikmin4':
-                Pikmin_newest += int(newest_number)
-            elif comic == 'DLC':
-                DLC_newest += int(newest_number)
+    try:
+        # Get the number of most recent comic from text file
+        with open('comics.txt', 'r') as file:
+            Pikmin_newest = 0
+            DLC_newest = 0
+    
+            # Loop through lines in txt file
+            for line in file:
+                # Split text line into comic name and number
+                comic, newest_number = line.strip().split()
+                
+                if comic == 'Pikmin4':
+                    Pikmin_newest += int(newest_number)
+                elif comic == 'DLC':
+                    DLC_newest += int(newest_number)
 
-    # Comic default options
-    comics = {
-    "1": ("Pikmin 4 comic", "Pikmin 4 comic" , Pikmin_newest),
-    "2": ("DLC", "DLC", DLC_newest),
-    "0": ("Custom", "Custom comic", None)
-    }
+        comics = {
+        "1": ("Pikmin 4 comic", "Pikmin 4 comic" , Pikmin_newest),
+        "2": ("DLC", "DLC", DLC_newest),
+        "0": ("Custom", "Custom comic", None)
+        }
+        print("\nLatest comic numbers fetched from comics.txt.")
+
+    except:
+        # Comic default options
+        comics = {
+        "1": ("Pikmin 4 comic", "Pikmin 4 comic" , 145),
+        "2": ("DLC", "DLC", 902),
+        "0": ("Custom", "Custom comic", None)
+        }
+        print(style.RED + '\nError #6: Failed to parse comics.txt for latest comic numbers. Program will default to hardcoded numbers. Use option "3. Download comics from a certain range" to redefine the latest comic number.' + style.RESET)
 
     first_comic = 1
     last_comic = 9999
@@ -171,7 +181,7 @@ if __name__ == '__main__':
     
     # Comic choice
     print(style.GREEN + '''\nWelcome!''' + style.RESET + 
-''' What comic do you want to download?
+    ''' What comic do you want to download?
     1. Pikmin 4 promotional comic
     2. Dark Legacy Comic
     0. Use custom script''')
@@ -186,8 +196,8 @@ if __name__ == '__main__':
             print(style.RED + "Error #1: Invalid input." + style.RESET)
 
     # Settings choice
-    print('''
-Do you want to change any settings?
+    print(
+    '''\nDo you want to change any settings?
     1. All done, continue to link list creation
     2. Change image file naming format
     3. Download comics from a certain range (for example, from comics #23 to #41)

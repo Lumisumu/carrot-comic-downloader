@@ -64,4 +64,6 @@ Error #4: Url does not direct to image or image can't be accessed. This can be c
 
 Error #5: Custom script file import failed. Check the file name you input. Name must be written without ".py" and without quotation marks. Check that your custom script is in project root folder.
 
+Error #6: Parsing comics.txt file failed. First make sure that you have the comics.txt in the correct directory (same directory as the program), then check that it is written correctly with comic name first, then space and last the number. Comic name must be the same as in example comicx.txt in this repository.
+
 If downloading fails with multiple Python error messages, you have a bad connection. Try connecting to a more stable network.
