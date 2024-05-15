@@ -62,7 +62,7 @@ def start_download():
         # In case of an error, use hardcoded values
         except:
             if comic_choice.get() == "Pikmin 4 Promotional Comic":
-                last_comic = 145
+                last_comic = 147
             elif comic_choice.get() == "Dark Legacy Comics":
                 last_comic = 902
             print('\nError #6: Failed to parse comics.txt for latest comic numbers. Program will default to hardcoded numbers. Use option "3. Download comics from a certain range" to redefine the latest comic number.')
@@ -147,9 +147,11 @@ range_frame.columnconfigure(3, weight=1)
 range_frame.rowconfigure(0, weight=1)
 
 first_comic_label = tk.Label(range_frame, text="First #:", font=('Arial', 13)).grid(row=0, column=0, sticky="ew")
-first_comic_field = tk.Entry(range_frame, justify="center", font=('Arial', 13)).grid(row=0, column=1, sticky="w")
+first_comic_field = tk.Entry(range_frame, justify="center", font=('Arial', 13))
+first_comic_field.grid(row=0, column=1, sticky="w")
 last_comic_label = tk.Label(range_frame, text="Last #:", font=('Arial', 13)).grid(row=0, column=2, sticky="ew")
-last_comic_field = tk.Entry(range_frame, justify="center", font=('Arial', 13)).grid(row=0, column=3, sticky="w")
+last_comic_field = tk.Entry(range_frame, justify="center", font=('Arial', 13))
+last_comic_field.grid(row=0, column=3, sticky="w")
 
 # Label
 range_note_label = tk.Label(side_frame, text="*If both left empty, all comics are downloaded.", font=('Arial', 11), wraplength=300).grid(row=4, column=0, sticky="news", padx=0)
@@ -166,9 +168,11 @@ names_frame.rowconfigure(0, weight=1)
 names_frame.rowconfigure(1, weight=1)
 
 file_name_label = tk.Label(names_frame, text="Image naming format:*", font=('Arial', 13), height = 1).grid(row=0, column=0, sticky="e", padx=0)
-file_name_field = tk.Entry(names_frame, justify="center", font=('Arial', 13)).grid(row=0, column=1, sticky="w", padx=0)
+file_name_field = tk.Entry(names_frame, justify="center", font=('Arial', 13))
+file_name_field.grid(row=0, column=1, sticky="w", padx=0)
 file_format_label = tk.Label(names_frame, text="File format:*", font=('Arial', 13), height = 1).grid(row=1, column=0, sticky="e", padx=0)
-file_format_field = tk.Entry(names_frame, justify="center", font=('Arial', 13)).grid(row=1, column=1, sticky="w", padx=0)
+file_format_field = tk.Entry(names_frame, justify="center", font=('Arial', 13))
+file_format_field.grid(row=1, column=1, sticky="w", padx=0)
 
 # Labels
 name_note_label = tk.Label(side_frame, text="*If name is left empty, default naming is used.", font=('Arial', 11), wraplength=300).grid(row=7, column=0, sticky="news", padx=0)
