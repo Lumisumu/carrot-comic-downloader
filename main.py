@@ -82,18 +82,18 @@ def start_download():
 # Create window, set size and window title
 window = tk.Tk()
 window.title("Carrot Comic Downloader 4.0")
-window.geometry("1000x600")
+window.geometry("900x600")
 window.iconbitmap("resources/carrot-icon.ico")
 
 # Image
-image_name = "resources/dog-image.jpg"
+image_name = "resources/dog-image.png"
 image_original = Image.open(image_name)
 image_ratio = image_original.size[0] / image_original.size[1]
 image_tk = ImageTk.PhotoImage(image_original)
 
 # Main grid that slips window into two parts
 window.columnconfigure(0, weight = 1)
-window.columnconfigure(1, weight = 5)
+window.columnconfigure(1, weight = 3)
 window.rowconfigure(0, weight = 1)
 
 # Content, right side: decoration image
@@ -124,22 +124,18 @@ selection_frame.columnconfigure(0, weight=1)
 selection_frame.columnconfigure(1, weight=1)
 selection_frame.rowconfigure(0, weight=1)
 
-comic_selection_label = tk.Label(selection_frame, text="Select comic from dropdown:", font=('Arial', 13), height = 1)
-comic_selection_label.grid(row=0, column=0, sticky="nse", padx=0)
+comic_selection_label = tk.Label(selection_frame, text="Select comic from dropdown:", font=('Arial', 13), height = 1).grid(row=0, column=0, sticky="nse", padx=0)
 
 comic_options = ["Dark Legacy Comics", "Pikmin 4 Promotional Comic", "Use custom download script"]
 comic_choice = tk.StringVar()
 comic_choice.set(comic_options[0])
-comic_choice_dropdown = tk.OptionMenu(selection_frame, comic_choice, *comic_options)
-comic_choice_dropdown.grid(row=0, column=1, sticky="nws", padx=0)
+comic_choice_dropdown = tk.OptionMenu(selection_frame, comic_choice, *comic_options).grid(row=0, column=1, sticky="nws", padx=0)
 
 # Separator
-separator1 = ttk.Separator(side_frame, orient="horizontal")
-separator1.grid(row=1, column=0, columnspan=1, sticky="news", padx=20, pady=5)
+separator1 = ttk.Separator(side_frame, orient="horizontal").grid(row=1, column=0, columnspan=1, sticky="news", padx=20, pady=5)
 
 # Label
-comic_selection_label = tk.Label(side_frame, text="Range of downloaded comics:*", font=('Arial', 13), height = 1)
-comic_selection_label.grid(row=2, column=0, sticky="news", padx=0)
+comic_selection_label = tk.Label(side_frame, text="Range of downloaded comics:*", font=('Arial', 13), height = 1).grid(row=2, column=0, sticky="news", padx=0)
 
 # Range of downloaded comics
 range_frame = tk.Frame(side_frame)
@@ -150,25 +146,16 @@ range_frame.columnconfigure(2, weight=1)
 range_frame.columnconfigure(3, weight=1)
 range_frame.rowconfigure(0, weight=1)
 
-first_comic_label = tk.Label(range_frame, text="First #:", font=('Arial', 13), height = 1)
-first_comic_label.grid(row=0, column=0, sticky="ew", padx=0)
-
-first_comic_field = tk.Entry(range_frame, justify="center")
-first_comic_field.grid(row=0, column=1, sticky="w", padx=0)
-
-last_comic_label = tk.Label(range_frame, text="Last #:", font=('Arial', 13), height = 1)
-last_comic_label.grid(row=0, column=2, sticky="ew", padx=0)
-
-last_comic_field = tk.Entry(range_frame, justify="center")
-last_comic_field.grid(row=0, column=3, sticky="w", padx=0)
+first_comic_label = tk.Label(range_frame, text="First #:", font=('Arial', 13)).grid(row=0, column=0, sticky="ew")
+first_comic_field = tk.Entry(range_frame, justify="center", font=('Arial', 13)).grid(row=0, column=1, sticky="w")
+last_comic_label = tk.Label(range_frame, text="Last #:", font=('Arial', 13)).grid(row=0, column=2, sticky="ew")
+last_comic_field = tk.Entry(range_frame, justify="center", font=('Arial', 13)).grid(row=0, column=3, sticky="w")
 
 # Label
-range_note_label = tk.Label(side_frame, text="*If both left empty, all comics are downloaded.", font=('Arial', 13), wraplength=300)
-range_note_label.grid(row=4, column=0, sticky="news", padx=0)
+range_note_label = tk.Label(side_frame, text="*If both left empty, all comics are downloaded.", font=('Arial', 11), wraplength=300).grid(row=4, column=0, sticky="news", padx=0)
 
 # Separator
-separator2 = ttk.Separator(side_frame, orient="horizontal")
-separator2.grid(row=5, column=0, columnspan=1, sticky="news", padx=20, pady=5)
+separator2 = ttk.Separator(side_frame, orient="horizontal").grid(row=5, column=0, columnspan=1, sticky="news", padx=20, pady=5)
 
 # Image name and save location
 names_frame = tk.Frame(side_frame)
@@ -178,31 +165,20 @@ names_frame.columnconfigure(1, weight=1)
 names_frame.rowconfigure(0, weight=1)
 names_frame.rowconfigure(1, weight=1)
 
-file_name_label = tk.Label(names_frame, text="Image naming format:*", font=('Arial', 13), height = 1)
-file_name_label.grid(row=0, column=0, sticky="e", padx=0)
-
-file_name_field = tk.Entry(names_frame, justify="center")
-file_name_field.grid(row=0, column=1, sticky="w", padx=0)
-
-file_format_label = tk.Label(names_frame, text="File format:*", font=('Arial', 13), height = 1)
-file_format_label.grid(row=1, column=0, sticky="e", padx=0)
-
-file_format_field = tk.Entry(names_frame, justify="center")
-file_format_field.grid(row=1, column=1, sticky="w", padx=0)
+file_name_label = tk.Label(names_frame, text="Image naming format:*", font=('Arial', 13), height = 1).grid(row=0, column=0, sticky="e", padx=0)
+file_name_field = tk.Entry(names_frame, justify="center", font=('Arial', 13)).grid(row=0, column=1, sticky="w", padx=0)
+file_format_label = tk.Label(names_frame, text="File format:*", font=('Arial', 13), height = 1).grid(row=1, column=0, sticky="e", padx=0)
+file_format_field = tk.Entry(names_frame, justify="center", font=('Arial', 13)).grid(row=1, column=1, sticky="w", padx=0)
 
 # Labels
-name_note_label = tk.Label(side_frame, text="*If name is left empty, default naming is used.", font=('Arial', 13), wraplength=300)
-name_note_label.grid(row=7, column=0, sticky="news", padx=0)
-save_note_label = tk.Label(side_frame, text="*If file format is left empty, .png is used.", font=('Arial', 13), wraplength=300)
-save_note_label.grid(row=8, column=0, sticky="news", padx=0)
+name_note_label = tk.Label(side_frame, text="*If name is left empty, default naming is used.", font=('Arial', 11), wraplength=300).grid(row=7, column=0, sticky="news", padx=0)
+save_note_label = tk.Label(side_frame, text="*If file format is left empty, .png is used.", font=('Arial', 11), wraplength=300).grid(row=8, column=0, sticky="news", padx=0)
 
 # Separator
-separator3 = ttk.Separator(side_frame, orient="horizontal")
-separator3.grid(row=9, column=0, columnspan=1, sticky="news", padx=20, pady=5)
+separator3 = ttk.Separator(side_frame, orient="horizontal").grid(row=9, column=0, columnspan=1, sticky="news", padx=20, pady=5)
 
 # Start button
-start_button = tk.Button(side_frame, text="Start Download", font=('Arial', 15), command=lambda: th.Thread(target=start_download).start(), height = 1, width = 15)
-start_button.grid(row=10, column=0, sticky="news", padx=30, pady=30)
+start_button = tk.Button(side_frame, text="Start Download", font=('Arial', 15), command=lambda: th.Thread(target=start_download).start(), height = 1, width = 15).grid(row=10, column=0, sticky="news", padx=80, pady=30)
 
 # Start process
 window.mainloop()
