@@ -83,7 +83,7 @@ def download_images(comic: str, current_page: int, name_format: str, file_format
             # Name for next download
             image_link = rq.get(x.rstrip())
 
-            if comic == "Pikmin 4 comic":
+            if comic == "Pikmin 4 Promotional Comic":
                 file_name = image_name + str(current_page) + " panel " + str(panel_number) + file_format
                 if panel_number == 5:
                     panel_number = 1
@@ -94,7 +94,7 @@ def download_images(comic: str, current_page: int, name_format: str, file_format
                 else:
                     panel_number += 1
 
-            elif comic == "DLC" and current_page in multi_panel_comics:
+            elif comic == "Dark Legacy Comics" and current_page in multi_panel_comics:
                 file_name = image_name + str(current_page) + " panel " + str(panel_number) + file_format
                 if panel_number == 2:
                     panel_number = 1
@@ -102,7 +102,7 @@ def download_images(comic: str, current_page: int, name_format: str, file_format
                 else:
                     panel_number += 1
 
-            elif comic == "DLC" and current_page in gif_comics:
+            elif comic == "Dark Legacy Comics" and current_page in gif_comics:
                 file_name = image_name + str(current_page) + ".gif"
                 current_page += 1
                 
