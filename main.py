@@ -75,6 +75,10 @@ def start_download():
     if file_format_field.get() != "":
         chosen_file_format = file_format_field.get()
 
+        # If user has not started the file format name with ".", add it to the string
+        if not chosen_file_format.startswith('.'):
+            chosen_file_format = '.' + chosen_file_format
+        
     # Create list and start download process
     dl.generate_image_list(comic_choice.get(), first_comic, last_comic)
     dl.download_images(comic_choice.get(), first_comic, file_name, chosen_file_format)
