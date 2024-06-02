@@ -55,9 +55,9 @@ def generate_image_list(comic: str, first: int, last: int):
             i += 1
 
 
-def download_images(comic: str, current_page: int, name_format: str, file_format: str):
+def download_images(comic: str, current_page: int, name_format: str, file_format: str, chosen_save_location: str):
 
-    target_folder = 'output/'
+    target_folder = chosen_save_location
     image_name = name_format + str(" ")
     panel_number = 1
     extras_list_created = 0
@@ -112,7 +112,7 @@ def download_images(comic: str, current_page: int, name_format: str, file_format
 
             if image_link.status_code == 200:
                 # Save image to the folder
-                with open(f'{target_folder}{file_name}', 'wb') as file:
+                with open(f'{target_folder}/{file_name}', 'wb') as file:
                     file.write(image_link.content)
                     print('Comic download created an image with file name ' + file_name + '.')
 

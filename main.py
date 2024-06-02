@@ -37,6 +37,8 @@ def start_download():
             file_name = "Pikmin 4 Comic"
         elif comic_choice.get() == 'Dark Legacy Comics':
             file_name = "Dark Legacy Comic"
+    else:
+        file_name = file_name_field.get()
 
     # Set first comic number to default (1) or use user input number if field is not empty
     if first_comic_field.get() == "":
@@ -78,10 +80,16 @@ def start_download():
         # If user has not started the file format name with ".", add it to the string
         if not chosen_file_format.startswith('.'):
             chosen_file_format = '.' + chosen_file_format
+
+    if save_location_field.get() != "":
+        chosen_save_location = save_location_field.get()
+    else:
+        chosen_save_location = "ouput"
+
         
     # Create list and start download process
     dl.generate_image_list(comic_choice.get(), first_comic, last_comic)
-    dl.download_images(comic_choice.get(), first_comic, file_name, chosen_file_format)
+    dl.download_images(comic_choice.get(), first_comic, file_name, chosen_file_format, chosen_save_location)
 
 # Create window, set size and window title
 window = tk.Tk()
@@ -120,6 +128,7 @@ side_frame.rowconfigure(7, weight=1)
 side_frame.rowconfigure(8, weight=1)
 side_frame.rowconfigure(9, weight=1)
 side_frame.rowconfigure(10, weight=1)
+side_frame.rowconfigure(11, weight=1)
 
 # Comic selection dropdown
 selection_frame = tk.Frame(side_frame)
@@ -170,6 +179,7 @@ names_frame.columnconfigure(0, weight=1)
 names_frame.columnconfigure(1, weight=1)
 names_frame.rowconfigure(0, weight=1)
 names_frame.rowconfigure(1, weight=1)
+names_frame.rowconfigure(2, weight=1)
 
 file_name_label = tk.Label(names_frame, text="Image naming format:*", font=('Arial', 13), height = 1).grid(row=0, column=0, sticky="e", padx=0)
 file_name_field = tk.Entry(names_frame, justify="center", font=('Arial', 13))
@@ -177,16 +187,20 @@ file_name_field.grid(row=0, column=1, sticky="w", padx=0)
 file_format_label = tk.Label(names_frame, text="File format:*", font=('Arial', 13), height = 1).grid(row=1, column=0, sticky="e", padx=0)
 file_format_field = tk.Entry(names_frame, justify="center", font=('Arial', 13))
 file_format_field.grid(row=1, column=1, sticky="w", padx=0)
+save_location_label = tk.Label(names_frame, text="Save location:*", font=('Arial', 13), height = 1).grid(row=2, column=0, sticky="e", padx=0)
+save_location_field = tk.Entry(names_frame, justify="center", font=('Arial', 13))
+save_location_field.grid(row=2, column=1, sticky="w", padx=0)
 
 # Labels
 name_note_label = tk.Label(side_frame, text="*If name is left empty, default naming is used.", font=('Arial', 11), wraplength=300).grid(row=7, column=0, sticky="news", padx=0)
 save_note_label = tk.Label(side_frame, text="*If file format is left empty, .png is used.", font=('Arial', 11), wraplength=300).grid(row=8, column=0, sticky="news", padx=0)
+save_note_label = tk.Label(side_frame, text='*If save location is left empty, images are saved into "output" folder.', font=('Arial', 11), wraplength=300).grid(row=9, column=0, sticky="news", padx=0)
 
 # Separator
-separator3 = ttk.Separator(side_frame, orient="horizontal").grid(row=9, column=0, columnspan=1, sticky="news", padx=20, pady=5)
+separator3 = ttk.Separator(side_frame, orient="horizontal").grid(row=10, column=0, columnspan=1, sticky="news", padx=20, pady=5)
 
 # Start button
-start_button = tk.Button(side_frame, text="Start Download", font=('Arial', 15), command=lambda: th.Thread(target=start_download).start(), height = 1, width = 15).grid(row=10, column=0, sticky="news", padx=80, pady=30)
+start_button = tk.Button(side_frame, text="Start Download", font=('Arial', 15), command=lambda: th.Thread(target=start_download).start(), height = 1, width = 15).grid(row=11, column=0, sticky="news", padx=80, pady=30)
 
 # Start process
 window.mainloop()
