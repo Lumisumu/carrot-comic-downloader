@@ -1,9 +1,6 @@
 # This writes links for Dark Legacy Comics
 
-def write_links(comic_number: int):
-
-    multi_panel_comics = [186, 209, 370, 416, 465, 467, 471, 477]
-    gif_comics = [773, 777, 792, 793, 803, 806, 818, 819, 821, 840, 843, 844, 854, 868, 876]
+def write_links(comic_number: int, multi_panel_comics: list, gif_comics: list):
 
     nf = open("imagelist.txt", "a")
 

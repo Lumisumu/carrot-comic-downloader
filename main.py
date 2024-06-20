@@ -58,7 +58,6 @@ def start_download():
                     
                     if comic_choice.get() == comic:
                         last_comic = int(newest_number)
-                        print("eka" + str(last_comic))
             print("\nLatest comic numbers fetched from comics.txt.")
 
         # In case of an error, use hardcoded values
@@ -71,7 +70,6 @@ def start_download():
 
     else:
         last_comic = int(last_comic_field.get())
-        print("last" + str(last_comic))
 
     # Set file format
     if file_format_field.get() != "":
@@ -84,7 +82,7 @@ def start_download():
     if save_location_field.get() != "":
         chosen_save_location = save_location_field.get()
     else:
-        chosen_save_location = "ouput"
+        chosen_save_location = "output"
 
         
     # Create list and start download process

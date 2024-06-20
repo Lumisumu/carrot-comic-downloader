@@ -8,6 +8,8 @@ import resources.script_carrot as carrot
 import resources.script_dark as dark
 import resources.script_custom as custom
 
+multi_panel_comics = [186, 209, 370, 416, 465, 467, 471, 477]
+gif_comics = [773, 777, 792, 793, 803, 806, 818, 819, 821, 840, 843, 844, 854, 868, 876]
 
 def generate_image_list(comic: str, first: int, last: int):
 
@@ -51,7 +53,7 @@ def generate_image_list(comic: str, first: int, last: int):
                 else:
                     carrot.write_links(i)
             elif comic == "Dark Legacy Comics":
-                dark.write_links(i)
+                dark.write_links(i, multi_panel_comics, gif_comics)
             i += 1
 
 
@@ -64,8 +66,6 @@ def download_images(comic: str, current_page: int, name_format: str, file_format
     extra_comics = []
     current_extra = 0
     two_part = 1
-    multi_panel_comics = [186, 209, 370, 416, 465, 467, 471, 477]
-    gif_comics = [773, 777, 792, 793, 803, 806, 818, 819, 821, 840, 843, 844, 854, 868, 876]
     
     # Create comic folder if it does not exist
     if not os.path.exists(target_folder):
