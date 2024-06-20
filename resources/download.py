@@ -46,7 +46,7 @@ def generate_image_list(comic: str, first: int, last: int):
         # Loop to write links in order
         while i <= last:
             if comic == "Pikmin 4 Promotional Comic":
-                if i == 19 or i == 37 or i == 91:
+                if i == 19 or i == 37 or i == 91 or i == 150:
                     print("Skipping unused comic number #" + str(i) + ". This is normal and not an error. No comic can be found at this number.")
                 else:
                     carrot.write_links(i)
