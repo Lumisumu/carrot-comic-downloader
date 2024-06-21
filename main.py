@@ -1,5 +1,6 @@
 import tkinter as tk
 from tkinter import ttk
+from tktooltip import ToolTip
 from PIL import Image, ImageTk
 import threading as th
 
@@ -126,7 +127,6 @@ side_frame.rowconfigure(7, weight=1)
 side_frame.rowconfigure(8, weight=1)
 side_frame.rowconfigure(9, weight=1)
 side_frame.rowconfigure(10, weight=1)
-side_frame.rowconfigure(11, weight=1)
 
 # Comic selection dropdown
 selection_frame = tk.Frame(side_frame)
@@ -146,7 +146,9 @@ comic_choice_dropdown = tk.OptionMenu(selection_frame, comic_choice, *comic_opti
 separator1 = ttk.Separator(side_frame, orient="horizontal").grid(row=1, column=0, columnspan=1, sticky="news", padx=20, pady=5)
 
 # Label
-comic_selection_label = tk.Label(side_frame, text="Range of downloaded comics:*", font=('Arial', 13), height = 1).grid(row=2, column=0, sticky="news", padx=0)
+comic_selection_label = tk.Label(side_frame, text="Range of downloaded comics:   \u2753", font=('Arial', 13), height = 1)
+comic_selection_label.grid(row=2, column=0, sticky="news", padx=0)
+ToolTip(comic_selection_label, msg="If both left empty, all comics are downloaded.", delay=0.5)
 
 # Range of downloaded comics
 range_frame = tk.Frame(side_frame)
@@ -164,15 +166,12 @@ last_comic_label = tk.Label(range_frame, text="Last #:", font=('Arial', 13)).gri
 last_comic_field = tk.Entry(range_frame, justify="center", font=('Arial', 13))
 last_comic_field.grid(row=0, column=3, sticky="w")
 
-# Label
-range_note_label = tk.Label(side_frame, text="*If both left empty, all comics are downloaded.", font=('Arial', 11), wraplength=300).grid(row=4, column=0, sticky="news", padx=0)
-
 # Separator
-separator2 = ttk.Separator(side_frame, orient="horizontal").grid(row=5, column=0, columnspan=1, sticky="news", padx=20, pady=5)
+separator2 = ttk.Separator(side_frame, orient="horizontal").grid(row=4, column=0, columnspan=1, sticky="news", padx=20, pady=5)
 
 # Image name and save location
 names_frame = tk.Frame(side_frame)
-names_frame.grid(row=6, column=0, sticky="nsew", pady=20)
+names_frame.grid(row=5, column=0, sticky="nsew", pady=20)
 names_frame.columnconfigure(0, weight=1)
 names_frame.columnconfigure(1, weight=1)
 names_frame.rowconfigure(0, weight=1)
@@ -190,15 +189,16 @@ save_location_field = tk.Entry(names_frame, justify="center", font=('Arial', 13)
 save_location_field.grid(row=2, column=1, sticky="w", padx=0)
 
 # Labels
-name_note_label = tk.Label(side_frame, text="*If name is left empty, default naming is used.", font=('Arial', 11), wraplength=300).grid(row=7, column=0, sticky="news", padx=0)
-save_note_label = tk.Label(side_frame, text="*If file format is left empty, .png is used.", font=('Arial', 11), wraplength=300).grid(row=8, column=0, sticky="news", padx=0)
-save_note_label = tk.Label(side_frame, text='*If save location is left empty, images are saved into "output" folder.', font=('Arial', 11), wraplength=300).grid(row=9, column=0, sticky="news", padx=0)
+name_note_label = tk.Label(side_frame, text="*If name is left empty, default naming is used.", font=('Arial', 11), wraplength=300).grid(row=6, column=0, sticky="news", padx=0)
+save_note_label = tk.Label(side_frame, text="*If file format is left empty, .png is used.", font=('Arial', 11), wraplength=300).grid(row=7, column=0, sticky="news", padx=0)
+save_note_label = tk.Label(side_frame, text='*If save location is left empty, images are saved into "output" folder.', font=('Arial', 11), wraplength=300).grid(row=8, column=0, sticky="news", padx=0)
 
 # Separator
-separator3 = ttk.Separator(side_frame, orient="horizontal").grid(row=10, column=0, columnspan=1, sticky="news", padx=20, pady=5)
+separator3 = ttk.Separator(side_frame, orient="horizontal").grid(row=9, column=0, columnspan=1, sticky="news", padx=20, pady=5)
 
 # Start button
-start_button = tk.Button(side_frame, text="Start Download", font=('Arial', 15), command=lambda: th.Thread(target=start_download).start(), height = 1, width = 15).grid(row=11, column=0, sticky="news", padx=80, pady=30)
+start_button = tk.Button(side_frame, text="Start Download", font=('Arial', 15), command=lambda: th.Thread(target=start_download).start(), height = 1, width = 15)
+start_button.grid(row=10, column=0, sticky="news", padx=80, pady=30)
 
 # Start process
 window.mainloop()

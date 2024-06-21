@@ -48,6 +48,12 @@ Install PyInstaller with pip:
 pip install pyinstaller
 ```
 
+Install ToolTip with pip:
+
+```
+pip install tkinter-tooltip
+```
+
 Run in project folder:
 
 ```
