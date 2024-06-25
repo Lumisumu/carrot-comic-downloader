@@ -1,6 +1,5 @@
 import tkinter as tk
 from tkinter import ttk
-from tktooltip import ToolTip
 from PIL import Image, ImageTk
 import threading as th
 
@@ -24,6 +23,24 @@ def resize_image(event):
     resized_image = image_original.resize((width, height))
     resized_tk = ImageTk.PhotoImage(resized_image)
     canvas.create_image(int(event.width / 2), int(event.height / 2), anchor="center", image=resized_tk)
+
+# Change tips label text
+def show_tips(tips_selection):
+    if tips_selection == "range":
+        new_text = 'If both are left empty, all comics are downloaded.\n\nIf one if left empty, defaults are "1" for the first comic and the last comic number is fetched from comics.txt file in resources folder.\n\nYou can modify the latest comic number in comics.txt.'
+        tips_label.configure(text=new_text)
+
+    elif tips_selection == "naming":
+        new_text = 'Example:\nWriting "funnycomic" results in files named "funnycomic 1.png", "funnycomic 2.png" and so forth.\n\nDo not use "." in the name.\n\nIf left empty, default name is used.'
+        tips_label.configure(text=new_text)
+
+    elif tips_selection == "format":
+        new_text = 'Examples:\nWriting "jpg" results in .jpg files.\n\nIf left empty, .png is used.'
+        tips_label.configure(text=new_text)
+
+    elif tips_selection == "location":
+        new_text = 'Examples:\nWriting "comicfolder" results in a new folder being created with this name into the programs folder.\nWriting "C:\\Users\\Public\\Pictures" downloads pictures into the Windows public images folder.\n\nSome directories cannot be saved into unless you run the program as admin.\n\nIf left empty, "output" folder is created into the same folder where Carrot Comic Downloader is.'
+        tips_label.configure(text=new_text)
 
 # Start download script
 def start_download():
@@ -104,13 +121,24 @@ image_tk = ImageTk.PhotoImage(image_original)
 
 # Main grid that slips window into two parts
 window.columnconfigure(0, weight = 1)
-window.columnconfigure(1, weight = 3)
+window.columnconfigure(1, weight = 1)
 window.rowconfigure(0, weight = 1)
 
-# Content, right side: decoration image
-canvas = tk.Canvas(window, background="red", bd=0, highlightthickness=0, width=40)
-canvas.grid(row=0, column=1, sticky="nsew")
+# Grid on the right side that hold image and tips label
+decoration_frame = tk.Frame(window)
+decoration_frame.grid(row=0, column=1, sticky="nsew")
+decoration_frame.columnconfigure(0, weight=1)
+decoration_frame.rowconfigure(0, weight=1)
+decoration_frame.rowconfigure(1, weight=1)
+
+# Decoration image
+canvas = tk.Canvas(decoration_frame, background="red", bd=0, highlightthickness=0, width=40)
+canvas.grid(row=0, column=0, sticky="nsew")
 canvas.bind("<Configure>", resize_image)
+
+# Label area for tips
+tips_label = tk.Label(decoration_frame, text='Start by selecting comic in dropdown menu.\n\nTo see tips, click on the question mark buttons.\n\nIf you want to use a custom script, edit script_custom.py file in resources folder".', font=('Arial', 13), wraplength=300, height = 12, width=30)
+tips_label.grid(row=1, column=0, sticky="news")
 
 # Grid that holds the content area for comic selection and settings
 side_frame = tk.Frame(window)
@@ -140,35 +168,37 @@ comic_choice.set(comic_options[0])
 comic_choice_dropdown = tk.OptionMenu(selection_frame, comic_choice, *comic_options).grid(row=0, column=1, sticky="nws", padx=0)
 
 # Separator
-separator1 = ttk.Separator(side_frame, orient="horizontal").grid(row=1, column=0, columnspan=1, sticky="news", padx=20, pady=5)
+separator1 = ttk.Separator(side_frame, orient="horizontal").grid(row=1, column=0, columnspan=1, sticky="news", padx=20)
 
-# Label
-comic_selection_label = tk.Label(side_frame, text="Range of downloaded comics:   \u2753", font=('Arial', 13), height = 1)
-comic_selection_label.grid(row=2, column=0, sticky="news", padx=0)
-ToolTip(comic_selection_label, msg="If both are left empty, all comics are downloaded.", delay=0.5)
-
-# Range of downloaded comics
+# Range selection
 range_frame = tk.Frame(side_frame)
-range_frame.grid(row=3, column=0, sticky="news")
+range_frame.grid(row=2, column=0, sticky="nsew")
 range_frame.columnconfigure(0, weight=1)
 range_frame.columnconfigure(1, weight=1)
 range_frame.columnconfigure(2, weight=1)
 range_frame.columnconfigure(3, weight=1)
+range_frame.columnconfigure(4, weight=1)
+range_frame.columnconfigure(5, weight=1)
 range_frame.rowconfigure(0, weight=1)
 
-first_comic_label = tk.Label(range_frame, text="First #:", font=('Arial', 13)).grid(row=0, column=0, sticky="ew")
-first_comic_field = tk.Entry(range_frame, justify="center", font=('Arial', 13))
-first_comic_field.grid(row=0, column=1, sticky="w")
-last_comic_label = tk.Label(range_frame, text="Last #:", font=('Arial', 13)).grid(row=0, column=2, sticky="ew")
-last_comic_field = tk.Entry(range_frame, justify="center", font=('Arial', 13))
-last_comic_field.grid(row=0, column=3, sticky="w")
+comic_selection_label = tk.Label(range_frame, text="Range of downloaded comics:", font=('Arial', 13), height = 1)
+comic_selection_label.grid(row=0, column=0, sticky="e", padx=0)
+comic_selection_tips_button = tk.Button(range_frame, text="\u2753", font=('Arial', 13), height = 1, command=lambda: show_tips("range"))
+comic_selection_tips_button.grid(row=0, column=1, sticky="w", padx=5)
+
+first_comic_label = tk.Label(range_frame, text="First #:", font=('Arial', 13)).grid(row=0, column=2, sticky="e")
+first_comic_field = tk.Entry(range_frame, justify="center", font=('Arial', 13), width=7)
+first_comic_field.grid(row=0, column=3, sticky="w")
+last_comic_label = tk.Label(range_frame, text="Last #:", font=('Arial', 13)).grid(row=0, column=4, sticky="e")
+last_comic_field = tk.Entry(range_frame, justify="center", font=('Arial', 13), width=7)
+last_comic_field.grid(row=0, column=5, sticky="w")
 
 # Separator
-separator2 = ttk.Separator(side_frame, orient="horizontal").grid(row=4, column=0, columnspan=1, sticky="news", padx=20, pady=5)
+separator2 = ttk.Separator(side_frame, orient="horizontal").grid(row=3, column=0, columnspan=1, sticky="news", padx=20, pady=5)
 
 # Image name and save location
 names_frame = tk.Frame(side_frame)
-names_frame.grid(row=5, column=0, sticky="nsew", pady=20)
+names_frame.grid(row=4, column=0, sticky="nsew", pady=20)
 names_frame.columnconfigure(0, weight=1)
 names_frame.columnconfigure(1, weight=1)
 names_frame.columnconfigure(2, weight=1)
@@ -176,33 +206,30 @@ names_frame.rowconfigure(0, weight=1)
 names_frame.rowconfigure(1, weight=1)
 names_frame.rowconfigure(2, weight=1)
 
-file_name_label = tk.Label(names_frame, text="Image naming format:*", font=('Arial', 13), height = 1).grid(row=0, column=0, sticky="e", padx=0)
+file_name_label = tk.Label(names_frame, text="Image naming format: ", font=('Arial', 13), height = 1).grid(row=0, column=0, sticky="e", padx=0)
 file_name_field = tk.Entry(names_frame, justify="center", font=('Arial', 13))
-file_name_field.grid(row=0, column=1, sticky="w", padx=0)
-file_name_tips_label = tk.Label(names_frame, text="\u2753", font=('Arial', 13), height = 1)
-file_name_tips_label.grid(row=0, column=2, sticky="w", padx=0)
-ToolTip(file_name_tips_label, msg="If name is left empty, default naming is used.", delay=0.5)
+file_name_field.grid(row=0, column=1, sticky="we", padx=0)
+file_name_tips_button = tk.Button(names_frame, text="\u2753", font=('Arial', 13), height = 1, command=lambda: show_tips("naming"))
+file_name_tips_button.grid(row=0, column=2, sticky="w", padx=10)
 
-file_format_label = tk.Label(names_frame, text="File format:*", font=('Arial', 13), height = 1).grid(row=1, column=0, sticky="e", padx=0)
+file_format_label = tk.Label(names_frame, text="File format: ", font=('Arial', 13), height = 1).grid(row=1, column=0, sticky="e", padx=0)
 file_format_field = tk.Entry(names_frame, justify="center", font=('Arial', 13))
-file_format_field.grid(row=1, column=1, sticky="w", padx=0)
-file_format_tips_label = tk.Label(names_frame, text="\u2753", font=('Arial', 13), height = 1)
-file_format_tips_label.grid(row=1, column=2, sticky="w", padx=0)
-ToolTip(file_format_tips_label, msg="If file format is left empty, .png is used.", delay=0.5)
+file_format_field.grid(row=1, column=1, sticky="we", padx=0)
+file_format_tips_button = tk.Button(names_frame, text="\u2753", font=('Arial', 13), height = 1, command=lambda: show_tips("format"))
+file_format_tips_button.grid(row=1, column=2, sticky="w", padx=10)
 
-save_location_label = tk.Label(names_frame, text="Save location:*", font=('Arial', 13), height = 1).grid(row=2, column=0, sticky="e", padx=0)
+save_location_label = tk.Label(names_frame, text="Save location: ", font=('Arial', 13), height = 1).grid(row=2, column=0, sticky="e", padx=0)
 save_location_field = tk.Entry(names_frame, justify="center", font=('Arial', 13))
-save_location_field.grid(row=2, column=1, sticky="w", padx=0)
-save_location_tips_label = tk.Label(names_frame, text="\u2753", font=('Arial', 13), height = 1)
-save_location_tips_label.grid(row=2, column=2, sticky="w", padx=0)
-ToolTip(save_location_tips_label, msg='If save location is left empty, images are saved into "output" folder.', delay=0.5)
+save_location_field.grid(row=2, column=1, sticky="we", padx=0)
+save_location_tips_button = tk.Button(names_frame, text="\u2753", font=('Arial', 13), height = 1, command=lambda: show_tips("location"))
+save_location_tips_button.grid(row=2, column=2, sticky="w", padx=10)
 
 # Separator
-separator3 = ttk.Separator(side_frame, orient="horizontal").grid(row=6, column=0, columnspan=1, sticky="news", padx=20, pady=5)
+separator3 = ttk.Separator(side_frame, orient="horizontal").grid(row=5, column=0, columnspan=1, sticky="news", padx=20, pady=5)
 
 # Start button
 start_button = tk.Button(side_frame, text="Start Download", font=('Arial', 15), command=lambda: th.Thread(target=start_download).start(), height = 1, width = 15)
-start_button.grid(row=7, column=0, sticky="news", padx=80, pady=30)
+start_button.grid(row=6, column=0, sticky="news", padx=80, pady=30)
 
 # Start process
 window.mainloop()
