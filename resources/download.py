@@ -9,7 +9,7 @@ import resources.script_dark as dark
 import resources.script_custom as custom
 
 multi_panel_comics = [186, 209, 370, 416, 465, 467, 471, 477]
-gif_comics = [751, 757, 773, 777, 792, 793, 803, 806, 818, 819, 821, 840, 843, 844, 854, 868, 876]
+gif_comics = [751, 757, 765, 773, 777, 792, 793, 803, 806, 818, 819, 821, 840, 843, 844, 854, 868, 876]
 
 def generate_image_list(comic: str, first: int, last: int):
 
