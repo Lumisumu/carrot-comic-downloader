@@ -2,6 +2,8 @@ import tkinter as tk
 from tkinter import ttk
 from PIL import Image, ImageTk
 import threading as th
+from pathlib import Path
+import os
 
 import resources.download as dl
 
@@ -41,6 +43,13 @@ def show_tips(tips_selection):
     elif tips_selection == "location":
         new_text = 'Examples:\nWriting "comicfolder" results in a new folder being created with this name into the programs folder.\nWriting "C:\\Users\\Public\\Pictures" downloads pictures into the Windows public images folder.\n\nSome directories cannot be saved into unless you run the program as admin.\n\nIf left empty, "output" folder is created into the same folder where Carrot Comic Downloader is.'
         tips_label.configure(text=new_text)
+
+# Open folder where program was executed
+def open_folder():
+    print(Path.cwd())
+
+    path = Path.cwd()
+    os.startfile(path)
 
 # Start download script
 def start_download():
@@ -236,12 +245,12 @@ button_frame.columnconfigure(2, weight=1)
 button_frame.rowconfigure(0, weight=1)
 
 # Show folder button
-folder_button = tk.Button(button_frame, text="Show folder", font=('Arial', 11), height = 1, width = 13)
+folder_button = tk.Button(button_frame, text="Show folder", font=('Arial', 11), command=lambda: th.Thread(target=open_folder).start(), height = 1, width = 13)
 folder_button.grid(row=0, column=0, sticky="news", padx=10, pady=20)
 
 # Cancel button
-cancel_button = tk.Button(button_frame, text="Cancel", font=('Arial', 11), height = 1, width = 13, bg="#FF0000")
-cancel_button.grid(row=0, column=1, sticky="news", padx=10, pady=20)
+#cancel_button = tk.Button(button_frame, text="Cancel", font=('Arial', 11), height = 1, width = 13, bg="#FF0000")
+#cancel_button.grid(row=0, column=1, sticky="news", padx=10, pady=20)
 
 # Start button
 start_button = tk.Button(button_frame, text="Start Download", font=('Arial', 14), command=lambda: th.Thread(target=start_download).start(), height = 1, width = 15, bg="#00FF00")
