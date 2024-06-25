@@ -110,7 +110,7 @@ def start_download():
 # Create window, set size and window title
 window = tk.Tk()
 window.title("Carrot Comic Downloader 4.0")
-window.geometry("900x600")
+window.geometry("950x600")
 window.iconbitmap("resources/carrot-icon.ico")
 
 # Image
@@ -138,7 +138,7 @@ canvas.bind("<Configure>", resize_image)
 
 # Label area for tips
 tips_label = tk.Label(decoration_frame, text='Start by selecting comic in dropdown menu.\n\nTo see tips, click on the question mark buttons.\n\nIf you want to use a custom script, edit script_custom.py file in resources folder".', font=('Arial', 13), wraplength=300, height = 12, width=30)
-tips_label.grid(row=1, column=0, sticky="news")
+tips_label.grid(row=1, column=0, sticky="news", padx=20)
 
 # Grid that holds the content area for comic selection and settings
 side_frame = tk.Frame(window)
@@ -227,9 +227,25 @@ save_location_tips_button.grid(row=2, column=2, sticky="w", padx=10)
 # Separator
 separator3 = ttk.Separator(side_frame, orient="horizontal").grid(row=5, column=0, columnspan=1, sticky="news", padx=20, pady=5)
 
+# Grid for buttons
+button_frame = tk.Frame(side_frame)
+button_frame.grid(row=6, column=0, sticky="nsew")
+button_frame.columnconfigure(0, weight=1)
+button_frame.columnconfigure(1, weight=1)
+button_frame.columnconfigure(2, weight=1)
+button_frame.rowconfigure(0, weight=1)
+
+# Show folder button
+folder_button = tk.Button(button_frame, text="Show folder", font=('Arial', 11), height = 1, width = 13)
+folder_button.grid(row=0, column=0, sticky="news", padx=10, pady=20)
+
+# Cancel button
+cancel_button = tk.Button(button_frame, text="Cancel", font=('Arial', 11), height = 1, width = 13, bg="#FF0000")
+cancel_button.grid(row=0, column=1, sticky="news", padx=10, pady=20)
+
 # Start button
-start_button = tk.Button(side_frame, text="Start Download", font=('Arial', 15), command=lambda: th.Thread(target=start_download).start(), height = 1, width = 15)
-start_button.grid(row=6, column=0, sticky="news", padx=80, pady=30)
+start_button = tk.Button(button_frame, text="Start Download", font=('Arial', 14), command=lambda: th.Thread(target=start_download).start(), height = 1, width = 15, bg="#00FF00")
+start_button.grid(row=0, column=2, sticky="news", padx=10)
 
 # Start process
 window.mainloop()
