@@ -2,21 +2,25 @@
 
 Download webcomics in an easy and customizable way. You can download the exe or run it locally with Python 3.
 
-Originally project was started because I needed a convenient way to download all Pikmin 4 promotional comics and save them as png instead of avif. Project was then expanded with support for Dark Legacy Comics and also for using custom scripts. Originally project had CLI, but it has been upgraded to GUI made with Tkinter.
+Originally project was started because I needed a convenient way to download all Pikmin 4 promotional comics and save them as png instead of avif. Project was then expanded with support for Dark Legacy Comics and also for using custom scripts. Originally project had CLI, but it has been upgraded to use a GUI made with Tkinter.
 
-## User installation
+## User installation and tips
 
 Download the latest exe.zip from Releases and extract it in location of your choice. Double click "Carrot Comic Downloader" to start the program.
 
-Follow the instructions. Images are saved into "output" folder.
-
-## Tips for user
-
-If you want to download only one specific comic page, input the number as both first and last comic number.
+Click "?" buttons to see tips about program features.
 
 If new comics have been released for supported comics, update the values in "comics.txt" file in "resources" folder.
 
 To use a custom script, edit the "script_custom.py" file in "resources" folder. Your file must have `write_links()` function where custom script code starts.
+
+## Errors
+
+When error occurs, error description replaces tips on the right side of the screen. Sometimes reading command-line output is needed to find the issue.
+
+Make sure you run the program in a location where you have write permissions, otherwise both list file creation and image saving can fail.
+
+If downloading fails with multiple Python error messages, you have a bad connection. Try connecting to a more stable network.
 
 ## Installing and running project
 
@@ -59,14 +63,6 @@ Run in project folder:
 ```
 pyinstaller --icon=resources/carrot-icon.ico main.py --onefile
 ```
-
-## Errors
-
-When error occurs, error description replaces tips on the right side of the screen. Sometimes reading command-line output is needed to find the issue.
-
-Make sure you run the program in a location where you have write permissions, otherwise both list file creation and image saving can fail.
-
-If downloading fails with multiple Python error messages, you have a bad connection. Try connecting to a more stable network.
 
 ## Credits and learning links
 
