@@ -9,12 +9,14 @@ import threading
 import resources.download as dl
 import resources.generate_list as gl
 
+# Stop threaded process
 stop_event = threading.Event()
 
 def stop_process():
     print("Download process stopped.\n")
     stop_event.set()
 
+# Resize decorative image when window is resized by user
 def resize_image(event):
     global resized_tk
 
@@ -51,6 +53,14 @@ def show_tips(tips_selection):
     elif tips_selection == "location":
         new_text = 'Examples:\nWriting "comicfolder" results in a new folder being created with this name into the programs folder.\nWriting "C:\\Users\\Public\\Pictures" downloads pictures into the Windows public images folder.\n\nSome directories cannot be saved into unless you run the program as admin.\n\nIf left empty, "output" folder is created into the same folder where Carrot Comic Downloader is.'
         tips_label.configure(text=new_text)
+
+    elif tips_selection == "bigger":
+        tips_label.configure(fg="red")
+        new_text = 'Error: first number cannot be bigger than last number, change values in comic range section.'
+        tips_label.configure(text=new_text)
+        return
+    
+    tips_label.configure(fg="black")
 
 # Open folder where program was executed
 def open_folder():
@@ -108,6 +118,12 @@ def start_download():
     else:
         last_comic = int(last_comic_field.get())
 
+    # If first comic number in range is larger than the last comic number, show error and return
+    if first_comic > last_comic:
+        show_tips("bigger")
+        print("\nError:\nFirst comic number cannot be bigger than last comic number.")
+        return
+
     # Set file format
     if file_format_field.get() != "":
         chosen_file_format = file_format_field.get()
@@ -156,7 +172,7 @@ canvas.grid(row=0, column=0, sticky="nsew")
 canvas.bind("<Configure>", resize_image)
 
 # Label area for tips
-tips_label = tk.Label(decoration_frame, text='Start by selecting comic in dropdown menu.\n\nTo see tips, click on the question mark buttons.\n\nIf you want to use a custom script, edit script_custom.py file in resources folder".', font=('Arial', 13), wraplength=300, height = 12, width=30)
+tips_label = tk.Label(decoration_frame, text='Start by selecting comic in dropdown menu.\n\nTo see tips, click on the question mark buttons.\n\nIf you want to use a custom script, edit script_custom.py file in resources folder".', font=('Arial', 13), wraplength=300, height = 12, width=30, fg="black")
 tips_label.grid(row=1, column=0, sticky="news", padx=20)
 
 # Grid that holds the content area for comic selection and settings
