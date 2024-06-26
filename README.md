@@ -62,17 +62,9 @@ pyinstaller --icon=resources/carrot-icon.ico main.py --onefile
 
 ## Errors
 
-Error #1: Invalid input: only use "1" or "2", do not use "." or "#". Simply enter a number and press Enter.
+When error occurs, error description replaces tips on the right side of the screen. Sometimes reading command-line output is needed to find the issue.
 
-Error #2: Imagelist.txt not found: check if you have deleted or moved the file, check spelling in the file title.
-
-Error #3: Writing to text file has been prevented: check if something is blocking the program from creating a text file or writing into it, check if the text file exists.
-
-Error #4: Url does not direct to image or image can't be accessed. This can be caused by bad connection, connection blocking or image only being available for verified users. Check the url by copy-pasting it to a fresh browser.
-
-Error #5: Custom script file import failed. Check the file name you input. Name must be written without ".py" and without quotation marks. Check that your custom script is in project root folder.
-
-Error #6: Parsing comics.txt file failed. First make sure that you have the comics.txt in the correct directory (same directory as the program), then check that it is written correctly with comic name first, then space and last the number. Comic name must be the same as in example comicx.txt in this repository.
+Make sure you run the program in a location where you have write permissions, otherwise both list file creation and image saving can fail.
 
 If downloading fails with multiple Python error messages, you have a bad connection. Try connecting to a more stable network.
 

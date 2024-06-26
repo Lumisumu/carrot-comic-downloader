@@ -16,6 +16,7 @@ def download_images(comic: str, current_page: int, name_format: str, file_format
     extra_comics = []
     current_extra = 0
     two_part = 1
+    missed_downloads = 0
     
     # Create comic folder if it does not exist
     if not os.path.exists(target_folder):
@@ -71,11 +72,16 @@ def download_images(comic: str, current_page: int, name_format: str, file_format
 
             elif image_link.status_code == 404:
                 print('Error #4: No image at url, skipping "' + file_name + '": ' + x.rstrip())
+                missed_downloads += 1
 
             # Wait time between downloads
             time.sleep(3)
 
     else:
-        print("Error #2: imagelist.txt not found.\n")
-    
+        return("missinglist")
+
     print('Download complete, images are in the output-folder.\n')
+    
+    if missed_downloads != 0:
+        print(str(missed_downloads) + " missed downloads, see above lines for comic numbers.")
+        return("missed")

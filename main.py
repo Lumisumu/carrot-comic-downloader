@@ -38,7 +38,17 @@ def resize_image(event):
 
 # Change tips label text
 def show_tips(tips_selection):
-    if tips_selection == "range":
+    if tips_selection == "finish":
+        tips_label.configure(fg="green")
+        new_text = 'Download finished! Press Show Folder to see program directory.'
+        tips_label.configure(text=new_text)
+        return
+
+    elif tips_selection == "start":
+        new_text = 'Download starting, command-line shows download progressing. Press Cancel if you want to terminate the process.'
+        tips_label.configure(text=new_text)
+
+    elif tips_selection == "range":
         new_text = 'If both are left empty, all comics are downloaded.\n\nIf one if left empty, defaults are "1" for the first comic and the last comic number is fetched from comics.txt file in resources folder.\n\nYou can modify the latest comic number in comics.txt.'
         tips_label.configure(text=new_text)
 
@@ -56,10 +66,28 @@ def show_tips(tips_selection):
 
     elif tips_selection == "bigger":
         tips_label.configure(fg="red")
-        new_text = 'Error: first number cannot be bigger than last number, change values in comic range section.'
+        new_text = 'Error:\nFirst number cannot be bigger than last number, change values in comic range section.'
         tips_label.configure(text=new_text)
         return
     
+    elif tips_selection == "missinglist":
+        tips_label.configure(fg="red")
+        new_text = 'Error:\nImagelist.txt not found.'
+        tips_label.configure(text=new_text)
+        return
+
+    elif tips_selection == "missed":
+        tips_label.configure(fg="red")
+        new_text = 'Error:\nSome downloads failed when image at url was not found, see command-line for details on what downloads failed.'
+        tips_label.configure(text=new_text)
+        return
+
+    elif tips_selection == "parse":
+        tips_label.configure(fg="red")
+        new_text = 'Error:\nFailed to parse comics.txt for latest comic numbers. Program will default to hardcoded numbers. Confirm that comics.txt is in "res" folder and contains only comic names and numbers.'
+        tips_label.configure(text=new_text)
+        return
+
     tips_label.configure(fg="black")
 
 # Open folder where program was executed
@@ -113,7 +141,7 @@ def start_download():
                 last_comic = 147
             elif comic_choice.get() == "Dark Legacy Comics":
                 last_comic = 902
-            print('\nError #6: Failed to parse comics.txt for latest comic numbers. Program will default to hardcoded numbers. Use option "3. Download comics from a certain range" to redefine the latest comic number.')
+            show_tips("parse")
 
     else:
         last_comic = int(last_comic_field.get())
@@ -121,7 +149,6 @@ def start_download():
     # If first comic number in range is larger than the last comic number, show error and return
     if first_comic > last_comic:
         show_tips("bigger")
-        print("\nError:\nFirst comic number cannot be bigger than last comic number.")
         return
 
     # Set file format
@@ -136,11 +163,15 @@ def start_download():
         chosen_save_location = save_location_field.get()
     else:
         chosen_save_location = "output"
-
         
     # Create list and start download process
     gl.generate_image_list(comic_choice.get(), first_comic, last_comic)
-    dl.download_images(comic_choice.get(), first_comic, file_name, chosen_file_format, chosen_save_location, stop_event)
+    show_tips("start")
+    returntip = dl.download_images(comic_choice.get(), first_comic, file_name, chosen_file_format, chosen_save_location, stop_event)
+    show_tips("finish")
+
+    if returntip is not None:
+        show_tips(returntip)
 
 # Create window, set size and window title
 window = tk.Tk()
