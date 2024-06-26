@@ -6,6 +6,7 @@ from pathlib import Path
 import os
 
 import resources.download as dl
+import resources.generate_list as gl
 
 def resize_image(event):
     global resized_tk
@@ -113,7 +114,7 @@ def start_download():
 
         
     # Create list and start download process
-    dl.generate_image_list(comic_choice.get(), first_comic, last_comic)
+    gl.generate_image_list(comic_choice.get(), first_comic, last_comic)
     dl.download_images(comic_choice.get(), first_comic, file_name, chosen_file_format, chosen_save_location)
 
 # Create window, set size and window title
