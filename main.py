@@ -4,9 +4,16 @@ from PIL import Image, ImageTk
 import threading as th
 from pathlib import Path
 import os
+import threading
 
 import resources.download as dl
 import resources.generate_list as gl
+
+stop_event = threading.Event()
+
+def stop_process():
+    print("Download process stopped.\n")
+    stop_event.set()
 
 def resize_image(event):
     global resized_tk
@@ -54,6 +61,8 @@ def open_folder():
 
 # Start download script
 def start_download():
+    stop_event.clear()
+
     file_name = ""
     first_comic = 1
     last_comic = 9999
@@ -115,7 +124,7 @@ def start_download():
         
     # Create list and start download process
     gl.generate_image_list(comic_choice.get(), first_comic, last_comic)
-    dl.download_images(comic_choice.get(), first_comic, file_name, chosen_file_format, chosen_save_location)
+    dl.download_images(comic_choice.get(), first_comic, file_name, chosen_file_format, chosen_save_location, stop_event)
 
 # Create window, set size and window title
 window = tk.Tk()
@@ -250,8 +259,8 @@ folder_button = tk.Button(button_frame, text="Show folder", font=('Arial', 11), 
 folder_button.grid(row=0, column=0, sticky="news", padx=10, pady=20)
 
 # Cancel button
-#cancel_button = tk.Button(button_frame, text="Cancel", font=('Arial', 11), height = 1, width = 13, bg="#FF0000")
-#cancel_button.grid(row=0, column=1, sticky="news", padx=10, pady=20)
+cancel_button = tk.Button(button_frame, text="Cancel", font=('Arial', 11), height = 1, width = 13, command=stop_process, bg="#FF0000")
+cancel_button.grid(row=0, column=1, sticky="news", padx=10, pady=20)
 
 # Start button
 start_button = tk.Button(button_frame, text="Start Download", font=('Arial', 14), command=lambda: th.Thread(target=start_download).start(), height = 1, width = 15, bg="#00FF00")
