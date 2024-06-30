@@ -247,16 +247,16 @@ range_frame.columnconfigure(4, weight=1)
 range_frame.columnconfigure(5, weight=1)
 range_frame.rowconfigure(0, weight=1)
 
-comic_selection_label = tk.Label(range_frame, text="Range of downloaded comics:", font=('Arial', 13), height = 1)
+comic_selection_label = tk.Label(range_frame, text="Range of downloaded comics:", font=('Arial', 12), height = 1)
 comic_selection_label.grid(row=0, column=0, sticky="e", padx=0)
-comic_selection_tips_button = tk.Button(range_frame, text="\u2753", font=('Arial', 13), height = 1, command=lambda: show_tips("range"))
+comic_selection_tips_button = tk.Button(range_frame, text="\u2753", font=('Arial', 12), height = 1, command=lambda: show_tips("range"))
 comic_selection_tips_button.grid(row=0, column=1, sticky="w", padx=5)
 
-first_comic_label = tk.Label(range_frame, text="First #:", font=('Arial', 13)).grid(row=0, column=2, sticky="e")
-first_comic_field = tk.Entry(range_frame, justify="center", font=('Arial', 13), width=7)
+first_comic_label = tk.Label(range_frame, text="First #:", font=('Arial', 12)).grid(row=0, column=2, sticky="e")
+first_comic_field = tk.Entry(range_frame, justify="center", font=('Arial', 12), width=7)
 first_comic_field.grid(row=0, column=3, sticky="w")
-last_comic_label = tk.Label(range_frame, text="Last #:", font=('Arial', 13)).grid(row=0, column=4, sticky="e")
-last_comic_field = tk.Entry(range_frame, justify="center", font=('Arial', 13), width=7)
+last_comic_label = tk.Label(range_frame, text="Last #:", font=('Arial', 12)).grid(row=0, column=4, sticky="e")
+last_comic_field = tk.Entry(range_frame, justify="center", font=('Arial', 12), width=7)
 last_comic_field.grid(row=0, column=5, sticky="w")
 
 # Separator

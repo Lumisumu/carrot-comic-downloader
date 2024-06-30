@@ -4,20 +4,28 @@ import time
 import importlib
 from importlib import util
 
-multi_panel_comics = [186, 209, 370, 416, 465, 467, 471, 477]
-gif_comics = [751, 757, 765, 773, 777, 792, 793, 803, 806, 818, 819, 821, 840, 843, 844, 854, 868, 876]
-
 def download_images(comic: str, current_page: int, name_format: str, file_format: str, chosen_save_location: str, stop_event):
 
     target_folder = chosen_save_location
     image_name = name_format + str(" ")
     panel_number = 1
     extras_list_created = 0
-    extra_comics = []
     current_extra = 0
     two_part = 1
     missed_downloads = 0
-    
+    multi_panel_comics = []
+    gif_comics = []
+
+    # DLC special comics
+    if comic == "Dark Legacy Comics":
+        with open('resources/dlc-multipanel.txt', 'r') as file:
+            lines = file.readlines()
+            multi_panel_comics = [int(num) for line in lines for num in line.split(',')]
+
+        with open('resources/dlc-gifcomics.txt', 'r') as file:
+            lines = file.readlines()
+            gif_comics = [int(num) for line in lines for num in line.split(',')]
+
     # Create comic folder if it does not exist
     if not os.path.exists(target_folder):
         os.makedirs(target_folder)

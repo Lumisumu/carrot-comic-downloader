@@ -4,9 +4,6 @@ import resources.script_carrot as carrot
 import resources.script_dark as dark
 import resources.script_custom as custom
 
-multi_panel_comics = [186, 209, 370, 416, 465, 467, 471, 477]
-gif_comics = [751, 757, 765, 773, 777, 792, 793, 803, 806, 818, 819, 821, 840, 843, 844, 854, 868, 876]
-
 def generate_image_list(comic: str, first: int, last: int):
 
     print("Creating image url list...")
@@ -49,5 +46,5 @@ def generate_image_list(comic: str, first: int, last: int):
                 else:
                     carrot.write_links(i)
             elif comic == "Dark Legacy Comics":
-                dark.write_links(i, multi_panel_comics, gif_comics)
+                dark.write_links(i, comic)
             i += 1
