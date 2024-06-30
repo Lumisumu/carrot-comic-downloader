@@ -104,7 +104,7 @@ def start_download():
     file_name = ""
     first_comic = 1
     last_comic = 9999
-    chosen_file_format = ".png"
+    chosen_file_format = "empty"
 
     # Set file name
     if file_name_field.get() == "":

@@ -15,13 +15,14 @@ def download_images(comic: str, current_page: int, name_format: str, file_format
     missed_downloads = 0
     multi_panel_comics = []
     gif_comics = []
+    extension_name = ""
 
     # DLC special comics
     if comic == "Dark Legacy Comics":
         with open('resources/dlc-multipanel.txt', 'r') as file:
             lines = file.readlines()
             multi_panel_comics = [int(num) for line in lines for num in line.split(',')]
-
+        
         with open('resources/dlc-gifcomics.txt', 'r') as file:
             lines = file.readlines()
             gif_comics = [int(num) for line in lines for num in line.split(',')]
@@ -39,14 +40,24 @@ def download_images(comic: str, current_page: int, name_format: str, file_format
 
         # Loops the times of lines in the text file, each line is single url that is passed to download_image function
         for x in f:
+            # Wait time between downloads
+            time.sleep(3)
+
             if stop_event.is_set():
                 return
 
             # Name for next download
             image_link = rq.get(x.rstrip())
 
+            if file_format == "empty":
+                extension_name = x.rsplit('.', 1)[-1]
+                extension_name = "." + extension_name
+                extension_name = extension_name.replace("\n", "")
+            else:
+                extension_name = file_format
+
             if comic == "Pikmin 4 Promotional Comic":
-                file_name = image_name + str(current_page) + " panel " + str(panel_number) + file_format
+                file_name = image_name + str(current_page) + " panel " + str(panel_number) + extension_name
                 if panel_number == 5:
                     panel_number = 1
                     current_page += 1
@@ -57,7 +68,7 @@ def download_images(comic: str, current_page: int, name_format: str, file_format
                     panel_number += 1
 
             elif comic == "Dark Legacy Comics" and current_page in multi_panel_comics:
-                file_name = image_name + str(current_page) + " panel " + str(panel_number) + file_format
+                file_name = image_name + str(current_page) + " panel " + str(panel_number) + extension_name
                 if panel_number == 2:
                     panel_number = 1
                     current_page += 1
@@ -69,7 +80,7 @@ def download_images(comic: str, current_page: int, name_format: str, file_format
                 current_page += 1
                 
             else:
-                file_name = image_name + str(current_page) + file_format
+                file_name = image_name + str(current_page) + extension_name
                 current_page += 1
 
             if image_link.status_code == 200:
@@ -81,9 +92,6 @@ def download_images(comic: str, current_page: int, name_format: str, file_format
             elif image_link.status_code == 404:
                 print('Error #4: No image at url, skipping "' + file_name + '": ' + x.rstrip())
                 missed_downloads += 1
-
-            # Wait time between downloads
-            time.sleep(3)
 
     else:
         return("missinglist")
