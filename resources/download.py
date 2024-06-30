@@ -46,9 +46,9 @@ def download_images(comic: str, current_page: int, name_format: str, file_format
             if stop_event.is_set():
                 return
 
-            # Name for next download
             image_link = rq.get(x.rstrip())
 
+            # Get file extension from url or replace with user input
             if file_format == "empty":
                 extension_name = x.rsplit('.', 1)[-1]
                 extension_name = "." + extension_name
@@ -56,6 +56,7 @@ def download_images(comic: str, current_page: int, name_format: str, file_format
             else:
                 extension_name = file_format
 
+            # Name resulting image
             if comic == "Pikmin 4 Promotional Comic":
                 file_name = image_name + str(current_page) + " panel " + str(panel_number) + extension_name
                 if panel_number == 5:
@@ -83,6 +84,7 @@ def download_images(comic: str, current_page: int, name_format: str, file_format
                 file_name = image_name + str(current_page) + extension_name
                 current_page += 1
 
+            # Save image
             if image_link.status_code == 200:
                 # Save image to the folder
                 with open(f'{target_folder}/{file_name}', 'wb') as file:

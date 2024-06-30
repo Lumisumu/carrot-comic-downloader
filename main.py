@@ -219,7 +219,7 @@ side_frame.rowconfigure(5, weight=1)
 side_frame.rowconfigure(6, weight=1)
 side_frame.rowconfigure(7, weight=1)
 
-# Comic selection dropdown
+# Dropdown
 selection_frame = tk.Frame(side_frame)
 selection_frame.grid(row=0, column=0, sticky="nsew", pady=20)
 selection_frame.columnconfigure(0, weight=1)
@@ -227,7 +227,6 @@ selection_frame.columnconfigure(1, weight=1)
 selection_frame.rowconfigure(0, weight=1)
 
 comic_selection_label = tk.Label(selection_frame, text="Select comic from dropdown:", font=('Arial', 13), height = 1).grid(row=0, column=0, sticky="nse", padx=0)
-
 comic_options = ["Dark Legacy Comics", "Pikmin 4 Promotional Comic", "Use custom download script"]
 comic_choice = tk.StringVar()
 comic_choice.set(comic_options[0])
@@ -262,7 +261,7 @@ last_comic_field.grid(row=0, column=5, sticky="w")
 # Separator
 separator2 = ttk.Separator(side_frame, orient="horizontal").grid(row=3, column=0, columnspan=1, sticky="news", padx=20, pady=5)
 
-# Image name and save location
+# Saving options
 names_frame = tk.Frame(side_frame)
 names_frame.grid(row=4, column=0, sticky="nsew", pady=20)
 names_frame.columnconfigure(0, weight=1)
