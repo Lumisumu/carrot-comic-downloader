@@ -4,7 +4,7 @@ import time
 import importlib
 from importlib import util
 
-def download_images(comic: str, current_page: int, name_format: str, file_format: str, chosen_save_location: str, stop_event):
+def download_images(comic: str, current_page: int, name_format: str, chosen_save_location: str, stop_event):
 
     target_folder = chosen_save_location
     image_name = name_format + str(" ")
@@ -49,12 +49,9 @@ def download_images(comic: str, current_page: int, name_format: str, file_format
             image_link = rq.get(x.rstrip())
 
             # Get file extension from url or replace with user input
-            if file_format == "empty":
-                extension_name = x.rsplit('.', 1)[-1]
-                extension_name = "." + extension_name
-                extension_name = extension_name.replace("\n", "")
-            else:
-                extension_name = file_format
+            extension_name = x.rsplit('.', 1)[-1]
+            extension_name = "." + extension_name
+            extension_name = extension_name.replace("\n", "")
 
             # Name resulting image
             if comic == "Pikmin 4 Promotional Comic":

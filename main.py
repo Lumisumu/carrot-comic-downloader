@@ -56,10 +56,6 @@ def show_tips(tips_selection):
         new_text = 'Example:\nWriting "funnycomic" results in files named "funnycomic 1.png", "funnycomic 2.png" and so forth.\n\nDo not use "." in the name.\n\nIf left empty, default name is used.'
         tips_label.configure(text=new_text)
 
-    elif tips_selection == "format":
-        new_text = 'Examples:\nWriting "jpg" results in .jpg files.\n\nIf left empty, .png is used.'
-        tips_label.configure(text=new_text)
-
     elif tips_selection == "location":
         new_text = 'Examples:\nWriting "comicfolder" results in a new folder being created with this name into the programs folder.\nWriting "C:\\Users\\Public\\Pictures" downloads pictures into the Windows public images folder.\n\nSome directories cannot be saved into unless you run the program as admin.\n\nIf left empty, "output" folder is created into the same folder where Carrot Comic Downloader is.'
         tips_label.configure(text=new_text)
@@ -104,7 +100,6 @@ def start_download():
     file_name = ""
     first_comic = 1
     last_comic = 9999
-    chosen_file_format = "empty"
 
     # Set file name
     if file_name_field.get() == "":
@@ -151,14 +146,6 @@ def start_download():
         show_tips("bigger")
         return
 
-    # Set file format
-    if file_format_field.get() != "":
-        chosen_file_format = file_format_field.get()
-
-        # If user has not started the file format name with ".", add it to the string
-        if not chosen_file_format.startswith('.'):
-            chosen_file_format = '.' + chosen_file_format
-
     if save_location_field.get() != "":
         chosen_save_location = save_location_field.get()
     else:
@@ -167,7 +154,7 @@ def start_download():
     # Create list and start download process
     gl.generate_image_list(comic_choice.get(), first_comic, last_comic)
     show_tips("start")
-    returntip = dl.download_images(comic_choice.get(), first_comic, file_name, chosen_file_format, chosen_save_location, stop_event)
+    returntip = dl.download_images(comic_choice.get(), first_comic, file_name, chosen_save_location, stop_event)
     show_tips("finish")
 
     if returntip is not None:
@@ -226,11 +213,14 @@ selection_frame.columnconfigure(0, weight=1)
 selection_frame.columnconfigure(1, weight=1)
 selection_frame.rowconfigure(0, weight=1)
 
-comic_selection_label = tk.Label(selection_frame, text="Select comic from dropdown:", font=('Arial', 13), height = 1).grid(row=0, column=0, sticky="nse", padx=0)
+comic_selection_label = tk.Label(selection_frame, text="Select comic from dropdown: ", font=('Arial', 13), height = 1).grid(row=0, column=0, sticky="nse", padx=0)
 comic_options = ["Dark Legacy Comics", "Pikmin 4 Promotional Comic", "Use custom download script"]
 comic_choice = tk.StringVar()
 comic_choice.set(comic_options[0])
-comic_choice_dropdown = tk.OptionMenu(selection_frame, comic_choice, *comic_options).grid(row=0, column=1, sticky="nws", padx=0)
+comic_choice_dropdown = tk.OptionMenu(selection_frame, comic_choice, *comic_options)
+comic_choice_dropdown.grid(row=0, column=1, sticky="nws", padx=0)
+arrow_image = ImageTk.PhotoImage(Image.open("resources/arrow.png"))
+comic_choice_dropdown.configure(indicatoron=0, compound=tk.RIGHT, image= arrow_image)
 
 # Separator
 separator1 = ttk.Separator(side_frame, orient="horizontal").grid(row=1, column=0, columnspan=1, sticky="news", padx=20)
@@ -269,7 +259,6 @@ names_frame.columnconfigure(1, weight=1)
 names_frame.columnconfigure(2, weight=1)
 names_frame.rowconfigure(0, weight=1)
 names_frame.rowconfigure(1, weight=1)
-names_frame.rowconfigure(2, weight=1)
 
 file_name_label = tk.Label(names_frame, text="Image naming format: ", font=('Arial', 13), height = 1).grid(row=0, column=0, sticky="e", padx=0)
 file_name_field = tk.Entry(names_frame, justify="center", font=('Arial', 13))
@@ -277,17 +266,11 @@ file_name_field.grid(row=0, column=1, sticky="we", padx=0)
 file_name_tips_button = tk.Button(names_frame, text="\u2753", font=('Arial', 13), height = 1, command=lambda: show_tips("naming"))
 file_name_tips_button.grid(row=0, column=2, sticky="w", padx=10)
 
-file_format_label = tk.Label(names_frame, text="File format: ", font=('Arial', 13), height = 1).grid(row=1, column=0, sticky="e", padx=0)
-file_format_field = tk.Entry(names_frame, justify="center", font=('Arial', 13))
-file_format_field.grid(row=1, column=1, sticky="we", padx=0)
-file_format_tips_button = tk.Button(names_frame, text="\u2753", font=('Arial', 13), height = 1, command=lambda: show_tips("format"))
-file_format_tips_button.grid(row=1, column=2, sticky="w", padx=10)
-
-save_location_label = tk.Label(names_frame, text="Save location: ", font=('Arial', 13), height = 1).grid(row=2, column=0, sticky="e", padx=0)
+save_location_label = tk.Label(names_frame, text="Save location: ", font=('Arial', 13), height = 1).grid(row=1, column=0, sticky="e", padx=0)
 save_location_field = tk.Entry(names_frame, justify="center", font=('Arial', 13))
-save_location_field.grid(row=2, column=1, sticky="we", padx=0)
+save_location_field.grid(row=1, column=1, sticky="we", padx=0)
 save_location_tips_button = tk.Button(names_frame, text="\u2753", font=('Arial', 13), height = 1, command=lambda: show_tips("location"))
-save_location_tips_button.grid(row=2, column=2, sticky="w", padx=10)
+save_location_tips_button.grid(row=1, column=2, sticky="w", padx=10)
 
 # Separator
 separator3 = ttk.Separator(side_frame, orient="horizontal").grid(row=5, column=0, columnspan=1, sticky="news", padx=20, pady=5)
