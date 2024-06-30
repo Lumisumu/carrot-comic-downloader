@@ -57,7 +57,7 @@ def show_tips(tips_selection):
         tips_label.configure(text=new_text)
 
     elif tips_selection == "location":
-        new_text = 'Examples:\nWriting "comicfolder" results in a new folder being created with this name into the programs folder.\nWriting "C:\\Users\\Public\\Pictures" downloads pictures into the Windows public images folder.\n\nSome directories cannot be saved into unless you run the program as admin.\n\nIf left empty, "output" folder is created into the same folder where Carrot Comic Downloader is.'
+        new_text = 'Examples:\nWriting "comicfolder" results in a new folder being created with this name into the programs folder.\nWriting "C:\\Users\\Public\\Pictures" downloads pictures into the Windows public images folder.\n\nIf left empty, "output" folder is created into the same folder where Carrot Comic Downloader is.'
         tips_label.configure(text=new_text)
 
     elif tips_selection == "bigger":
@@ -163,7 +163,7 @@ def start_download():
 # Create window, set size and window title
 window = tk.Tk()
 window.title("Carrot Comic Downloader 4.0")
-window.geometry("950x600")
+window.geometry("950x550")
 window.iconbitmap("resources/carrot-icon.ico")
 
 # Image
@@ -204,11 +204,10 @@ side_frame.rowconfigure(3, weight=1)
 side_frame.rowconfigure(4, weight=1)
 side_frame.rowconfigure(5, weight=1)
 side_frame.rowconfigure(6, weight=1)
-side_frame.rowconfigure(7, weight=1)
 
 # Dropdown
 selection_frame = tk.Frame(side_frame)
-selection_frame.grid(row=0, column=0, sticky="nsew", pady=20)
+selection_frame.grid(row=1, column=0, sticky="nsew", pady=20)
 selection_frame.columnconfigure(0, weight=1)
 selection_frame.columnconfigure(1, weight=1)
 selection_frame.rowconfigure(0, weight=1)
@@ -222,18 +221,15 @@ comic_choice_dropdown.grid(row=0, column=1, sticky="nws", padx=0)
 arrow_image = ImageTk.PhotoImage(Image.open("resources/arrow.png"))
 comic_choice_dropdown.configure(indicatoron=0, compound=tk.RIGHT, image= arrow_image)
 
-# Separator
-separator1 = ttk.Separator(side_frame, orient="horizontal").grid(row=1, column=0, columnspan=1, sticky="news", padx=20)
-
 # Range selection
 range_frame = tk.Frame(side_frame)
-range_frame.grid(row=2, column=0, sticky="nsew")
+range_frame.grid(row=2, column=0, sticky="nsew", padx=10)
 range_frame.columnconfigure(0, weight=1)
 range_frame.columnconfigure(1, weight=1)
 range_frame.columnconfigure(2, weight=1)
 range_frame.columnconfigure(3, weight=1)
 range_frame.columnconfigure(4, weight=1)
-range_frame.columnconfigure(5, weight=1)
+range_frame.columnconfigure(5, weight=3)
 range_frame.rowconfigure(0, weight=1)
 
 comic_selection_label = tk.Label(range_frame, text="Range of downloaded comics:", font=('Arial', 12), height = 1)
@@ -248,52 +244,49 @@ last_comic_label = tk.Label(range_frame, text="Last #:", font=('Arial', 12)).gri
 last_comic_field = tk.Entry(range_frame, justify="center", font=('Arial', 12), width=7)
 last_comic_field.grid(row=0, column=5, sticky="w")
 
-# Separator
-separator2 = ttk.Separator(side_frame, orient="horizontal").grid(row=3, column=0, columnspan=1, sticky="news", padx=20, pady=5)
-
 # Saving options
 names_frame = tk.Frame(side_frame)
-names_frame.grid(row=4, column=0, sticky="nsew", pady=20)
+names_frame.grid(row=3, column=0, sticky="nsew", pady=20)
 names_frame.columnconfigure(0, weight=1)
 names_frame.columnconfigure(1, weight=1)
 names_frame.columnconfigure(2, weight=1)
 names_frame.rowconfigure(0, weight=1)
 names_frame.rowconfigure(1, weight=1)
 
-file_name_label = tk.Label(names_frame, text="Image naming format: ", font=('Arial', 13), height = 1).grid(row=0, column=0, sticky="e", padx=0)
+file_name_label = tk.Label(names_frame, text="Image naming format: ", font=('Arial', 13), height = 1).grid(row=0, column=0, sticky="e")
 file_name_field = tk.Entry(names_frame, justify="center", font=('Arial', 13))
-file_name_field.grid(row=0, column=1, sticky="we", padx=0)
+file_name_field.grid(row=0, column=1, sticky="we")
 file_name_tips_button = tk.Button(names_frame, text="\u2753", font=('Arial', 13), height = 1, command=lambda: show_tips("naming"))
 file_name_tips_button.grid(row=0, column=2, sticky="w", padx=10)
 
-save_location_label = tk.Label(names_frame, text="Save location: ", font=('Arial', 13), height = 1).grid(row=1, column=0, sticky="e", padx=0)
+save_location_label = tk.Label(names_frame, text="Save location: ", font=('Arial', 13), height = 1).grid(row=1, column=0, sticky="e")
 save_location_field = tk.Entry(names_frame, justify="center", font=('Arial', 13))
-save_location_field.grid(row=1, column=1, sticky="we", padx=0)
+save_location_field.grid(row=1, column=1, sticky="we")
 save_location_tips_button = tk.Button(names_frame, text="\u2753", font=('Arial', 13), height = 1, command=lambda: show_tips("location"))
 save_location_tips_button.grid(row=1, column=2, sticky="w", padx=10)
 
 # Separator
-separator3 = ttk.Separator(side_frame, orient="horizontal").grid(row=5, column=0, columnspan=1, sticky="news", padx=20, pady=5)
+separator3 = ttk.Separator(side_frame, orient="horizontal").grid(row=4, column=0, columnspan=1, sticky="news", padx=20, pady=5)
 
 # Grid for buttons
 button_frame = tk.Frame(side_frame)
-button_frame.grid(row=6, column=0, sticky="nsew")
+button_frame.grid(row=5, column=0, sticky="nsew")
 button_frame.columnconfigure(0, weight=1)
 button_frame.columnconfigure(1, weight=1)
 button_frame.columnconfigure(2, weight=1)
 button_frame.rowconfigure(0, weight=1)
 
 # Show folder button
-folder_button = tk.Button(button_frame, text="Show folder", font=('Arial', 11), command=lambda: th.Thread(target=open_folder).start(), height = 1, width = 13)
-folder_button.grid(row=0, column=0, sticky="news", padx=10, pady=20)
+folder_button = tk.Button(button_frame, text="Show folder", font=('Arial', 11), command=lambda: th.Thread(target=open_folder).start(), height = 2, width = 13)
+folder_button.grid(row=0, column=0, sticky="ew", padx=10)
 
 # Cancel button
-cancel_button = tk.Button(button_frame, text="Cancel", font=('Arial', 11), height = 1, width = 13, command=stop_process, bg="#FF0000")
-cancel_button.grid(row=0, column=1, sticky="news", padx=10, pady=20)
+cancel_button = tk.Button(button_frame, text="Cancel", font=('Arial', 11), command=stop_process, bg="#FF0000", height = 2, width = 13)
+cancel_button.grid(row=0, column=1, sticky="ew", padx=10)
 
 # Start button
-start_button = tk.Button(button_frame, text="Start Download", font=('Arial', 14), command=lambda: th.Thread(target=start_download).start(), height = 1, width = 15, bg="#00FF00")
-start_button.grid(row=0, column=2, sticky="news", padx=10)
+start_button = tk.Button(button_frame, text="Start Download", font=('Arial', 14), command=lambda: th.Thread(target=start_download).start(), height = 3, width = 15, bg="#00FF00")
+start_button.grid(row=0, column=2, sticky="ew", padx=10)
 
 # Start process
 window.mainloop()
