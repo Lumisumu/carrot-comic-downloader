@@ -37,54 +37,9 @@ def resize_image(event):
     canvas.create_image(int(event.width / 2), int(event.height / 2), anchor="center", image=resized_tk)
 
 # Change tips label text
-def show_tips(tips_selection):
-    if tips_selection == "finish":
-        tips_label.configure(fg="green")
-        new_text = 'Download finished! Press Show Folder to see program directory.'
-        tips_label.configure(text=new_text)
-        return
-
-    elif tips_selection == "start":
-        new_text = 'Download starting, command-line shows download progressing. Press Cancel if you want to terminate the process.'
-        tips_label.configure(text=new_text)
-
-    elif tips_selection == "range":
-        new_text = 'If both are left empty, all comics are downloaded.\n\nIf one if left empty, defaults are "1" for the first comic and the last comic number is fetched from comics.txt file in resources folder.\n\nYou can modify the latest comic number in comics.txt.'
-        tips_label.configure(text=new_text)
-
-    elif tips_selection == "naming":
-        new_text = 'Example:\nWriting "funnycomic" results in files named "funnycomic 1.png", "funnycomic 2.png" and so forth.\n\nDo not use "." in the name.\n\nIf left empty, default name is used.'
-        tips_label.configure(text=new_text)
-
-    elif tips_selection == "location":
-        new_text = 'Examples:\nWriting "comicfolder" results in a new folder being created with this name into the programs folder.\nWriting "C:\\Users\\Public\\Pictures" downloads pictures into the Windows public images folder.\n\nIf left empty, "output" folder is created into the same folder where Carrot Comic Downloader is.'
-        tips_label.configure(text=new_text)
-
-    elif tips_selection == "bigger":
-        tips_label.configure(fg="red")
-        new_text = 'Error:\nFirst number cannot be bigger than last number, change values in comic range section.'
-        tips_label.configure(text=new_text)
-        return
-    
-    elif tips_selection == "missinglist":
-        tips_label.configure(fg="red")
-        new_text = 'Error:\nImagelist.txt not found.'
-        tips_label.configure(text=new_text)
-        return
-
-    elif tips_selection == "missed":
-        tips_label.configure(fg="red")
-        new_text = 'Error:\nSome downloads failed when image at url was not found, see command-line for details on what downloads failed.'
-        tips_label.configure(text=new_text)
-        return
-
-    elif tips_selection == "parse":
-        tips_label.configure(fg="red")
-        new_text = 'Error:\nFailed to parse comics.txt for latest comic numbers. Program will default to hardcoded numbers. Confirm that comics.txt is in "res" folder and contains only comic names and numbers.'
-        tips_label.configure(text=new_text)
-        return
-
-    tips_label.configure(fg="black")
+def show_tips(tips_text: str, color: str):
+    tips_label.configure(fg=color)
+    tips_label.configure(text=tips_text)
 
 # Open folder where program was executed
 def open_folder():
@@ -136,14 +91,14 @@ def start_download():
                 last_comic = 147
             elif comic_choice.get() == "Dark Legacy Comics":
                 last_comic = 902
-            show_tips("parse")
+            show_tips('Error:\nFailed to parse comics.txt for latest comic numbers. Program will default to hardcoded numbers. Confirm that comics.txt is in "res" folder and contains only comic names and numbers.', "red")
 
     else:
         last_comic = int(last_comic_field.get())
 
     # If first comic number in range is larger than the last comic number, show error and return
     if first_comic > last_comic:
-        show_tips("bigger")
+        show_tips("Error:\nFirst number cannot be bigger than last number, change values in comic range section.", "red")
         return
 
     if save_location_field.get() != "":
@@ -153,12 +108,12 @@ def start_download():
         
     # Create list and start download process
     gl.generate_image_list(comic_choice.get(), first_comic, last_comic)
-    show_tips("start")
+    show_tips("Download starting, command-line shows download progressing. Press Cancel if you want to terminate the process.", "black")
     returntip = dl.download_images(comic_choice.get(), first_comic, file_name, chosen_save_location, stop_event)
-    show_tips("finish")
+    show_tips("Download finished! Press Show Folder to see program directory.", "green")
 
     if returntip is not None:
-        show_tips(returntip)
+        show_tips(returntip, "red")
 
 # Create window, set size and window title
 window = tk.Tk()
@@ -234,7 +189,7 @@ range_frame.rowconfigure(0, weight=1)
 
 comic_selection_label = tk.Label(range_frame, text="Range of downloaded comics:", font=('Arial', 12), height = 1)
 comic_selection_label.grid(row=0, column=0, sticky="e", padx=0)
-comic_selection_tips_button = tk.Button(range_frame, text="\u2753", font=('Arial', 12), height = 1, command=lambda: show_tips("range"))
+comic_selection_tips_button = tk.Button(range_frame, text="\u2753", font=('Arial', 12), height = 1, command=lambda: show_tips('If both are left empty, all comics are downloaded.\n\nIf one if left empty, defaults are "1" for the first comic and the last comic number is fetched from comics.txt file in resources folder.\n\nYou can modify the latest comic number in comics.txt.', "black"))
 comic_selection_tips_button.grid(row=0, column=1, sticky="w", padx=5)
 
 first_comic_label = tk.Label(range_frame, text="First #:", font=('Arial', 12)).grid(row=0, column=2, sticky="e")
@@ -256,13 +211,13 @@ names_frame.rowconfigure(1, weight=1)
 file_name_label = tk.Label(names_frame, text="Image naming format: ", font=('Arial', 13), height = 1).grid(row=0, column=0, sticky="e")
 file_name_field = tk.Entry(names_frame, justify="center", font=('Arial', 13))
 file_name_field.grid(row=0, column=1, sticky="we")
-file_name_tips_button = tk.Button(names_frame, text="\u2753", font=('Arial', 13), height = 1, command=lambda: show_tips("naming"))
+file_name_tips_button = tk.Button(names_frame, text="\u2753", font=('Arial', 13), height = 1, command=lambda: show_tips('Example:\nWriting "funnycomic" results in files named "funnycomic 1.png", "funnycomic 2.png" and so forth.\n\nDo not use "." in the name.\n\nIf left empty, default name is used.', "black"))
 file_name_tips_button.grid(row=0, column=2, sticky="w", padx=10)
 
 save_location_label = tk.Label(names_frame, text="Save location: ", font=('Arial', 13), height = 1).grid(row=1, column=0, sticky="e")
 save_location_field = tk.Entry(names_frame, justify="center", font=('Arial', 13))
 save_location_field.grid(row=1, column=1, sticky="we")
-save_location_tips_button = tk.Button(names_frame, text="\u2753", font=('Arial', 13), height = 1, command=lambda: show_tips("location"))
+save_location_tips_button = tk.Button(names_frame, text="\u2753", font=('Arial', 13), height = 1, command=lambda: show_tips('Examples:\nWriting "comicfolder" results in a new folder being created with this name into the programs folder.\nWriting "C:\\Users\\Public\\Pictures" downloads pictures into the Windows public images folder.\n\nIf left empty, "output" folder is created into the same folder where Carrot Comic Downloader is.', "black"))
 save_location_tips_button.grid(row=1, column=2, sticky="w", padx=10)
 
 # Separator

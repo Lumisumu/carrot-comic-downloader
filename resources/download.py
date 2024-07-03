@@ -15,17 +15,35 @@ def download_images(comic: str, current_page: int, name_format: str, chosen_save
     missed_downloads = 0
     multi_panel_comics = []
     gif_comics = []
+    skipped_comics = []
     extension_name = ""
 
     # DLC special comics
     if comic == "Dark Legacy Comics":
-        with open('resources/dlc-multipanel.txt', 'r') as file:
-            lines = file.readlines()
-            multi_panel_comics = [int(num) for line in lines for num in line.split(',')]
-        
-        with open('resources/dlc-gifcomics.txt', 'r') as file:
-            lines = file.readlines()
-            gif_comics = [int(num) for line in lines for num in line.split(',')]
+        try:
+            with open('resources/dlc-multipanel.txt', 'r') as file:
+                lines = file.readlines()
+                multi_panel_comics = [int(num) for line in lines for num in line.split(',')]
+        except:
+            print("Reading dlc-multipanel.txt failed!")
+            return('Reading from dlc-multipanel.txt failed, make sure it is in "resources" folder or try downloading the file again from the repository.')
+        try:
+            with open('resources/dlc-gifcomics.txt', 'r') as file:
+                lines = file.readlines()
+                gif_comics = [int(num) for line in lines for num in line.split(',')]
+        except:
+            print("Reading dlc-gifcomics.txt failed!")
+            return('Reading from dlc-gifcomics.txt failed, make sure it is in "resources" folder or try downloading the file again from the repository.')
+
+    # Pikmin skipped comics
+    if comic == "Pikmin 4 Promotional Comic":
+        try:
+            with open('resources/carrot-skippedcomics.txt', 'r') as file:
+                lines = file.readlines()
+                skipped_comics = [int(num) for line in lines for num in line.split(',')]
+        except:
+            print("Reading dlc-skippedcomics.txt failed!")
+            return('Reading from carrot-skippedcomics.txt failed, make sure it is in "resources" folder or try downloading the file again from the repository.')
 
     # Create comic folder if it does not exist
     if not os.path.exists(target_folder):
@@ -55,12 +73,12 @@ def download_images(comic: str, current_page: int, name_format: str, chosen_save
 
             # Name resulting image
             if comic == "Pikmin 4 Promotional Comic":
-                file_name = image_name + str(current_page) + " panel " + str(panel_number) + extension_name
+                file_name = image_name + str(current_page) + " panel " + str(panel_number) + ".avif"
                 if panel_number == 5:
                     panel_number = 1
                     current_page += 1
-                    # Unused comic numbers are not used, they are skipped
-                    if current_page == 19 or current_page == 37 or current_page == 91:
+                    # Unused comic numbers, they are skipped
+                    if current_page in skipped_comics:
                         current_page += 1
                 else:
                     panel_number += 1
@@ -93,10 +111,10 @@ def download_images(comic: str, current_page: int, name_format: str, chosen_save
                 missed_downloads += 1
 
     else:
-        return("missinglist")
+        return("Error:\nImagelist.txt not found. Make sure you have writing permissions in this directory.")
 
     print('Download complete, images are in the output-folder.\n')
     
     if missed_downloads != 0:
         print(str(missed_downloads) + " missed downloads, see above lines for comic numbers.")
-        return("missed")
+        return("Error:\nSome downloads failed when image at url was not found, see command-line output for details on which comic number was affected.")

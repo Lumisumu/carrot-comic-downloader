@@ -2,7 +2,7 @@
 
 Download webcomics in an easy and customizable way. You can download the exe or run it locally with Python 3.
 
-Originally project was started because I needed a convenient way to download all Pikmin 4 promotional comics and save them as png instead of avif. Project was then expanded with support for Dark Legacy Comics and also for using custom scripts. Originally project had CLI, but it has been upgraded to use a GUI made with Tkinter.
+Originally project was started because I needed a convenient way to automate saving web comics. Project was then expanded with a graphical user interface made with Tkinter and support for using custom scripts user can edit to include their favourite comic.
 
 ## User installation and tips
 
@@ -10,7 +10,7 @@ Download the latest exe.zip from Releases and extract it in location of your cho
 
 Click "?" buttons to see tips about program features.
 
-If new comics have been released for supported comics, update the values in "comics.txt" file in "resources" folder.
+If new comics have been released for supported comics, update the values in "comics.txt" file in "resources" folder. If DLC has new multipanel or gif comics, add them to dlc-multipanel.txt and dlc-gifcomics.txt files.
 
 To use a custom script, edit the "script_custom.py" file in "resources" folder. Your file must have `write_links()` function where custom script code starts.
 
@@ -20,7 +20,7 @@ When error occurs, error description replaces tips on the right side of the scre
 
 Make sure you run the program in a location where you have write permissions, otherwise both list file creation and image saving can fail.
 
-If downloading fails with multiple Python error messages, you have a bad connection. Try connecting to a more stable network.
+If downloading fails with multiple Python error messages in command-line output, you have a bad connection. Try connecting to a more stable network.
 
 ## Installing and running project
 
