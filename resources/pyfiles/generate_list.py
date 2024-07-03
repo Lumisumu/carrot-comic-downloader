@@ -9,12 +9,12 @@ def generate_image_list(comic: str, first: int, last: int):
     print("Creating image url list...")
 
     # Delete existing text file to prevent mistakes in writing to file
-    if os.path.exists("imagelist.txt"):
-        os.remove("imagelist.txt")
+    if os.path.exists("resources/imagelist.txt"):
+        os.remove("resources/imagelist.txt")
     
     # Create new text file
-    if not os.path.exists("imagelist.txt"):
-        nf = open("imagelist.txt", "w")
+    if not os.path.exists("resources/imagelist.txt"):
+        nf = open("resources/imagelist.txt", "w")
         nf.close()
 
     # Use script file meant for customized list creation

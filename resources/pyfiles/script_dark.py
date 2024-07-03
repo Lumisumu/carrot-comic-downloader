@@ -14,7 +14,7 @@ def write_links(comic_number: int):
         lines = file.readlines()
         gif_comics = [int(num) for line in lines for num in line.split(',')]
 
-    nf = open("imagelist.txt", "a")
+    nf = open("resources/imagelist.txt", "a")
 
     if comic_number != None:
         if comic_number in multi_panel_comics:

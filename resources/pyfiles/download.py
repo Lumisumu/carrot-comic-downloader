@@ -52,9 +52,9 @@ def download_images(comic: str, current_page: int, name_format: str, chosen_save
     print("Starting download...")
 
     # Image downloading
-    if os.path.exists("imagelist.txt"):
+    if os.path.exists("resources/imagelist.txt"):
         # Open text file
-        f = open("imagelist.txt", "r")
+        f = open("resources/imagelist.txt", "r")
 
         # Loops the times of lines in the text file, each line is single url that is passed to download_image function
         for x in f:

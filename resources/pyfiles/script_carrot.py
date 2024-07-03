@@ -2,7 +2,7 @@
 
 def write_links(comic_number: int):
 
-    nf = open("imagelist.txt", "a")
+    nf = open("resources/imagelist.txt", "a")
 
     # Url format for the images has changed multiple times, this part determines which url format to use and writes the link correctly
 
