@@ -6,8 +6,8 @@ from pathlib import Path
 import os
 import threading
 
-import resources.download as dl
-import resources.generate_list as gl
+import resources.pyfiles.download as dl
+import resources.pyfiles.generate_list as gl
 
 # Stop threaded process
 stop_event = threading.Event()
@@ -119,10 +119,10 @@ def start_download():
 window = tk.Tk()
 window.title("Carrot Comic Downloader 4.0")
 window.geometry("950x550")
-window.iconbitmap("resources/carrot-icon.ico")
+window.iconbitmap("resources/img/carrot-icon.ico")
 
 # Image
-image_name = "resources/dog-image.png"
+image_name = "resources/img/dog-image.png"
 image_original = Image.open(image_name)
 image_ratio = image_original.size[0] / image_original.size[1]
 image_tk = ImageTk.PhotoImage(image_original)
@@ -173,7 +173,7 @@ comic_choice = tk.StringVar()
 comic_choice.set(comic_options[0])
 comic_choice_dropdown = tk.OptionMenu(selection_frame, comic_choice, *comic_options)
 comic_choice_dropdown.grid(row=0, column=1, sticky="nws", padx=0)
-arrow_image = ImageTk.PhotoImage(Image.open("resources/arrow.png"))
+arrow_image = ImageTk.PhotoImage(Image.open("resources/img/arrow.png"))
 comic_choice_dropdown.configure(indicatoron=0, compound=tk.RIGHT, image= arrow_image)
 
 # Range selection

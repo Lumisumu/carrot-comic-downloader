@@ -1,19 +1,18 @@
 # This writes links for Dark Legacy Comics
 
-def write_links(comic_number: int, comic: str):
+def write_links(comic_number: int):
 
     multi_panel_comics = []
     gif_comics = []
 
     # DLC special comics
-    if comic == "Dark Legacy Comics":
-        with open('resources/dlc-multipanel.txt', 'r') as file:
-            lines = file.readlines()
-            multi_panel_comics = [int(num) for line in lines for num in line.split(',')]
+    with open('resources/special-comics/dlc-multipanel.txt', 'r') as file:
+        lines = file.readlines()
+        multi_panel_comics = [int(num) for line in lines for num in line.split(',')]
 
-        with open('resources/dlc-gifcomics.txt', 'r') as file:
-            lines = file.readlines()
-            gif_comics = [int(num) for line in lines for num in line.split(',')]
+    with open('resources/special-comics/dlc-gifcomics.txt', 'r') as file:
+        lines = file.readlines()
+        gif_comics = [int(num) for line in lines for num in line.split(',')]
 
     nf = open("imagelist.txt", "a")
 

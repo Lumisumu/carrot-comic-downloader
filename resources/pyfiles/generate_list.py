@@ -1,7 +1,7 @@
 import os
 
-import resources.script_carrot as carrot
-import resources.script_dark as dark
+import resources.pyfiles.script_carrot as carrot
+import resources.pyfiles.script_dark as dark
 import resources.script_custom as custom
 
 def generate_image_list(comic: str, first: int, last: int):
@@ -46,5 +46,5 @@ def generate_image_list(comic: str, first: int, last: int):
                 else:
                     carrot.write_links(i)
             elif comic == "Dark Legacy Comics":
-                dark.write_links(i, comic)
+                dark.write_links(i)
             i += 1
