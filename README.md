@@ -6,7 +6,7 @@ Originally project was started because I needed a convenient way to automate sav
 
 ## User installation and tips
 
-Download the latest exe.zip from Releases and extract it in location of your choice. Double click "Carrot Comic Downloader" to start the program.
+Download the project and either run it locally or compile it. Sections with instructions are below.
 
 Click "?" buttons to see tips about program features.
 
