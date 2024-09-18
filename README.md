@@ -10,9 +10,9 @@ Download the project and either run it locally or compile it. Sections with inst
 
 Click "?" buttons to see tips about program features.
 
-If new comics have been released for supported comics, update the values in "comics.txt" file in "resources" folder. If DLC has new multipanel or gif comics, add them to dlc-multipanel.txt and dlc-gifcomics.txt files that are in "resources/special-comics" folder.
+If new comics have been released for supported comics, update the values in "comics.txt" file in "res" folder. If DLC has new multipanel or gif comics, add them to dlc-multipanel.txt and dlc-gifcomics.txt files that are in "res/special-comics" folder.
 
-To use a custom script, edit the "script_custom.py" file in "resources" folder. Your file must have `write_links()` function where custom script code starts.
+To use a custom script, edit the "script_custom.py" file in "res" folder. Your file must have `write_links()` function where custom script code starts.
 
 ## Errors
 
@@ -26,7 +26,7 @@ If downloading fails with multiple Python error messages in command-line output,
 
 To use custom downloading you have to run the project on your own computer with Python 3. See the next section for installation instructions.
 
-Edit "script_custom.py" in "resources" folder, the file has commented instructions. If the comic has multiple types of comics (multiple panels, comics in different file formats), you can use "script_carrot.py" and "script_dark.py" in "resources/pyfiles" folder as examples.
+Edit "script_custom.py" in "res" folder, the file has commented instructions. If the comic has multiple types of comics (multiple panels, comics in different file formats), you can use "script_carrot.py" and "script_dark.py" in "res/pyfiles" folder as examples.
 
 ## Installing and running project
 
@@ -61,7 +61,7 @@ pip install pyinstaller
 Run in project folder:
 
 ```
-pyinstaller --name=Carrot --icon=resources/img/carrot-icon.ico main.py --onefile
+pyinstaller --name=Carrot --icon=res/img/carrot-icon.ico main.py --onefile
 ```
 
 ## Credits and learning links

@@ -7,7 +7,7 @@ def write_links(comic_number: int):
     # Example:
 
     # Open text file for writing
-    nf = open("resources/imagelist.txt", "a")
+    nf = open("res/imagelist.txt", "a")
 
     # Write url with current number
     # For example if web comic image url looks like this: https://www.url.com/comic-1.jpg

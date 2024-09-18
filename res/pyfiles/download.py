@@ -21,29 +21,29 @@ def download_images(comic: str, current_page: int, name_format: str, chosen_save
     # DLC special comics
     if comic == "Dark Legacy Comics":
         try:
-            with open('resources/special-comics/dlc-multipanel.txt', 'r') as file:
+            with open('res/special-comics/dlc-multipanel.txt', 'r') as file:
                 lines = file.readlines()
                 multi_panel_comics = [int(num) for line in lines for num in line.split(',')]
         except:
             print("Reading dlc-multipanel.txt failed!")
-            return('Reading from dlc-multipanel.txt failed, make sure it is in "resources/special-comics" folder or try downloading the file again from the repository.')
+            return('Reading from dlc-multipanel.txt failed, make sure it is in "res/special-comics" folder or try downloading the file again from the repository.')
         try:
-            with open('resources/special-comics/dlc-gifcomics.txt', 'r') as file:
+            with open('res/special-comics/dlc-gifcomics.txt', 'r') as file:
                 lines = file.readlines()
                 gif_comics = [int(num) for line in lines for num in line.split(',')]
         except:
             print("Reading dlc-gifcomics.txt failed!")
-            return('Reading from dlc-gifcomics.txt failed, make sure it is in "resources/special-comics" folder or try downloading the file again from the repository.')
+            return('Reading from dlc-gifcomics.txt failed, make sure it is in "res/special-comics" folder or try downloading the file again from the repository.')
 
     # Pikmin skipped comics
     if comic == "Pikmin 4 Promotional Comic":
         try:
-            with open('resources/special-comics/carrot-skippedcomics.txt', 'r') as file:
+            with open('res/special-comics/carrot-skippedcomics.txt', 'r') as file:
                 lines = file.readlines()
                 skipped_comics = [int(num) for line in lines for num in line.split(',')]
         except:
             print("Reading dlc-skippedcomics.txt failed!")
-            return('Reading from carrot-skippedcomics.txt failed, make sure it is in "resources/special-comics" folder or try downloading the file again from the repository.')
+            return('Reading from carrot-skippedcomics.txt failed, make sure it is in "res/special-comics" folder or try downloading the file again from the repository.')
 
     # Create comic folder if it does not exist
     if not os.path.exists(target_folder):
@@ -52,9 +52,9 @@ def download_images(comic: str, current_page: int, name_format: str, chosen_save
     print("Starting download...")
 
     # Image downloading
-    if os.path.exists("resources/imagelist.txt"):
+    if os.path.exists("res/imagelist.txt"):
         # Open text file
-        f = open("resources/imagelist.txt", "r")
+        f = open("res/imagelist.txt", "r")
 
         # Loops the times of lines in the text file, each line is single url that is passed to download_image function
         for x in f:

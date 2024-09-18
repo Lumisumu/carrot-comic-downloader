@@ -1,20 +1,20 @@
 import os
 
-import resources.pyfiles.script_carrot as carrot
-import resources.pyfiles.script_dark as dark
-import resources.script_custom as custom
+import res.pyfiles.script_carrot as carrot
+import res.pyfiles.script_dark as dark
+import res.script_custom as custom
 
 def generate_image_list(comic: str, first: int, last: int):
 
     print("Creating image url list...")
 
     # Delete existing text file to prevent mistakes in writing to file
-    if os.path.exists("resources/imagelist.txt"):
-        os.remove("resources/imagelist.txt")
+    if os.path.exists("res/imagelist.txt"):
+        os.remove("res/imagelist.txt")
     
     # Create new text file
-    if not os.path.exists("resources/imagelist.txt"):
-        nf = open("resources/imagelist.txt", "w")
+    if not os.path.exists("res/imagelist.txt"):
+        nf = open("res/imagelist.txt", "w")
         nf.close()
 
     # Use script file meant for customized list creation

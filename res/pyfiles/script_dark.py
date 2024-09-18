@@ -6,15 +6,15 @@ def write_links(comic_number: int):
     gif_comics = []
 
     # DLC special comics
-    with open('resources/special-comics/dlc-multipanel.txt', 'r') as file:
+    with open('res/special-comics/dlc-multipanel.txt', 'r') as file:
         lines = file.readlines()
         multi_panel_comics = [int(num) for line in lines for num in line.split(',')]
 
-    with open('resources/special-comics/dlc-gifcomics.txt', 'r') as file:
+    with open('res/special-comics/dlc-gifcomics.txt', 'r') as file:
         lines = file.readlines()
         gif_comics = [int(num) for line in lines for num in line.split(',')]
 
-    nf = open("resources/imagelist.txt", "a")
+    nf = open("res/imagelist.txt", "a")
 
     if comic_number != None:
         if comic_number in multi_panel_comics:
