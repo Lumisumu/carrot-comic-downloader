@@ -42,8 +42,7 @@ def download_images(comic: str, current_page: int, name_format: str, chosen_save
                 lines = file.readlines()
                 skipped_comics = [int(num) for line in lines for num in line.split(',')]
         except:
-            print("Reading dlc-skippedcomics.txt failed!")
-            return('Reading from carrot-skippedcomics.txt failed, make sure it is in "res/special-comics" folder or try downloading the file again from the repository.')
+            print("Reading text file failed!")
 
     # Create comic folder if it does not exist
     if not os.path.exists(target_folder):

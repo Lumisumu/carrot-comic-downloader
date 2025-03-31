@@ -6,6 +6,15 @@ import res.script_custom as custom
 
 def generate_image_list(comic: str, first: int, last: int):
 
+    skipped_comics = []
+
+    try:
+        with open('res/special-comics/carrot-skippedcomics.txt', 'r') as file:
+            lines = file.readlines()
+            skipped_comics = [int(num) for line in lines for num in line.split(',')]
+    except:
+        print("Reading text file failed!")
+
     print("Creating image url list...")
 
     # Delete existing text file to prevent mistakes in writing to file
@@ -41,7 +50,7 @@ def generate_image_list(comic: str, first: int, last: int):
         # Loop to write links in order
         while i <= last:
             if comic == "Pikmin 4 Promotional Comic":
-                if i == 19 or i == 37 or i == 150:
+                if i in skipped_comics:
                     print("Skipping unused comic number #" + str(i) + ". This is normal and not an error. No comic can be found at this number.")
                 else:
                     carrot.write_links(i)
