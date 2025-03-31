@@ -3,6 +3,7 @@ from tkinter import ttk
 from PIL import Image, ImageTk
 import threading as th
 from pathlib import Path
+from tkinter.filedialog import askdirectory
 import os
 import threading
 
@@ -41,6 +42,13 @@ def resize_image(event):
 def show_tips(tips_text: str, color: str):
     tips_label.configure(fg=color)
     tips_label.configure(text=tips_text)
+
+# Open window for folder selection
+def open_location_select():
+    selected_folder = askdirectory()
+    print("New selected save folder: " + selected_folder)
+    save_location_field.delete(0, tk.END)
+    save_location_field.insert(0, selected_folder)
 
 # Open folder where program was executed
 def open_folder():
@@ -219,6 +227,7 @@ names_frame.grid(row=3, column=0, sticky="nsew", pady=20)
 names_frame.columnconfigure(0, weight=1)
 names_frame.columnconfigure(1, weight=1)
 names_frame.columnconfigure(2, weight=1)
+names_frame.columnconfigure(3, weight=1)
 names_frame.rowconfigure(0, weight=1)
 names_frame.rowconfigure(1, weight=1)
 
@@ -233,6 +242,8 @@ save_location_field = tk.Entry(names_frame, font=('Arial', 13))
 save_location_field.grid(row=1, column=1, sticky="we")
 save_location_tips_button = tk.Button(names_frame, text="\u2753", font=('Arial', 13), height = 1, command=lambda: show_tips('Examples:\nWriting "comicfolder" results in a new folder being created with this name into the programs folder.\nWriting "C:\\Users\\Public\\Pictures" downloads pictures into the Windows public images folder.\n\nIf left empty, "output" folder is created into the same folder where Carrot Comic Downloader is.', "black"))
 save_location_tips_button.grid(row=1, column=2, sticky="w", padx=10)
+save_location_select_button = tk.Button(names_frame, text="Click to select folder", font=('Arial', 13), height = 1, command=lambda: open_location_select())
+save_location_select_button.grid(row=1, column=3, sticky="w", padx=10)
 
 # Separator
 separator3 = ttk.Separator(side_frame, orient="horizontal").grid(row=4, column=0, columnspan=1, sticky="news", padx=20, pady=5)
