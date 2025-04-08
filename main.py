@@ -10,6 +10,9 @@ import threading
 import res.pyfiles.download as dl
 import res.pyfiles.generate_list as gl
 
+# Set working directory
+os.chdir(os.path.dirname(os.path.abspath(__file__)))
+
 # Stop threaded process
 stop_event = threading.Event()
 
